@@ -1,0 +1,88 @@
+
+#toggleCol{
+    margin-top: 20px;
+    text-align: center;
+}
+
+#leftToggle{
+    color: #eb7658;
+}
+#rightToggle{
+    margin-left: 12px;
+}
+.productDiv{
+    margin-top: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 1.5%;
+}
+
+.row{
+    margin-left: 0.7%;
+}
+
+.headings{
+    margin-left: 1.5%;
+}
+
+#addIconCol{
+    text-align: end;
+    padding-top: 3px;
+}
+
+.btn-primary{
+    background-color: #eb7658;
+    border-color: #eb7658;
+    border-radius: 7px;
+}
+
+***********************
+.test{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 40px;
+    height: 20px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+  
+  label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+  
+  input:checked + label {
+    background: #eb7658;
+  }
+  
+  input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+  
+  label:active:after {
+    width: 10px;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }

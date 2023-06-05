@@ -1,0 +1,157 @@
+html, body {
+    min-height: 100vh;
+    height: auto;
+    margin: 0;
+  }
+  .background {
+    min-height: 100vh;
+    color: white;
+  }
+  
+  #home-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+    padding-top: 20px;
+    padding-bottom: 5px;
+  
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-bottom: 2px solid white;
+  }
+  
+  #home-header h2 {
+    font-size: 30px;
+  }
+  
+  #home-header button {
+    font-size: 25px;
+    margin-right: 25px;
+    background-color: transparent;
+    border: none;
+    color: white;
+  }
+  
+  #home-header button:hover {
+    font-size: 25px;
+    margin-right: 25px;
+    background-color: transparent;
+    border: none;
+    color: #E1F13E;
+  }
+  
+  #SignUp {
+    position: absolute;
+    top: 40vh;
+    left: 25vh;
+    right: 25vh;
+    text-align: center;
+  }
+  
+  #SignUp h1 {
+    font-size: 60px;
+    padding: 10px;
+  }
+  
+  #SignUp h3 {
+    font-size: 30px;
+  }
+  
+  #SignUp button {
+    background-color: #89043d;
+    color: white;
+    border: 5px solid #89043d;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+    width: 30%;
+  }
+  
+  #SignUp button:hover {
+    background-color: white;
+    color: #89043d;
+    border: 5px solid white;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 30px;
+    width: 30%;
+  }
+  
+  #cause {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 20px;
+  }
+  
+  #cause-header {
+    border-top: 7px solid #E1F13E;
+    padding-top: 10px;
+    margin-bottom: 2%;
+    width: 25%;
+  }
+  
+  #cause-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  #features {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 20px;
+  }
+  
+  #features-header {
+    border-top: 7px solid #89043d;
+    padding-top: 10px;
+    margin-bottom: 2%;
+    width: 25%;
+  }
+  
+  #features-body{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "a1 a2 a3";
+    text-align: center;
+    margin-right: 20px;
+  }
+  
+  #features-body:nth-child(1){grid-area: a1;}
+  #features-body:nth-child(2){grid-area: a2;}
+  #features-body:nth-child(3){grid-area: a3;}
+  
+  .block {
+    margin: 7%;
+  }
+  
+  .block article {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .icons {
+    width: 70px;
+    height: 70px;
+    padding: 15px;
+  }
+  
+  #team {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 20px;
+  }
+  
+  #team-header {
+    border-top: 7px solid #343434;
+    padding-top: 10px;
+    margin-bottom: 2%;
+    width: 25%;
+  }
+  

@@ -3,14 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
+import { ProductDisplayComponent } from './product-display/product-display.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    MainComponent,
+    ProductDisplayComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgCircleProgressModule.forRoot({}),
+    IonicModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
