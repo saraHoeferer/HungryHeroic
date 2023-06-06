@@ -22,10 +22,23 @@ import { IonicModule } from '@ionic/angular';
     BrowserModule,
     AppRoutingModule,
     NgCircleProgressModule.forRoot( {
-      radius: 100,
-      outerStrokeColor: "#78C000",
-      innerStrokeColor: "#C7E596",
-      animationDuration: 3000
+        "backgroundPadding": 7,
+        "radius": 100,
+        "space": -5,
+        "outerStrokeWidth": 5,
+        "outerStrokeColor": "#E1F13E", //#808080
+        "innerStrokeColor": "#e7e8ea",
+        "innerStrokeWidth": 5,
+        "animateTitle": true,
+        "animationDuration": 1000,
+        "showTitle": true,
+        "titleFontSize": "22",
+        "unitsFontSize": "22",
+        "titleFontWeight": "bold",
+        "unitsFontWeight": "bold",
+        "showSubtitle": false,
+        "showUnits": true,
+        "lazy": true
     }
     ),
     IonicModule.forRoot()

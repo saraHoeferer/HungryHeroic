@@ -1,33 +1,38 @@
-html, body {
+  html, body {
     min-height: 100vh;
     height: auto;
     margin: 0;
   }
+
+  h2 {
+    font-weight: bold;
+  }
+
   .background {
     min-height: 100vh;
     color: white;
     background-position: center;
     background-size: cover;
   }
-  
+
   #home-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  
+
     padding-top: 20px;
     padding-bottom: 5px;
-  
+
     margin-bottom: 20px;
     margin-left: 15px;
     margin-right: 15px;
     border-bottom: 2px solid white;
   }
-  
+
   #home-header h2 {
     font-size: 30px;
   }
-  
+
   #home-header button {
     font-size: 25px;
     margin-right: 25px;
@@ -35,7 +40,7 @@ html, body {
     border: none;
     color: white;
   }
-  
+
   #home-header button:hover {
     font-size: 25px;
     margin-right: 25px;
@@ -43,7 +48,7 @@ html, body {
     border: none;
     color: #E1F13E;
   }
-  
+
   #SignUp {
     position: absolute;
     top: 40vh;
@@ -51,16 +56,16 @@ html, body {
     right: 25vh;
     text-align: center;
   }
-  
+
   #SignUp h1 {
     font-size: 60px;
     padding: 10px;
   }
-  
+
   #SignUp h3 {
     font-size: 30px;
   }
-  
+
   #SignUp button {
     background-color: #89043d;
     color: white;
@@ -71,7 +76,7 @@ html, body {
     margin-top: 30px;
     width: 30%;
   }
-  
+
   #SignUp button:hover {
     background-color: white;
     color: #89043d;
@@ -82,39 +87,69 @@ html, body {
     margin-top: 30px;
     width: 30%;
   }
-  
+
   #cause {
     margin-top: 20px;
     margin-left: 30px;
     margin-right: 20px;
   }
-  
+
   #cause-header {
     border-top: 7px solid #E1F13E;
     padding-top: 10px;
     margin-bottom: 2%;
     width: 25%;
   }
-  
+
+  #cause-header h2 {
+    margin-bottom: 0;
+  }
+
+  #cause-header p {
+    margin-left: 3px;
+  }
+
   #cause-body {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    //border: 3px solid #343434;
   }
-  
+
+  #cause-body p {
+    padding: 0 10px;
+  }
+
+  #circle-progress {
+    margin: 30px;
+
+    //border: 3px solid #89043d;
+  }
+
   #features {
     margin-top: 20px;
     margin-left: 30px;
     margin-right: 20px;
   }
-  
+
   #features-header {
     border-top: 7px solid #89043d;
     padding-top: 10px;
     margin-bottom: 2%;
     width: 25%;
   }
-  
+
+  #features-header h2 {
+    margin-bottom: 0;
+  }
+
+  #features-header p {
+    margin-left: 3px;
+  }
+
   #features-body{
     display: grid;
     grid-template-columns:1fr 1fr 1fr;
@@ -123,37 +158,90 @@ html, body {
     text-align: center;
     margin-right: 20px;
   }
-  
+
   #features-body:nth-child(1){grid-area: a1;}
   #features-body:nth-child(2){grid-area: a2;}
   #features-body:nth-child(3){grid-area: a3;}
-  
+
   .block {
     margin: 7%;
   }
-  
+
   .block article {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+
+    //border: 3px solid #343434;
   }
-  
+
+  .block article h3 {
+    font-weight: bold;
+
+    //border: 3px solid #89043d;
+  }
+
   .icons {
-    width: 70px;
-    height: 70px;
-    padding: 15px;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+
+    //border: 3px solid #E1F13E;
   }
-  
+
+  .team-image {
+    width: 300px;
+    height: 200px;
+    margin-bottom: 10px;
+  }
+
   #team {
     margin-top: 20px;
     margin-left: 30px;
     margin-right: 20px;
   }
-  
+
   #team-header {
     border-top: 7px solid #343434;
     padding-top: 10px;
     margin-bottom: 2%;
     width: 25%;
   }
-  
+
+  #team-header h2 {
+    margin-bottom: 0;
+  }
+
+  #team-header p {
+    margin-left: 3px;
+  }
+
+  #team-body {
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "a1 a2 a3";
+    text-align: center;
+    margin-right: 20px;
+  }
+
+  #team-body section {
+    margin: 0 15px;
+  }
+
+  #team-body article h3 {
+    font-weight: bold;
+  }
+
+  #team-body p {
+    margin-top: 20px;
+  }
+
+  #team-body:nth-child(1){grid-area: a1;}
+  #team-body:nth-child(2){grid-area: a2;}
+  #team-body:nth-child(3){grid-area: a3;}
+
+  footer {
+    background-color: lightsteelblue;
+  }
