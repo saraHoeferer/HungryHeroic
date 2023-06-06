@@ -21,7 +21,13 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgCircleProgressModule.forRoot({}),
+    NgCircleProgressModule.forRoot( {
+      radius: 100,
+      outerStrokeColor: "#78C000",
+      innerStrokeColor: "#C7E596",
+      animationDuration: 3000
+    }
+    ),
     IonicModule.forRoot()
   ],
   providers: [],

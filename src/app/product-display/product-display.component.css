@@ -34,7 +34,7 @@
     transform: translateY(200%);
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 80%;
     opacity: 0;
     transition: transform .2s ease, opacity .2s ease;
    }

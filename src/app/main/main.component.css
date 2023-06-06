@@ -1,3 +1,12 @@
+header {
+    display: block;
+    height: 50px;
+    box-shadow: 0px 5px 25px #d8d8d8;
+  }
+  .nav-item{
+    margin-right: 30px;
+}
+  
 
 #toggleCol{
     margin-top: 20px;
@@ -7,9 +16,7 @@
 #leftToggle{
     color: #eb7658;
 }
-#rightToggle{
-    margin-left: 12px;
-}
+
 .productDiv{
     margin-top: 1%;
     display: flex;
@@ -36,53 +43,3 @@
     border-color: #eb7658;
     border-radius: 7px;
 }
-
-***********************
-.test{
-    height: 0;
-    width: 0;
-    visibility: hidden;
-  }
-  
-  label {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 40px;
-    height: 20px;
-    background: grey;
-    display: block;
-    border-radius: 100px;
-    position: relative;
-  }
-  
-  label:after {
-    content: '';
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border-radius: 90px;
-    transition: 0.3s;
-  }
-  
-  input:checked + label {
-    background: #eb7658;
-  }
-  
-  input:checked + label:after {
-    left: calc(100% - 5px);
-    transform: translateX(-100%);
-  }
-  
-  label:active:after {
-    width: 10px;
-  }
-  
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
