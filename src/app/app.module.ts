@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { ProductDisplayComponent } from './product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { IonicModule } from '@ionic/angular';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { IonicModule } from '@ionic/angular';
     HomeComponent,
     LoginComponent,
     MainComponent,
-    ProductDisplayComponent
+    ProductDisplayComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
