@@ -23,7 +23,7 @@ import { IonicModule } from '@ionic/angular';
     AppRoutingModule,
     NgCircleProgressModule.forRoot( {
         "backgroundPadding": 7,
-        "radius": 100,
+        "radius": 150,
         "space": -5,
         "outerStrokeWidth": 5,
         "outerStrokeColor": "#E1F13E", //#808080
@@ -36,7 +36,8 @@ import { IonicModule } from '@ionic/angular';
         "unitsFontSize": "22",
         "titleFontWeight": "bold",
         "unitsFontWeight": "bold",
-        "showSubtitle": false,
+        "showSubtitle": true,
+        "subtitleFontSize": "18",
         "showUnits": true,
         "lazy": true
     }
