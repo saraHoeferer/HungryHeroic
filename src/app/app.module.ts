@@ -9,6 +9,7 @@ import { MainComponent } from './main/main.component';
 import { ProductDisplayComponent } from './product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { IonicModule } from '@ionic/angular';
+import { ProductsService } from './products.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { IonicModule } from '@ionic/angular';
       animationDuration: 3000
     }
     ),
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

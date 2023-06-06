@@ -8,6 +8,17 @@
     margin-right: 30px;
     margin-left: 25px;
    }
+
+   .card2 {
+    width: 275px;
+    height: 180px;
+    background: #f5f5f5;
+    padding: 1.5rem 1.5rem;
+    transition: box-shadow .3s ease, transform .2s ease;
+    border-radius: .90rem;
+    margin-right: 30px;
+    margin-left: 25px;
+   }
    
    .card-info {
     display: flex;
@@ -31,7 +42,7 @@
    
    /*Card footer*/
    .card-social {
-    transform: translateY(200%);
+    transform: translateY(100%);
     display: flex;
     justify-content: space-around;
     width: 80%;
@@ -78,6 +89,20 @@
     transform: translateY(100%);
     opacity: 1;
    }
+
+   .card2:hover {
+    box-shadow: 0 8px 50px #23232333;
+   }
+   
+   .card2:hover .card-info {
+    transform: translateY(-5%);
+   }
+   
+   .card2:hover .card-social {
+    transform: translateY(20%);
+    opacity: 1;
+   }
+   
    
    .card-social__item svg:hover {
     fill: #232323;

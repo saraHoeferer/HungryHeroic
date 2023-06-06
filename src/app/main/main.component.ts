@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductDisplay } from '../product-display';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-main',
@@ -7,232 +8,22 @@ import { ProductDisplay } from '../product-display';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  productDisplayList: ProductDisplay[] = [
-    {
-    id: 1,
-    name: "Test Produkt",
-    icon: "fa-solid fa-carrot fa-4x",
-    expiryDate: '12.12.1999',
-    purchaseDate: '10.12.1999',
-    progress: 75,
-    color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-bacon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-bacon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-wine-bottle fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-bacon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-carrot fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-bacon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-wine-bottle fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-carrot fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-bacon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-carrot fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 40,
-      color: "warning"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-carrot fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-regular fa-lemon fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-carrot fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 75,
-      color: "success"
-    },
-    {
-      id: 1,
-      name: "Test Produkt",
-      icon: "fa-solid fa-shrimp fa-4x",
-      expiryDate: '12.12.1999',
-      purchaseDate: '10.12.1999',
-      progress: 10,
-      color: "danger"
-    },
+  Supply: Boolean;
+  productDisplayList: ProductDisplay[] = [];
+  productService: ProductsService = inject(ProductsService);
+  
+  constructor(){
+      this.productDisplayList = this.productService.getAllProducts()
+      this.Supply = true;
+  }
 
-  ];
+  displaySupply() {
+    this.productDisplayList = this.productService.getAllProducts()
+    this.Supply = true;
+  }
+
+  displayShopping() {
+    this.productDisplayList = this.productService.getAllShoppingProduct()
+    this.Supply = false
+  }
 }

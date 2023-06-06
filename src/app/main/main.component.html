@@ -34,10 +34,10 @@
         <div class="col-3" id="toggleCol">
             <div class="row">
                 <ion-segment color="danger" value="danger">
-                    <ion-segment-button value="danger">
+                    <ion-segment-button value="danger" (click)="displaySupply()">
                       <ion-label>Supply List</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="segment">
+                    <ion-segment-button value="segment" (click)="displayShopping()">
                       <ion-label>Shopping List</ion-label>
                     </ion-segment-button>
                   </ion-segment>
