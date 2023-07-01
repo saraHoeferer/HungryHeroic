@@ -1,0 +1,66 @@
+<header class="brand-name">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">HungryHeoric</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link">Lists <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">Recipes</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <a routerLink="/start"><button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button></a>
+        </form>
+      </div>
+    </nav>
+  </header>
+<div>
+    <div class="row">
+        <div class="col-9">
+            <div>
+                <h1>All your groceries</h1>
+                <h4>List of all the groceries you have at home</h4>
+            </div>
+        </div>
+        <div class="col-3" id="toggleCol">
+            <div class="row">
+                <ion-segment color="danger" value="danger">
+                    <ion-segment-button value="danger">
+                      <ion-label>Supply List</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="segment">
+                      <ion-label>Shopping List</ion-label>
+                    </ion-segment-button>
+                  </ion-segment>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row">
+            <div class="col-3">
+                <input class="form-control" type="text" placeholder="Search for product">
+            </div>
+            <div class="col-7">
+                <button class="btn btn-primary" type="button">Search</button>
+            </div>
+            <div class="col-1" id="addIconCol">
+                <i class="fa-solid fa-circle-plus fa-2x" style="color: #fcbc97;"></i>
+            </div>
+            <div class="col-1">
+                <button class="btn btn-primary">Sort <i class="fa-solid fa-arrow-up-wide-short" style="color: #ffffff;"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="productDiv">
+    <app-product-display *ngFor="let item of items"[item]="item"[categories]="category"></app-product-display>
+</div>

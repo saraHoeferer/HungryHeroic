@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainComponent } from './main/main.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
+import { MainComponent } from './components/main/main.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
+import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
+import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'start', 
+    pathMatch: 'full'
+  },
   {
     path: 'home',
     component: MainComponent,
@@ -20,6 +28,10 @@ const routes: Routes = [
     component: LoginComponent,
     title: 'Login page'
   },
+  /*{ path: '', redirectTo: 'tutorials', pathMatch: 'full' },
+  { path: 'tutorials', component: ItemListComponent },
+  { path: 'tutorials/:id', component: ItemDetailsComponent },
+  { path: 'add', component: AddItemComponent }*/
 ];
 
 @NgModule({
