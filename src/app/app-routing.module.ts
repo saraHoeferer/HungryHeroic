@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
     title: 'Home page'
   },
   {
-    path: 'start',
+    path: '',
     component: HomeComponent,
     title: 'Start page'
   },
@@ -32,6 +33,11 @@ const routes: Routes = [
   { path: 'tutorials', component: ItemListComponent },
   { path: 'tutorials/:id', component: ItemDetailsComponent },
   { path: 'add', component: AddItemComponent }*/
+  {
+    path: 'register',
+    component: RegisterComponent,
+    title: 'Register page'
+  },
 ];
 
 @NgModule({

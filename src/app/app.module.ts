@@ -15,6 +15,7 @@ import { ProductsService } from './products.service';
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.c
     ProductDisplayComponent,
     ItemListComponent,
     AddItemComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
