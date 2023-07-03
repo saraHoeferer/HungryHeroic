@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app//models/itemModel/item.model';
+import { Lists } from 'src/app/models/Lists/lists.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
+import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
+import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 import { CategoryService } from 'src/app/services/categoryService/category.service';
+import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ItemsService } from 'src/app/services/itemService/items.service';
+import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-main',
@@ -10,90 +17,38 @@ import { ItemsService } from 'src/app/services/itemService/items.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit{
-  category?: Category[];
-  items?: Item[];
-  currentItem: Item = {};
-  currentIndex = -1;
-  title = '';
+  inventory?: Lists[];
+  shopping?: Lists[];
+  supply? = true;
 
-  constructor(private itemService: ItemsService, private categoryService: CategoryService) { }
+  constructor(private InventoryListService: InventoryListService, private ShoppingListService: ShoppingListService) { }
 
   ngOnInit(): void {
-    this.retrieveItems();
+    this.retrieveShopping()
+    this.retrieveInventory()
   }
 
-  retrieveItems(): void {
-    this.itemService.getAll()
-      .subscribe({
-        next: (data) => {
-          this.items = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
-    this.categoryService.getAll()
+  retrieveInventory(): void {
+    this.supply = true
+    this.InventoryListService.getUserInventory(2)
     .subscribe({
       next: (data) => {
-        this.category = data;
+        this.inventory = data;
         console.log(data);
       },
       error: (e) => console.error(e)
     });
   }
 
-  refreshList(): void {
-    this.retrieveItems();
-    this.currentItem = {};
-    this.currentIndex = -1;
+  retrieveShopping(): void {
+    this.supply = false
+    this.ShoppingListService.getUserShopping(2)
+    .subscribe({
+      next: (data) => {
+        this.shopping = data;
+        console.log(data);
+      },
+      error: (e) => console.error(e)
+    })
   }
-
-  setActiveItem(item: Item, index: number): void {
-    this.currentItem = item;
-    this.currentIndex = index;
-  }
-
-  removeAllItems(): void {
-    this.itemService.deleteAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-  searchTitle(): void {
-    this.currentItem = {};
-    this.currentIndex = -1;
-
-    this.itemService.findByTitle(this.title)
-      .subscribe({
-        next: (data) => {
-          this.items = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-
-  /*Supply: Boolean;
-  productDisplayList: ProductDisplay[] = [];
-  productService: ProductsService = inject(ProductsService);
-  
-  constructor(){
-      this.productDisplayList = this.productService.getAllProducts()
-      this.Supply = true;
-  }
-
-  displaySupply() {
-    this.productDisplayList = this.productService.getAllProducts()
-    this.Supply = true;
-  }
-
-  displayShopping() {
-    this.productDisplayList = this.productService.getAllShoppingProduct()
-    this.Supply = false
-  }*/
 }

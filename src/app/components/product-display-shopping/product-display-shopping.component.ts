@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
-import { ProductDisplay } from '../../product-display';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 
 @Component({
-  selector: 'app-product-display',
-  templateUrl: './product-display.component.html',
-  styleUrls: ['./product-display.component.css']
+  selector: 'app-product-display-shopping',
+  templateUrl: './product-display-shopping.component.html',
+  styleUrls: ['./product-display-shopping.component.css']
 })
-export class ProductDisplayComponent {
+export class ProductDisplayShoppingComponent {
   @Input() item!: Item;
   @Input() categories?: Category[];
   
@@ -22,6 +21,4 @@ export class ProductDisplayComponent {
     }
     return "fa-solid fa-xmark fa-4x"
   }
-
 }
-

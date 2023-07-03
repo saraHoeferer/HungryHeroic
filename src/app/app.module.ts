@@ -15,7 +15,10 @@ import { ProductsService } from './products.service';
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ListsComponent } from './components/Lists/lists/lists.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { RegisterComponent } from './register/register.component';
     ItemListComponent,
     AddItemComponent,
     ItemDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListsComponent,
+    ShoppingListComponent,
+    ProductDisplayShoppingComponent,
   ],
   imports: [
     BrowserModule,

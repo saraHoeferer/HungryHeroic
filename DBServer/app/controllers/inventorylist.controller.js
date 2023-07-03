@@ -1,5 +1,5 @@
 const db = require("../models");
-const Items = db.items;
+const InventoryLists = db.inventoryLists;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -12,7 +12,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Items.findAll({ where: condition })
+  InventoryLists.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
@@ -26,23 +26,7 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
-  const id = req.params.id;
 
-  Items.findByPk(id)
-    .then(data => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find Tutorial with id=${id}.`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id
-      });
-    });
   
 };
 
@@ -61,7 +45,17 @@ exports.deleteAll = (req, res) => {
   
 };
 
-// Find all published Tutorials
-exports.findAllPublished = (req, res) => {
-  
+// Find the inventory of one specific user
+exports.findUserInventory = (req, res) => {
+  const id = req.params.id;
+  InventoryLists.findAll({ where: { user_id: id } })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving tutorials."
+    });
+  });
 };

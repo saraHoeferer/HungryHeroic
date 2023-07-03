@@ -6,7 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
   {
