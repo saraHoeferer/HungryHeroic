@@ -8,16 +8,16 @@
           <div class="card-title">{{item.item_name}}</div>
           <div class="card-subtitle">Expires at: {{item.item_expiration_date}}</div>
           <div class="progress">
-            <div class="progress-bar bg-{{item.progessString}}" role="progressbar" style="width: {{item.progess}}%" aria-valuenow="{item.progess}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-{{item.progressString}}" role="progressbar" style="width: {{item.progress}}%" aria-valuenow="{item.progress}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          
+
         </div>
         <ul class="card-social">
           <li class="card-social__item">
-            <i class="fa-solid fa-pen"></i>
+            <i (click)="open(editItemPopUp)" class="fa-solid fa-pen"></i>
           </li>
           <li class="card-social__item">
-            <i class="fa-solid fa-trash"></i>
+            <i (click)="open(deleteItemPopUp)" class="fa-solid fa-trash"></i>
           </li>
         </ul>
     </div>
@@ -39,3 +39,55 @@
       </ul>-->
   <!--</div>-->
 </section>
+<!-- PopUp Delete Item from DB -->
+<ng-template #deleteItemPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="deleteItemPopUpTitle">
+      Delete Item
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p class="focus-ring-info">
+      Warning: Be clicking on "Delete" you will permanently Delete the Item form the Database!
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-success btn-block"
+            (click)="modal.close('Save click')">
+      Keep
+    </button>
+    <button type="button"
+            class="btn btn-outline-danger btn-block"
+            (click)="modal.close('Save click')">
+      Delete
+    </button>
+  </div>
+</ng-template>
+<!-- PopUp Edit Item in DB -->
+<ng-template #editItemPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="editItemPopUpTitle">
+      Edit Item
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-dark"
+            (click)="modal.close('Save click')">
+      Save
+    </button>
+  </div>
+</ng-template>
