@@ -134,12 +134,22 @@
   color: #ffffff;
 }
 .btn-outline-custom-danger{
-  color: #89043d;
+  color: #c60659;
   background-color: #ffffff;
-  border-color: #89043d;
+  border-color: #c60659;
 }
 
 .btn-outline-custom-danger:hover{
-  background-color: #89043d;
+  background-color: #c60659;
   color: #ffffff;
+}
+
+.bg-custom-danger{
+  background-color: #c60659;
+}
+.bg-custom-warning{
+  background-color: #f7bb08;
+}
+.bg-custom-success{
+  background-color: #c5d510;
 }
