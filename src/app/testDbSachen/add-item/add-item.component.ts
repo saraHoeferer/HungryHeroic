@@ -12,10 +12,6 @@ export class AddItemComponent implements OnInit {
  item: Item = {
   item_id: 0,
   item_name: "",
-  item_quantity: 0,
-  item_expiration_date: new Date(),
-  item_category_id: 0,
-  item_storage_loc_id: 0
  }
 
  submitted = false;
@@ -46,10 +42,6 @@ export class AddItemComponent implements OnInit {
     this.item = {
       item_id: 0,
       item_name: "",
-      item_quantity: 0,
-      item_expiration_date: new Date(),
-      item_category_id: 0,
-      item_storage_loc_id: 0
     };
   }
 

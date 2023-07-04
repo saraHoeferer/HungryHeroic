@@ -7,18 +7,6 @@ module.exports = (sequelize, Sequelize) => {
     item_name: {
       type: Sequelize.STRING
     },
-    item_quantity: {
-      type: Sequelize.INTEGER
-    },
-    item_expiration_date: {
-      type: Sequelize.DATE
-    },
-    item_category_id: {
-      type: Sequelize.INTEGER
-    },
-    item_storage_loc_id: {
-      type: Sequelize.INTEGER
-    },
     progress: {
       type: Sequelize.STRING
     },

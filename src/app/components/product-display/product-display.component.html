@@ -5,7 +5,7 @@
             <i class="{{getIcon()}}"></i>
           </div>
           <div *ngIf="item!=null" class="card-title">{{item.item_name}}</div>
-          <div *ngIf="item!=null" class="card-subtitle">Expires at: {{item.item_expiration_date}}</div>
+          <div *ngIf="inventoryList!=null" class="card-subtitle">Expires at: {{inventoryList.expiration_date}}</div>
           <div class="progress">
             <div *ngIf="item!=null" class="progress-bar bg-{{item.progressString}}" role="progressbar" style="width: {{item.progress}}%" aria-valuenow="{item.progress}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
@@ -86,7 +86,6 @@
                 class="form-control"
                 aria-describedby="multiply-addon"
                 id="itemQuantity"
-                [(ngModel)]="currentItem.item_quantity"
                 required
                 name="itemQuantity"
               />
@@ -114,7 +113,6 @@
               type="Date"
               class="form-control"
               id="itemExpirationDate"
-              [(ngModel)]="currentItem.item_expiration_date"
               required
               name="itemExpirationDate"
             />
@@ -126,7 +124,6 @@
             <select
               class="form-control"
               id="itemStorage"
-              [(ngModel)]="currentItem.item_storage_loc_id"
               required
               name="itemStorage">
               <option value="1">Option 1</option>
@@ -139,7 +136,6 @@
             <select
               class="form-control"
               id="itemCategory"
-              [(ngModel)]="currentItem.item_category_id"
               required
               name="itemCategory">
               <option value="1">Option 1</option>

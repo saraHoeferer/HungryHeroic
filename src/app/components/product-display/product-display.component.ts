@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 import { ItemsService } from 'src/app/services/itemService/items.service';
@@ -6,6 +6,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
+import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 
 @Component({
   selector: 'app-product-display',
@@ -13,19 +14,22 @@ import { InventoryListService } from 'src/app/services/inventoryListService/inve
   styleUrls: ['./product-display.component.css'],
   providers: [DatePipe]
 })
-export class ProductDisplayComponent {
+export class ProductDisplayComponent implements OnInit {
   @Input() item!: Item;
   @Input() categories?: Category[]
+  @Input() inventoryList?: InventoryList;
   closeResult = '';
   message = '';
+
+  ngOnInit(): void {
+    if (this.inventoryList != null){
+      this.getItem(this.inventoryList.item_id!.toString())
+    }
+  }
 
   currentItem: Item = {
     item_id: 0,
     item_name: '',
-    item_quantity: 0,
-    item_expiration_date: new Date,
-    item_category_id: 0,
-    item_storage_loc_id: 0,
     progress: 0,
     progressString: ''
   };
@@ -43,8 +47,8 @@ export class ProductDisplayComponent {
   getIcon(): string{
     if (this.categories != null){
       for (var category of this.categories){
-        if (this.item != undefined && this.item.item_category_id != undefined){
-          if (this.item.item_category_id == category.category_id){
+        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined){
+          if (this.inventoryList.category_id == category.category_id){
             return category.category_icon!
           }
         } else {
@@ -98,6 +102,7 @@ export class ProductDisplayComponent {
     this.itemService.get(id)
       .subscribe({
         next: (data) => {
+          this.item = data;
           this.currentItem = data;
           console.log(data);
         },
@@ -133,10 +138,6 @@ export class ProductDisplayComponent {
     this.currentItem = {
       item_id: 0,
       item_name: '',
-      item_quantity: 0,
-      item_expiration_date: new Date,
-      item_category_id: 0,
-      item_storage_loc_id: 0,
       progress: 0,
       progressString: ''
     };

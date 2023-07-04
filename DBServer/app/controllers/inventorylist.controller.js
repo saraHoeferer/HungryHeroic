@@ -15,7 +15,11 @@ exports.create = (req, res) => {
   // Create Item
   const inventory = {
     user_id: req.body.user_id,
-    item_id: req.body.item_id
+    item_id: req.body.item_id,
+    quantity: req.body.quantity,
+    expiration_date: req.body.expiration_date,
+    category_id: req.body.category_id,
+    storage_loc_id: req.body.storage_loc_id
   };
   // Save Item in the database
   InventoryLists.create(inventory)

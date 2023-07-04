@@ -84,6 +84,31 @@
         <form>
           <!-- Temporary -->
           <div class="row">
+            <div class="form-group">
+              <label for="itemName">Name</label>
+              <input *ngIf="!found"
+                type="text"
+                class="form-control"
+                id="itemName"
+                [(ngModel)]="addItem.item_name"
+                required
+                name="itemName"
+              />
+              <input *ngIf="found"
+              type="text"
+              class="form-control"
+              id="itemName"
+              [(ngModel)]="addItem.item_name"
+              required
+              name="itemName"
+              readonly
+            />
+            </div>
+            <button *ngIf="!found && !needsToBeCreated" (click)="searchForItem()" type="button" class="btn btn-block btn-outline-dark">Search</button>
+            <button *ngIf="needsToBeCreated" (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
+          </div>
+          <div *ngIf="found">
+          <div class="row">
             <div class="col-no-margin form-group w-25">
               <label for="itemQuantity">Quantity</label>
               <div class="input-group">
@@ -93,8 +118,8 @@
                   class="form-control"
                   aria-describedby="multiply-addon"
                   id="itemQuantity"
-                  [(ngModel)]="addItem.item_quantity"
                   required
+                  [(ngModel)]="addToInventory.quantity"
                   name="itemQuantity"
                 />
                 <div class="input-group-append">
@@ -102,26 +127,13 @@
                 </div>
               </div>
             </div>
-            <div class="col form-group">
-              <label for="itemName">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="itemName"
-                [(ngModel)]="addItem.item_name"
-                required
-                name="itemName"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group">
+            <div class="form-group w-75">
               <label for="itemExpirationDate">Expiration Date</label>
               <input
                 type="Date"
                 class="form-control"
                 id="itemExpirationDate"
-                [(ngModel)]="addItem.item_expiration_date"
+                [(ngModel)]="addToInventory.expiration_date"
                 required
                 name="itemExpirationDate"
               />
@@ -133,8 +145,8 @@
               <select
                 class="form-control"
                 id="itemStorage"
-                [(ngModel)]="addItem.item_storage_loc_id"
                 required
+                [(ngModel)]="addToInventory.storage_loc_id"
                 name="itemStorage">
                 <option *ngFor="let storageLocation of storageLocations" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
               </select>
@@ -144,14 +156,15 @@
               <select
                 class="form-control"
                 id="itemCategory"
-                [(ngModel)]="addItem.item_category_id"
                 required
+                [(ngModel)]="addToInventory.category_id"
                 name="itemCategory">
                 <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
               </select>
             </div>
           </div>
-          <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Save</button>
+          <button (click)="saveInventory()" type="button" class="btn btn-block btn-outline-dark">Save</button>
+          </div>
         </form>
 
       </div>

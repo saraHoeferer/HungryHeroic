@@ -4,6 +4,7 @@ import { Item } from 'src/app/models/itemModel/item.model';
 import { Lists } from 'src/app/models/Lists/lists.model';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import { CategoryService } from 'src/app/services/categoryService/category.service';
+import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 
 @Component({
   selector: 'app-shopping-list',
@@ -13,7 +14,7 @@ import { CategoryService } from 'src/app/services/categoryService/category.servi
 export class ShoppingListComponent implements OnInit, OnChanges {
   category?: Category[];
   items: Item[] = [];
-  @Input() inventoryList?: Lists[];
+  @Input() inventoryList?: ShoppingList[];
 
   constructor(private itemService: ItemsService, private categoryService: CategoryService) { }
 

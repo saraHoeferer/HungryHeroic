@@ -11,6 +11,7 @@ import { ShoppingListService } from 'src/app/services/shoppingListService/shoppi
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -20,27 +21,35 @@ import { Storage } from 'src/app/models/storageModel/storage.model';
 export class MainComponent implements OnInit{
   categories?: Category[];
   storageLocations?: Storage[];
-  inventory?: Lists[];
-  shopping?: Lists[];
+  inventory?: InventoryList[];
+  shopping?: ShoppingList[];
   supply? = true;
   category?: Category[];
   items?: Item[];
   currentItem: Item = {};
   currentIndex = -1;
   title = '';
+  found = false
+  searchedItem?: Item[];
+  needsToBeCreated = false;
 
 
   closeResult = '';
 
   addItem: Item = {
-    item_name: ' ',
-    item_quantity: 0,
-    item_expiration_date: new Date,
-    item_category_id: 0,
-    item_storage_loc_id: 0,
+    item_name: '',
     progress: 30,
     progressString: 'danger'
   };
+
+  addToInventory: InventoryList = {
+    quantity: 0,
+    user_id: 0,
+    item_id: 0,
+    expiration_date: new Date,
+    storage_loc_id: 0,
+    category_id: 0
+  }
   saved = false;
 
   constructor(
@@ -157,6 +166,23 @@ export class MainComponent implements OnInit{
       });
   }
 
+  searchForItem():void{
+    this.itemService.findByName(this.addItem.item_name)
+    .subscribe ({
+      next: (res) => {
+        this.searchedItem = res
+        console.log(this.searchedItem)
+        if (this.searchedItem != null && this.searchedItem.length != 0 ){
+          this.currentItem = this.searchedItem[0]
+          this.found = true
+        } else {
+          this.needsToBeCreated = true
+        }
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
   //Open Pop-Up with Content Function
   open(content: any) {
     this.modalService.open(content,
@@ -180,41 +206,52 @@ export class MainComponent implements OnInit{
   }
 
   // Save new values from Form in addItem and create in DB
-  saveItem(): void {
+  saveInventory(): void {
+    console.log(this.currentItem)
     const data = {
-      item_name: this.addItem.item_name,
-      item_quantity: this.addItem.item_quantity,
-      item_expiration_date: this.addItem.item_expiration_date,
-      item_category_id: this.addItem.item_category_id,
-      item_storage_loc_id: this.addItem.item_storage_loc_id,
-      progress: this.addItem.progress,
-      progressString: this.addItem.progressString
+      user_id: 1,
+      item_id: this.currentItem.item_id,
+      quantity: this.addToInventory.quantity,
+      expiration_date: this.addToInventory.expiration_date,
+      category_id: this.addToInventory.category_id,
+      storage_loc_id: this.addToInventory.storage_loc_id
     };
-    var itemQuery: Item[];
-    this.itemService.create(data)
+    this.InventoryListService.create(data)
       .subscribe({
         next: (res) => {
-          this.currentItem = res
+          console.log(res)
           this.saved = true;
-          console.log(this.currentItem)
-          this.itemService.findByName(this.currentItem.item_name)
-            .subscribe ({
-              next: (res) => {
-                itemQuery = res
-                const data2 = {
-                  user_id: 1,
-                  item_id: itemQuery[0].item_id
-                }
-                this.InventoryListService.create(data2)
-                .subscribe({
-                  error: (e) => console.error(e)
-                });
-              },
-              error: (e) => console.error(e)
-            });
         },
         error: (e) => console.error(e)
       });
+  }
+
+  saveItem(): void {
+    const data = {
+      item_name: this.addItem.item_name,
+      progress: 20,
+      progressString: "danger"
+    };
+    var query: Item[]
+    this.itemService.create(data)
+    .subscribe({
+      next: (res) => {
+        this.currentItem = res
+        this.itemService.findByName(this.currentItem.item_name)
+        .subscribe({
+          next: (res) => {
+            query = res
+            this.currentItem = query[0]
+            this.found = true
+            this.needsToBeCreated = false
+            console.log(this.currentItem)
+          },
+          error: (e) => console.error(e)
+        });
+        
+      },
+      error: (e) => console.error(e)
+    });
   }
 
   //Set the addItem back to dummy values
@@ -222,10 +259,6 @@ export class MainComponent implements OnInit{
     this.saved = false;
     this.addItem = {
       item_name: '',
-      item_quantity: 0,
-      item_expiration_date: new Date(),
-      item_category_id: 0,
-      item_storage_loc_id: 0,
       progress: 30,
       progressString: 'danger'
     };
