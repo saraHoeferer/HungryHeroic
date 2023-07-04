@@ -13,8 +13,11 @@ import { IonicModule } from '@ionic/angular';
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
-import { RegisterComponent } from './register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterComponent } from './components/register/register.component';
+import { ListsComponent } from './components/Lists/lists/lists.component';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ItemListComponent,
     AddItemComponent,
     ItemDetailsComponent,
-    RegisterComponent
+    RegisterComponent,
+    ListsComponent,
+    ShoppingListComponent,
+    ProductDisplayShoppingComponent,
   ],
   imports: [
     BrowserModule,

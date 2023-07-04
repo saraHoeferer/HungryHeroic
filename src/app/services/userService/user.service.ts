@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from 'src/app/models/itemModel/item.model';
+import { User } from 'src/app/models/userModel/user.model';
 
-const baseUrl = 'http://localhost:8080/api/items';
+const baseUrl = 'http://localhost:8080/api/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Item[]> {
-    return this.http.get<Item[]>(baseUrl);
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>(baseUrl);
   }
 
-  get(id: any): Observable<Item> {
+  get(id: any): Observable<User> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
@@ -36,12 +36,7 @@ export class ItemsService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Item[]> {
-    return this.http.get<Item[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<User[]> {
+    return this.http.get<User[]>(`${baseUrl}?title=${title}`);
   }
-
-  findByName(name: any): Observable<any> {
-    return this.http.get(`${baseUrl}/specific/${name}`);
-  }
-
 }

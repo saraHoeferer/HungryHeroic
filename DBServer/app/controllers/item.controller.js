@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Item
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.item_id) {
+  if (!req.body.item_name) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -14,7 +14,6 @@ exports.create = (req, res) => {
 
   // Create Item
   const item = {
-    item_id: req.body.item_id,
     item_name: req.body.item_name,
     item_quantity: req.body.item_quantity,
     item_expiration_date: req.body.item_expiration_date,
@@ -64,13 +63,13 @@ exports.findOne = (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Item with id=${id}.`
+          message: `Cannot find Tutorial with id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Item with id=" + id
+        message: "Error retrieving Tutorial with id=" + id
       });
     });
 };
@@ -133,4 +132,20 @@ exports.deleteAll = (req, res) => {
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
 
+};
+
+exports.findByName = (req, res) => {
+  const item_name = req.params.name;
+  var condition = item_name ? { item_name: { [Op.like]: `%${item_name}%` } } : null;
+
+  Items.findAll({ where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving items."
+      });
+    });
 };

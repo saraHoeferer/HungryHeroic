@@ -1,14 +1,13 @@
 <section class="productSections">
-    <!--<div class="card" *ngIf="productDisplay.progress!=0">-->
       <div class="card">
         <div class="card-info">
           <div class="card-avatar">
             <i class="{{getIcon()}}"></i>
           </div>
-          <div class="card-title">{{item.item_name}}</div>
-          <div class="card-subtitle">Expires at: {{item.item_expiration_date}}</div>
+          <div *ngIf="item!=null" class="card-title">{{item.item_name}}</div>
+          <div *ngIf="item!=null" class="card-subtitle">Expires at: {{item.item_expiration_date}}</div>
           <div class="progress">
-            <div class="progress-bar bg-custom-{{item.progressString}}" role="progressbar" style="width: {{item.progress}}%" aria-valuenow="{item.progress}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div *ngIf="item!=null" class="progress-bar bg-{{item.progressString}}" role="progressbar" style="width: {{item.progress}}%" aria-valuenow="{item.progress}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
 
         </div>
@@ -21,23 +20,6 @@
           </li>
         </ul>
     </div>
-   <!-- </div>-->
-   <!--<div class="card2" *ngIf="productDisplay.progress==0">
-      <div class="card-info">
-        <div class="card-avatar">
-          <i class={{productDisplay.icon}}></i>
-        </div>
-        <div class="card-title">{{item.item_name}}</div>
-      </div>
-      <ul class="card-social">
-        <li class="card-social__item">
-          <i class="fa-solid fa-bag-shopping"></i>
-        </li>
-        <li class="card-social__item">
-          <i class="fa-solid fa-trash"></i>
-        </li>
-      </ul>-->
-  <!--</div>-->
 </section>
 <!-- PopUp Delete Item from DB -->
 <ng-template #deleteItemPopUp let-modal>
@@ -62,6 +44,8 @@
     <div class=" alert alert-dark">
       <p class="mb-0">Click <b>"Keep"</b> if you changes your mind. This will close the window.</p>
     </div>
+  </div>
+  <div class="modal-footer">
     <button type="button"
             id="deleteButton"
             class="btn btn-outline-custom-danger btn-block"

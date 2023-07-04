@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from 'src/app/models/itemModel/item.model';
+import { Lists } from 'src/app/models/Lists/lists.model';
 
-const baseUrl = 'http://localhost:8080/api/items';
+const baseUrl = 'http://localhost:8080/api/shopping';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService {
+export class ShoppingListService{
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Item[]> {
-    return this.http.get<Item[]>(baseUrl);
+  getAll(): Observable<Lists[]> {
+    return this.http.get<Lists[]>(baseUrl);
   }
 
-  get(id: any): Observable<Item> {
+  get(id: any): Observable<Lists> {
     return this.http.get(`${baseUrl}/${id}`);
+  }
+
+  getUserShopping(id: any): Observable<Lists[]> {
+    return this.http.get<Lists[]>(`${baseUrl}/user/${id}`);
   }
 
   create(data: any): Observable<any> {
@@ -36,12 +40,7 @@ export class ItemsService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Item[]> {
-    return this.http.get<Item[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Lists[]> {
+    return this.http.get<Lists[]>(`${baseUrl}?title=${title}`);
   }
-
-  findByName(name: any): Observable<any> {
-    return this.http.get(`${baseUrl}/specific/${name}`);
-  }
-
 }

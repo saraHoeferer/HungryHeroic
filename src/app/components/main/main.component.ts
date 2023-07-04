@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app//models/itemModel/item.model';
+import { Lists } from 'src/app/models/Lists/lists.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
+import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
+import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 import { CategoryService } from 'src/app/services/categoryService/category.service';
+import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ItemsService } from 'src/app/services/itemService/items.service';
+import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { StorageService } from 'src/app/services/storageService/storage.service';
+import { Storage } from 'src/app/models/storageModel/storage.model';
 
 @Component({
   selector: 'app-main',
@@ -11,22 +18,27 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit{
+  categories?: Category[];
+  storageLocations?: Storage[];
+  inventory?: Lists[];
+  shopping?: Lists[];
+  supply? = true;
   category?: Category[];
   items?: Item[];
   currentItem: Item = {};
   currentIndex = -1;
   title = '';
 
+
   closeResult = '';
 
   addItem: Item = {
-    item_id: 0,
     item_name: ' ',
     item_quantity: 0,
     item_expiration_date: new Date,
     item_category_id: 0,
     item_storage_loc_id: 0,
-    progress: '30',
+    progress: 30,
     progressString: 'danger'
   };
   saved = false;
@@ -34,13 +46,31 @@ export class MainComponent implements OnInit{
   constructor(
     private itemService: ItemsService,
     private categoryService: CategoryService,
-    private modalService: NgbModal
+    private InventoryListService: InventoryListService,
+    private ShoppingListService: ShoppingListService,
+    private modalService: NgbModal,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
     this.retrieveItems();
+    this.retrieveCategories();
+    this.retrieveStorageLocations();
+    this.retrieveShopping()
+    this.retrieveInventory()
   }
 
+  retrieveInventory(): void {
+    this.supply = true
+    this.InventoryListService.getUserInventory(1)
+    .subscribe({
+      next: (data) => {
+        this.inventory = data;
+        console.log(data);
+      },
+      error: (e) => console.error(e)
+    });
+  }
   retrieveItems(): void {
     this.itemService.getAll()
       .subscribe({
@@ -53,13 +83,24 @@ export class MainComponent implements OnInit{
     this.categoryService.getAll()
     .subscribe({
       next: (data) => {
-        this.category = data;
+        this.categories = data;
         console.log(data);
       },
       error: (e) => console.error(e)
     });
   }
 
+  retrieveShopping(): void {
+    this.supply = false
+    this.ShoppingListService.getUserShopping(1)
+    .subscribe({
+      next: (data) => {
+        this.shopping = data;
+        console.log(data);
+      },
+      error: (e) => console.error(e)
+    })
+  }
   refreshList(): void {
     this.retrieveItems();
     this.currentItem = {};
@@ -69,6 +110,26 @@ export class MainComponent implements OnInit{
   setActiveItem(item: Item, index: number): void {
     this.currentItem = item;
     this.currentIndex = index;
+  }
+
+  retrieveCategories(): void {
+    this.categoryService.getAll()
+    .subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
+  retrieveStorageLocations():void{
+    this.storageService.getAll()
+    .subscribe({
+      next: (data) => {
+        this.storageLocations = data;
+      },
+      error: (e) => console.error(e)
+    });
   }
 
   removeAllItems(): void {
@@ -121,7 +182,6 @@ export class MainComponent implements OnInit{
   // Save new values from Form in addItem and create in DB
   saveItem(): void {
     const data = {
-      item_id: this.addItem.item_id,
       item_name: this.addItem.item_name,
       item_quantity: this.addItem.item_quantity,
       item_expiration_date: this.addItem.item_expiration_date,
@@ -130,12 +190,28 @@ export class MainComponent implements OnInit{
       progress: this.addItem.progress,
       progressString: this.addItem.progressString
     };
-
+    var itemQuery: Item[];
     this.itemService.create(data)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          this.currentItem = res
           this.saved = true;
+          console.log(this.currentItem)
+          this.itemService.findByName(this.currentItem.item_name)
+            .subscribe ({
+              next: (res) => {
+                itemQuery = res
+                const data2 = {
+                  user_id: 1,
+                  item_id: itemQuery[0].item_id
+                }
+                this.InventoryListService.create(data2)
+                .subscribe({
+                  error: (e) => console.error(e)
+                });
+              },
+              error: (e) => console.error(e)
+            });
         },
         error: (e) => console.error(e)
       });
@@ -145,37 +221,13 @@ export class MainComponent implements OnInit{
   newItem(): void {
     this.saved = false;
     this.addItem = {
-      item_id: 0,
       item_name: '',
       item_quantity: 0,
       item_expiration_date: new Date(),
       item_category_id: 0,
       item_storage_loc_id: 0,
-      progress: '30',
+      progress: 30,
       progressString: 'danger'
     };
   }
-
-
-
-
-
-  /*Supply: Boolean;
-  productDisplayList: ProductDisplay[] = [];
-  productService: ProductsService = inject(ProductsService);
-
-  constructor(){
-      this.productDisplayList = this.productService.getAllProducts()
-      this.Supply = true;
-  }
-
-  displaySupply() {
-    this.productDisplayList = this.productService.getAllProducts()
-    this.Supply = true;
-  }
-
-  displayShopping() {
-    this.productDisplayList = this.productService.getAllShoppingProduct()
-    this.Supply = false
-  }*/
 }

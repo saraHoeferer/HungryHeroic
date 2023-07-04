@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Item } from 'src/app/models/itemModel/item.model';
+import { Storage } from 'src/app/models/storageModel/storage.model';
 
-const baseUrl = 'http://localhost:8080/api/items';
+const baseUrl = 'http://localhost:8080/api/storage';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ItemsService {
+export class StorageService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Item[]> {
-    return this.http.get<Item[]>(baseUrl);
+  getAll(): Observable<Storage[]> {
+    return this.http.get<Storage[]>(baseUrl);
   }
 
-  get(id: any): Observable<Item> {
+  get(id: any): Observable<Storage> {
     return this.http.get(`${baseUrl}/${id}`);
   }
 
@@ -36,12 +36,7 @@ export class ItemsService {
     return this.http.delete(baseUrl);
   }
 
-  findByTitle(title: any): Observable<Item[]> {
-    return this.http.get<Item[]>(`${baseUrl}?title=${title}`);
+  findByTitle(title: any): Observable<Storage[]> {
+    return this.http.get<Storage[]>(`${baseUrl}?title=${title}`);
   }
-
-  findByName(name: any): Observable<any> {
-    return this.http.get(`${baseUrl}/specific/${name}`);
-  }
-
 }
