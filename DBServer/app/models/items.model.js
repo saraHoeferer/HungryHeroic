@@ -19,10 +19,10 @@ module.exports = (sequelize, Sequelize) => {
     item_storage_loc_id: {
       type: Sequelize.INTEGER
     },
-    progess: {
+    progress: {
       type: Sequelize.STRING
     },
-    progessString: {
+    progressString: {
       type: Sequelize.STRING
     }
   },{
