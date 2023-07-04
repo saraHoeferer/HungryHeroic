@@ -21,5 +21,6 @@ db.sequelize = sequelize;
 
 db.items = require("./items.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
+db.storageLocation = require("./storagelocation.model.js")(sequelize, Sequelize);
 
 module.exports = db;

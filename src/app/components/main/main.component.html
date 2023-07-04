@@ -65,7 +65,7 @@
     </div>
 </div>
 <div class="productDiv">
-    <app-product-display *ngFor="let item of items" [item]="item" [categories]="category"></app-product-display>
+    <app-product-display *ngFor="let item of items" [item]="item" [categories]="categories"></app-product-display>
 </div>
 <!-- PopUp Add Item to DB -->
 <ng-template #addItemPopUp let-modal>
@@ -83,21 +83,6 @@
   <div class="modal-body">
       <div *ngIf="!saved">
         <form>
-          <!-- Temporary -->
-          <div class="row">
-            <div class="form-group">
-              <label for="itemID">ID</label>
-              <input
-                type="number"
-                min="0"
-                class="form-control"
-                id="itemID"
-                [(ngModel)]="addItem.item_id"
-                required
-                name="itemID"
-              />
-            </div>
-          </div>
           <!-- Temporary -->
           <div class="row">
             <div class="col-no-margin form-group w-25">
@@ -152,9 +137,7 @@
                 [(ngModel)]="addItem.item_storage_loc_id"
                 required
                 name="itemStorage">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option *ngFor="let storageLocation of storageLocations" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
               </select>
             </div>
             <div class="form-group w-50 col">
@@ -165,9 +148,7 @@
                 [(ngModel)]="addItem.item_category_id"
                 required
                 name="itemCategory">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
+                <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
               </select>
             </div>
           </div>
