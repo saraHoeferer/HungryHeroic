@@ -190,26 +190,28 @@ export class MainComponent implements OnInit{
       progress: this.addItem.progress,
       progressString: this.addItem.progressString
     };
-
+    var itemQuery: Item[];
     this.itemService.create(data)
       .subscribe({
         next: (res) => {
           this.currentItem = res
           this.saved = true;
-
-          const data2 = {
-            user_id: 1,
-            item_id: this.currentItem.item_id
-          }
-      
-          this.InventoryListService.create(data2)
-            .subscribe({
+          console.log(this.currentItem)
+          this.itemService.findByName(this.currentItem.item_name)
+            .subscribe ({
               next: (res) => {
-                this.currentItem = res
-                this.saved = true;
+                itemQuery = res
+                const data2 = {
+                  user_id: 1,
+                  item_id: itemQuery[0].item_id
+                }
+                this.InventoryListService.create(data2)
+                .subscribe({
+                  error: (e) => console.error(e)
+                });
               },
               error: (e) => console.error(e)
-          });
+            });
         },
         error: (e) => console.error(e)
       });

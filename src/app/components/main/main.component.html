@@ -155,11 +155,18 @@
         </form>
 
       </div>
-      <div class="alert alert-dark">
-        <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
+      <div *ngIf="saved">
+        <h4>New Item was created successfully!</h4>
+        <button (click)="newItem()" type="button" class="btn btn-block btn-outline-dark">Add another Item</button>
       </div>
-      <button (click)="newItem()" type="button" class="btn btn-block btn-outline-custom-success">Add</button>
-      <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
-    </div>
   </div>
+  <!--
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-dark"
+            (click)="modal.close('Save click')">
+      Save
+    </button>
+  </div>
+  -->
 </ng-template>

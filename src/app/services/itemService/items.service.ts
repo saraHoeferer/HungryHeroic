@@ -39,4 +39,9 @@ export class ItemsService {
   findByTitle(title: any): Observable<Item[]> {
     return this.http.get<Item[]>(`${baseUrl}?title=${title}`);
   }
+
+  findByName(name: any): Observable<any> {
+    return this.http.get(`${baseUrl}/specific/${name}`);
+  }
+
 }

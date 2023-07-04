@@ -60,7 +60,28 @@ exports.update = (req, res) => {
 
 // Delete a Tutorial with the specified id in the request
 exports.delete = (req, res) => {
-  
+  const user_id= req.params.user;
+  const item_id= req.params.item;
+
+  InventoryLists.destroy({
+    where: { item_id: item_id, user_id: user_id}
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Item was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Item with id=${item_id}. Maybe Item was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Item with id=" + item_id
+      });
+    });
 };
 
 // Delete all Tutorials from the database.

@@ -32,8 +32,8 @@ export class InventoryListService{
     return this.http.put(`${baseUrl}/${id}`, data);
   }
 
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+  delete(item_id: any, user_id: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/one/${item_id}/${user_id}`);
   }
 
   deleteAll(): Observable<any> {
