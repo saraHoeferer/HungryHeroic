@@ -9,6 +9,8 @@ import { InventoryListService } from 'src/app/services/inventoryListService/inve
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { StorageService } from 'src/app/services/storageService/storage.service';
+import { Storage } from 'src/app/models/storageModel/storage.model';
 
 @Component({
   selector: 'app-main',
@@ -16,6 +18,8 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit{
+  categories?: Category[];
+  storageLocations?: Storage[];
   inventory?: Lists[];
   shopping?: Lists[];
   supply? = true;
@@ -29,7 +33,6 @@ export class MainComponent implements OnInit{
   closeResult = '';
 
   addItem: Item = {
-    item_id: 0,
     item_name: ' ',
     item_quantity: 0,
     item_expiration_date: new Date,
@@ -45,10 +48,14 @@ export class MainComponent implements OnInit{
     private categoryService: CategoryService,
     private InventoryListService: InventoryListService,
     private ShoppingListService: ShoppingListService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
+    this.retrieveItems();
+    this.retrieveCategories();
+    this.retrieveStorageLocations();
     this.retrieveShopping()
     this.retrieveInventory()
   }
@@ -76,7 +83,7 @@ export class MainComponent implements OnInit{
     this.categoryService.getAll()
     .subscribe({
       next: (data) => {
-        this.category = data;
+        this.categories = data;
         console.log(data);
       },
       error: (e) => console.error(e)
@@ -103,6 +110,26 @@ export class MainComponent implements OnInit{
   setActiveItem(item: Item, index: number): void {
     this.currentItem = item;
     this.currentIndex = index;
+  }
+
+  retrieveCategories(): void {
+    this.categoryService.getAll()
+    .subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
+  retrieveStorageLocations():void{
+    this.storageService.getAll()
+    .subscribe({
+      next: (data) => {
+        this.storageLocations = data;
+      },
+      error: (e) => console.error(e)
+    });
   }
 
   removeAllItems(): void {
@@ -155,7 +182,6 @@ export class MainComponent implements OnInit{
   // Save new values from Form in addItem and create in DB
   saveItem(): void {
     const data = {
-      item_id: this.addItem.item_id,
       item_name: this.addItem.item_name,
       item_quantity: this.addItem.item_quantity,
       item_expiration_date: this.addItem.item_expiration_date,
@@ -193,7 +219,6 @@ export class MainComponent implements OnInit{
   newItem(): void {
     this.saved = false;
     this.addItem = {
-      item_id: 0,
       item_name: '',
       item_quantity: 0,
       item_expiration_date: new Date(),

@@ -3,11 +3,15 @@ import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
+import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 
 @Component({
   selector: 'app-product-display',
   templateUrl: './product-display.component.html',
-  styleUrls: ['./product-display.component.css']
+  styleUrls: ['./product-display.component.css'],
+  providers: [DatePipe]
 })
 export class ProductDisplayComponent {
   @Input() item!: Item;
@@ -28,9 +32,12 @@ export class ProductDisplayComponent {
   edited = false;
 
 
+
   constructor(
     private itemService: ItemsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private datePipe: DatePipe,
+    private inventoryService: InventoryListService
   ) {}
 
   getIcon(): string{
@@ -46,6 +53,22 @@ export class ProductDisplayComponent {
       }
     }
     return "fa-solid fa-xmark fa-4x"
+  }
+
+  getDays(date?: Date){
+    var currentDate = new Date
+    if (date != null){
+      if (currentDate.getFullYear == date.getFullYear){
+        this.item.progress = 80
+        this.item.progressString ="success"
+      } else {
+        this.item.progress = 0
+        this.item.progressString ="danger"
+      }
+    } else {
+      this.item.progress = 60
+      this.item.progressString ="warning"
+    }
   }
 
   //Open Pop-Up with Content Function
@@ -95,7 +118,7 @@ export class ProductDisplayComponent {
   }
 
   deleteItem(): void {
-    this.itemService.delete(this.item.item_id)
+    this.inventoryService.delete(this.item.item_id, 1)
       .subscribe({
         next: (res) => {
           console.log(res);
