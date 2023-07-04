@@ -169,8 +169,15 @@
 
       </div>
       <div *ngIf="saved">
-        <h4>New Item was created successfully!</h4>
-        <button (click)="newItem()" type="button" class="btn btn-block btn-outline-dark">Add another Item</button>
+        <div class="alert alert-custom-success">
+          <h4 class="alert-heading">New Item was created successfully!</h4>
+          <p class="mb-0">To create another Item click the <b>"Add another Item"</b> Button</p>
+        </div>
+        <div class="alert alert-dark">
+          <p class="mb-0">To close the Window click the <b>Finish</b> Button</p>
+        </div>
+        <button (click)="newItem()" type="button" class="btn btn-block btn-outline-custom-success">Add another Item</button>
+        <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
       </div>
   </div>
   <!--
