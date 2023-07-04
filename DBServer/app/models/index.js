@@ -21,5 +21,8 @@ db.sequelize = sequelize;
 
 db.items = require("./items.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
+db.users = require("./user.model.js")(sequelize, Sequelize);
+db.inventoryLists = require("./inventorylist.model.js")(sequelize, Sequelize);
+db.shoppingLists = require("./shoppinglist.model.js")(sequelize, Sequelize);
 
 module.exports = db;

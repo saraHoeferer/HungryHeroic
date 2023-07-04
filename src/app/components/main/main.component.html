@@ -23,33 +23,33 @@
       </div>
     </nav>
   </header>
-<div>
-    <div class="row">
-        <div class="col-9">
-            <div>
-                <h1>All your groceries</h1>
-                <h4>List of all the groceries you have at home</h4>
-            </div>
-        </div>
-        <div class="col-3" id="toggleCol">
-            <div class="row">
-                <ion-segment color="danger" value="danger">
-                    <ion-segment-button value="danger">
-                      <ion-label>Supply List</ion-label>
-                    </ion-segment-button>
-                    <ion-segment-button value="segment">
-                      <ion-label>Shopping List</ion-label>
-                    </ion-segment-button>
-                  </ion-segment>
-            </div>
+  <div class="row">
+    <div class="col-9">
+        <div>
+            <h1>All your groceries</h1>
+            <h4>List of all the groceries you have at home</h4>
         </div>
     </div>
-    <div>
+    <div class="col-3" id="toggleCol">
         <div class="row">
-            <div class="col-3">
-                <input class="form-control" type="text" placeholder="Search for product">
-            </div>
-            <div class="col-7">
+            <ion-segment color="danger" value="danger">
+                <ion-segment-button value="danger" (click) = "retrieveInventory()" >
+                  <ion-label>Supply List</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value="segment" (click) = "retrieveShopping()" >
+                  <ion-label>Shopping List</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="col-3">
+            <input class="form-control" type="text" placeholder="Search for product">
+        </div>
+        <div class="col-7">
+            <ion-segment-button value="segment">
                 <button class="btn btn-primary" type="button">Search</button>
             </div>
             <div class="col-1" id="addIconCol">
@@ -64,9 +64,8 @@
         </div>
     </div>
 </div>
-<div class="productDiv">
-    <app-product-display *ngFor="let item of items" [item]="item" [categories]="category"></app-product-display>
-</div>
+  <app-lists  *ngIf="supply == true" [inventoryList]="inventory"></app-lists>
+  <app-shopping-list  *ngIf="supply == false" [inventoryList]="shopping"></app-shopping-list>
 <!-- PopUp Add Item to DB -->
 <ng-template #addItemPopUp let-modal>
   <div class="modal-header">

@@ -116,7 +116,7 @@
     align-items: center;
     text-align: left;
 
-    //border: 3px solid #343434;
+    /*border: 3px solid #343434;*/
   }
 
   #cause-body p {
@@ -126,7 +126,7 @@
   #circle-progress {
     margin: 30px;
 
-    //border: 3px solid #89043d;
+    /*border: 3px solid #89043d;*/
   }
 
   #features {
@@ -173,13 +173,13 @@
     justify-content: center;
     align-items: center;
 
-    //border: 3px solid #343434;
+    /*border: 3px solid #343434;*/
   }
 
   .block article h3 {
     font-weight: bold;
 
-    //border: 3px solid #89043d;
+    /*border: 3px solid #89043d;*/
   }
 
   .icons {
@@ -187,7 +187,7 @@
     height: 80px;
     padding: 10px;
 
-    //border: 3px solid #E1F13E;
+    /*border: 3px solid #E1F13E;*/
   }
 
   .team-image {
