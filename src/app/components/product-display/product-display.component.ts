@@ -25,6 +25,7 @@ export class ProductDisplayComponent {
     progress: '',
     progressString: ''
   };
+  edited = false;
 
 
   constructor(
@@ -83,6 +84,7 @@ export class ProductDisplayComponent {
         next: (res) => {
           console.log(res);
           this.message = res.message ? res.message : 'This Item was updated successfully!';
+          this.edited = true;
         },
         error: (e) => console.error(e)
       });
@@ -96,6 +98,21 @@ export class ProductDisplayComponent {
         },
         error: (e) => console.error(e)
       });
+  }
+
+  //Set the addItem back to dummy values
+  newItem(): void {
+    this.edited = false;
+    this.currentItem = {
+      item_id: 0,
+      item_name: '',
+      item_quantity: 0,
+      item_expiration_date: new Date,
+      item_category_id: 0,
+      item_storage_loc_id: 0,
+      progress: '',
+      progressString: ''
+    };
   }
 
 }

@@ -19,7 +19,7 @@
     margin-right: 30px;
     margin-left: 25px;
    }
-   
+
    .card-info {
     display: flex;
     flex-direction: column;
@@ -27,7 +27,7 @@
     align-items: center;
     transition: transform .2s ease, opacity .2s ease;
    }
-   
+
    /*Image*/
    .card-avatar {
     --size: 60px;
@@ -38,8 +38,8 @@
     transition: transform .2s ease;
     margin-bottom: 1rem;
    }
-   
-   
+
+
    /*Card footer*/
    .card-social {
     transform: translateY(100%);
@@ -49,11 +49,11 @@
     opacity: 0;
     transition: transform .2s ease, opacity .2s ease;
    }
-   
+
    .card-social__item {
     list-style: none;
    }
-   
+
    .card-social__item svg {
     display: block;
     height: 18px;
@@ -62,7 +62,7 @@
     cursor: pointer;
     transition: fill 0.2s ease ,transform 0.2s ease;
    }
-   
+
    /*Text*/
    .card-title {
     color: #333;
@@ -70,21 +70,21 @@
     font-weight: 600;
     line-height: 2rem;
    }
-   
+
    .card-subtitle {
     color: #859ba8;
     font-size: 0.8em;
    }
-   
+
    /*Hover*/
    .card:hover {
     box-shadow: 0 8px 50px #23232333;
    }
-   
+
    .card:hover .card-info {
     transform: translateY(-5%);
    }
-   
+
    .card:hover .card-social {
     transform: translateY(100%);
     opacity: 1;
@@ -93,22 +93,22 @@
    .card2:hover {
     box-shadow: 0 8px 50px #23232333;
    }
-   
+
    .card2:hover .card-info {
     transform: translateY(-5%);
    }
-   
+
    .card2:hover .card-social {
     transform: translateY(20%);
     opacity: 1;
    }
-   
-   
+
+
    .card-social__item svg:hover {
     fill: #232323;
     transform: scale(1.1);
    }
-   
+
    .card-avatar:hover {
     transform: scale(1.1);
    }
@@ -117,3 +117,29 @@
     width: 250px;
     margin-top: 20px;
    }
+
+.alert-custom-success{
+  background-color:#e9f471;
+  color:#000000;
+}
+
+.btn-outline-custom-success{
+  color: #c5d510;
+  background-color: #ffffff;
+  border-color: #c5d510;
+}
+
+.btn-outline-custom-success:hover{
+  background-color: #c5d510;
+  color: #ffffff;
+}
+.btn-outline-custom-danger{
+  color: #89043d;
+  background-color: #ffffff;
+  border-color: #89043d;
+}
+
+.btn-outline-custom-danger:hover{
+  background-color: #89043d;
+  color: #ffffff;
+}

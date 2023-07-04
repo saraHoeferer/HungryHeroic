@@ -80,7 +80,7 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   Items.update(req.body, {
-    where: { id: id }
+    where: { item_id: id }
   })
     .then(num => {
       if (num == 1) {
@@ -105,7 +105,7 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Items.destroy({
-    where: { id: id }
+    where: { item_id: id }
   })
     .then(num => {
       if (num == 1) {

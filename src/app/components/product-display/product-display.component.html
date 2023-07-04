@@ -59,22 +59,22 @@
       </h4>
       <p>By clicking on <b>"Delete"</b> you will permanently delete <b>{{item.item_name}}</b> form the Database!</p>
     </div>
-    <div class=" alert alert-primary">
+    <div class=" alert alert-dark">
       <p class="mb-0">Click <b>"Keep"</b> if you changes your mind. This will close the window.</p>
     </div>
   </div>
   <div class="modal-footer">
     <button type="button"
-            id="keepButton"
-            class="btn btn-outline-primary btn-block"
-            (click)="modal.close('Keep click')">
-      Keep
+            id="deleteButton"
+            class="btn btn-outline-custom-danger btn-block"
+            (click)="deleteItem(); modal.close('Delete click')">
+      Delete
     </button>
     <button type="button"
-            id="deleteButton"
-            class="btn btn-outline-danger btn-block"
-            (click)="deleteItem()">
-      Delete
+            id="keepButton"
+            class="btn btn-outline-dark btn-block"
+            (click)="modal.close('Keep click')">
+      Keep
     </button>
   </div>
 </ng-template>
@@ -92,80 +92,92 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="row">
-        <div class="col-no-margin form-group w-25">
-          <label for="itemQuantity">Quantity</label>
-          <div class="input-group">
-            <input
-              type="number"
-              min="0"
-              class="form-control"
-              aria-describedby="multiply-addon"
-              id="itemQuantity"
-              [(ngModel)]="currentItem.item_quantity"
-              required
-              name="itemQuantity"
-            />
-            <div class="input-group-append">
-              <span class="input-group-text" id="multiply-addon"> × </span>
+    <div *ngIf="!edited">
+      <form>
+        <div class="row">
+          <div class="col-no-margin form-group w-25">
+            <label for="itemQuantity">Quantity</label>
+            <div class="input-group">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                aria-describedby="multiply-addon"
+                id="itemQuantity"
+                [(ngModel)]="currentItem.item_quantity"
+                required
+                name="itemQuantity"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text" id="multiply-addon"> × </span>
+              </div>
             </div>
           </div>
+          <div class="col form-group">
+            <label for="itemName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="itemName"
+              [(ngModel)]="currentItem.item_name"
+              required
+              name="itemName"
+            />
+          </div>
         </div>
-        <div class="col form-group">
-          <label for="itemName">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="itemName"
-            [(ngModel)]="currentItem.item_name"
-            required
-            name="itemName"
-          />
+        <div class="row">
+          <div class="form-group">
+            <label for="itemExpirationDate">Expiration Date</label>
+            <input
+              type="Date"
+              class="form-control"
+              id="itemExpirationDate"
+              [(ngModel)]="currentItem.item_expiration_date"
+              required
+              name="itemExpirationDate"
+            />
+          </div>
         </div>
+        <div class="row">
+          <div class="form-group w-50 col">
+            <label for="itemStorage">Storage</label>
+            <select
+              class="form-control"
+              id="itemStorage"
+              [(ngModel)]="currentItem.item_storage_loc_id"
+              required
+              name="itemStorage">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="form-group w-50 col">
+            <label for="itemCategory">Category</label>
+            <select
+              class="form-control"
+              id="itemCategory"
+              [(ngModel)]="currentItem.item_category_id"
+              required
+              name="itemCategory">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <button (click)="updateItem()" type="button" class="btn btn-block btn-outline-dark">Edit Item</button>
+      </form>
+    </div>
+    <div *ngIf="edited">
+      <div class="alert alert-custom-success">
+        <h4 class="alert-heading">Item was edited!</h4>
+        <p class="mb-0">To reedit this Item close the window and click the <b>"Edit"</b> Symbol</p>
       </div>
-      <div class="row">
-        <div class="form-group">
-          <label for="itemExpirationDate">Expiration Date</label>
-          <input
-            type="Date"
-            class="form-control"
-            id="itemExpirationDate"
-            [(ngModel)]="currentItem.item_expiration_date"
-            required
-            name="itemExpirationDate"
-          />
-        </div>
+      <div class="alert alert-dark">
+        <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
       </div>
-      <div class="row">
-        <div class="form-group w-50 col">
-          <label for="itemStorage">Storage</label>
-          <select
-            class="form-control"
-            id="itemStorage"
-            [(ngModel)]="currentItem.item_storage_loc_id"
-            required
-            name="itemStorage">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
-        </div>
-        <div class="form-group w-50 col">
-          <label for="itemCategory">Category</label>
-          <select
-            class="form-control"
-            id="itemCategory"
-            [(ngModel)]="currentItem.item_category_id"
-            required
-            name="itemCategory">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
-        </div>
-      </div>
-      <button (click)="updateItem()" type="button" class="btn btn-block btn-outline-dark">Edit Item</button>
-    </form>
+      <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+    </div>
   </div>
 </ng-template>

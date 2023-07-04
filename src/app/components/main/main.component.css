@@ -6,7 +6,7 @@ header {
   .nav-item{
     margin-right: 30px;
 }
-  
+
 
 #toggleCol{
     margin-top: 20px;
@@ -42,4 +42,20 @@ header {
     background-color: #eb7658;
     border-color: #eb7658;
     border-radius: 7px;
+}
+
+.alert-custom-success{
+  background-color:#e9f471;
+  color:#000000;
+}
+
+.btn-outline-custom-success{
+  color: #c5d510;
+  background-color: #ffffff;
+  border-color: #c5d510;
+}
+
+.btn-outline-custom-success:hover{
+  background-color: #c5d510;
+  color: #ffffff;
 }
