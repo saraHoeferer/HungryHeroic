@@ -6,12 +6,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     item_name: {
       type: Sequelize.STRING
-    },
-    progress: {
-      type: Sequelize.STRING
-    },
-    progressString: {
-      type: Sequelize.STRING
     }
   },{
     timestamps: false

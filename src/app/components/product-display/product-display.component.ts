@@ -1,10 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { formatDate } from '@angular/common';
-import { DatePipe } from '@angular/common';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 
@@ -12,14 +10,15 @@ import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.
   selector: 'app-product-display',
   templateUrl: './product-display.component.html',
   styleUrls: ['./product-display.component.css'],
-  providers: [DatePipe]
 })
-export class ProductDisplayComponent implements OnInit {
+export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   @Input() item!: Item;
   @Input() categories?: Category[]
   @Input() inventoryList?: InventoryList;
   closeResult = '';
   message = '';
+  currentDate = new Date()
+  progress = 0
 
   ngOnInit(): void {
     if (this.inventoryList != null){
@@ -27,11 +26,13 @@ export class ProductDisplayComponent implements OnInit {
     }
   }
 
+  ngAfterViewChecked(): void {
+    
+  }
+
   currentItem: Item = {
     item_id: 0,
     item_name: '',
-    progress: 0,
-    progressString: ''
   };
   edited = false;
 
@@ -40,7 +41,6 @@ export class ProductDisplayComponent implements OnInit {
   constructor(
     private itemService: ItemsService,
     private modalService: NgbModal,
-    private datePipe: DatePipe,
     private inventoryService: InventoryListService
   ) {}
 
@@ -59,19 +59,46 @@ export class ProductDisplayComponent implements OnInit {
     return "fa-solid fa-xmark fa-4x"
   }
 
+  getExpiryDays(): number{
+    if (this.categories != null){
+      for (var category of this.categories){
+        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined){
+          if (this.inventoryList.category_id == category.category_id){
+            return category.category_expiryDays!
+          }
+        } else {
+          return 0
+        }
+      }
+    }
+    return 0
+  }
+
   getDays(date?: Date){
-    var currentDate = new Date
+    var date2 = new Date(date!.toString())
     if (date != null){
-      if (currentDate.getFullYear == date.getFullYear){
-        this.item.progress = 80
-        this.item.progressString ="success"
+      if (this.currentDate.getTime() < date2.getTime()){
+        var days = this.getExpiryDays()
+        var date3 = new Date(date2.setDate(date2.getDate()-days))
+        var difference = (+this.currentDate - +date3)/1000/60/60/24
+        this.progress = 100 - difference/days * 100
       } else {
-        this.item.progress = 0
-        this.item.progressString ="danger"
+        this.progress = 101
       }
     } else {
-      this.item.progress = 60
-      this.item.progressString ="warning"
+      this.progress = 0
+    }
+  }
+
+  getProgressString(): string{
+    if (this.progress == 101){
+      return "danger"
+    } else if (this.progress > 66){
+      return "success"
+    } else if (this.progress > 34){
+      return "warning"
+    } else {
+      return "danger"
     }
   }
 
@@ -138,8 +165,6 @@ export class ProductDisplayComponent implements OnInit {
     this.currentItem = {
       item_id: 0,
       item_name: '',
-      progress: 0,
-      progressString: ''
     };
   }
 

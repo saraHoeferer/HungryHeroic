@@ -38,8 +38,6 @@ export class MainComponent implements OnInit{
 
   addItem: Item = {
     item_name: '',
-    progress: 30,
-    progressString: 'danger'
   };
 
   addToInventory: InventoryList = {
@@ -259,8 +257,6 @@ export class MainComponent implements OnInit{
     this.saved = false;
     this.addItem = {
       item_name: '',
-      progress: 30,
-      progressString: 'danger'
     };
   }
 }
