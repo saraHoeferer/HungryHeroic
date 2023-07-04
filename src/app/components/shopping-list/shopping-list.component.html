@@ -1,4 +1,4 @@
 <div class="productDiv">
     <p *ngIf ="inventoryList != null && inventoryList.length == 0"> Füge Produkte hinzu!</p>
-    <app-product-display-shopping [categories]="category" *ngFor="let item of items"[item]="item" ></app-product-display-shopping>
+    <app-product-display-shopping [categories]="category" *ngFor="let item of inventoryList"[inventoryList]="item" ></app-product-display-shopping>
 </div>

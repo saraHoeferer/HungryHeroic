@@ -7,7 +7,13 @@ module.exports = (sequelize, Sequelize) => {
       item_id: {
         type: Sequelize.INTEGER,
         primaryKey: true
-      }
+      },
+      quantity:{
+        type: Sequelize.INTEGER
+      },
+      category_id: {
+        type: Sequelize.INTEGER
+      },
     },{
       timestamps: false
   });

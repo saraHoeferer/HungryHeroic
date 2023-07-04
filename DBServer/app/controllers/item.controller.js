@@ -15,10 +15,6 @@ exports.create = (req, res) => {
   // Create Item
   const item = {
     item_name: req.body.item_name,
-    item_quantity: req.body.item_quantity,
-    item_expiration_date: req.body.item_expiration_date,
-    item_category_id: req.body.item_category_id,
-    item_storage_loc_id: req.body.item_storage_loc_id,
     progress: req.body.progress,
     progressString: req.body.progressString
   };
