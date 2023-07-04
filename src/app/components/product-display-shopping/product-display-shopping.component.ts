@@ -14,9 +14,13 @@ export class ProductDisplayShoppingComponent {
   getIcon(): string{
     if (this.categories != null){
       for (var category of this.categories){
-        if (this.item.item_category_id == category.category_id){
-          return category.category_icon!
-        }
+        if (this.item != undefined && this.item.item_category_id != undefined){
+          if (this.item.item_category_id == category.category_id){
+            return category.category_icon!
+          }
+       } else {
+        return "fa-solid fa-xmark fa-4x"
+       }
       }
     }
     return "fa-solid fa-xmark fa-4x"

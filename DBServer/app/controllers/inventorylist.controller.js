@@ -4,7 +4,30 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-  
+   // Validate request
+   if (!req.body.user_id) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+    return;
+  }
+
+  // Create Item
+  const inventory = {
+    user_id: req.body.user_id,
+    item_id: req.body.item_id
+  };
+  // Save Item in the database
+  InventoryLists.create(inventory)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Item."
+      });
+    });
 };
 
 // Retrieve all Tutorials from the database.

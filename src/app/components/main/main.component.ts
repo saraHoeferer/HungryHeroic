@@ -8,7 +8,6 @@ import { CategoryService } from 'src/app/services/categoryService/category.servi
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
-import { Observable } from 'rxjs';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -36,7 +35,7 @@ export class MainComponent implements OnInit{
     item_expiration_date: new Date,
     item_category_id: 0,
     item_storage_loc_id: 0,
-    progress: '30',
+    progress: 30,
     progressString: 'danger'
   };
   saved = false;
@@ -56,7 +55,7 @@ export class MainComponent implements OnInit{
 
   retrieveInventory(): void {
     this.supply = true
-    this.InventoryListService.getUserInventory(2)
+    this.InventoryListService.getUserInventory(1)
     .subscribe({
       next: (data) => {
         this.inventory = data;
@@ -86,7 +85,7 @@ export class MainComponent implements OnInit{
 
   retrieveShopping(): void {
     this.supply = false
-    this.ShoppingListService.getUserShopping(2)
+    this.ShoppingListService.getUserShopping(1)
     .subscribe({
       next: (data) => {
         this.shopping = data;
@@ -169,8 +168,22 @@ export class MainComponent implements OnInit{
     this.itemService.create(data)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          this.currentItem = res
           this.saved = true;
+
+          const data2 = {
+            user_id: 1,
+            item_id: this.currentItem.item_id
+          }
+      
+          this.InventoryListService.create(data2)
+            .subscribe({
+              next: (res) => {
+                this.currentItem = res
+                this.saved = true;
+              },
+              error: (e) => console.error(e)
+          });
         },
         error: (e) => console.error(e)
       });
@@ -186,7 +199,7 @@ export class MainComponent implements OnInit{
       item_expiration_date: new Date(),
       item_category_id: 0,
       item_storage_loc_id: 0,
-      progress: '30',
+      progress: 30,
       progressString: 'danger'
     };
   }
