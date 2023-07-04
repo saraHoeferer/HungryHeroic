@@ -82,11 +82,10 @@
   <div class="modal-body">
       <div *ngIf="!saved">
         <form>
-          <!-- Temporary -->
-          <div class="row">
-            <div class="form-group">
-              <label for="itemName">Name</label>
-              <input *ngIf="!found"
+          <div class="form-group">
+            <label for="itemName">Name</label>
+            <div *ngIf="!found">
+              <input
                 type="text"
                 class="form-control"
                 id="itemName"
@@ -94,24 +93,36 @@
                 required
                 name="itemName"
               />
-              <input *ngIf="found"
-              type="text"
-              class="form-control"
-              id="itemName"
-              [(ngModel)]="addItem.item_name"
-              required
-              name="itemName"
-              readonly
-            />
             </div>
-            <button *ngIf="!found && !needsToBeCreated" (click)="searchForItem()" type="button" class="btn btn-block btn-outline-dark">Search</button>
-            <button *ngIf="needsToBeCreated" (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
+            <div *ngIf="found">
+              <input
+                type="text"
+                class="form-control"
+                id="itemName"
+                [(ngModel)]="addItem.item_name"
+                required
+                name="itemName"
+                readonly
+              />
+            </div>
+          </div>
+          <div *ngIf="!found && !needsToBeCreated">
+            <div class="alert alert-dark">
+              <p class="mb-0">To search if the Item you want to add to your list already exists enter the <b>Items Name</b> and click the <b>"Search"</b> Button</p>
+            </div>
+            <button (click)="searchForItem()" type="button" class="btn btn-block btn-outline-dark">Search</button>
+          </div>
+          <div *ngIf="needsToBeCreated">
+            <div class="alert alert-danger">
+              <p class="mb-0">The Item you searched could not be found.<br>You need to create the Item by clicking <b>Add Item</b> and entering the Items Details</p>
+            </div>
+            <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
-          <div class="row">
+          <div class="row" style="margin-left: -10px">
             <div class="col-no-margin form-group w-25">
               <label for="itemQuantity">Quantity</label>
-              <div class="input-group">
+              <div class="input-group ">
                 <input
                   type="number"
                   min="0"
@@ -139,7 +150,7 @@
               />
             </div>
           </div>
-          <div class="row">
+          <div class="row" style="margin-left: -10px">
             <div class="form-group w-50 col">
               <label for="itemStorage">Storage</label>
               <select
@@ -180,13 +191,4 @@
         <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
       </div>
   </div>
-  <!--
-  <div class="modal-footer">
-    <button type="button"
-            class="btn btn-outline-dark"
-            (click)="modal.close('Save click')">
-      Save
-    </button>
-  </div>
-  -->
 </ng-template>
