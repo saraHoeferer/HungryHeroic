@@ -81,112 +81,109 @@
     </button>
   </div>
   <div class="modal-body">
-      <div *ngIf="!saved">
-        <form>
-          <!-- Temporary -->
-          <div class="row">
-            <div class="form-group">
-              <label for="itemID">ID</label>
+    <div *ngIf="!saved">
+      <form>
+        <!-- Temporary -->
+        <div class="row">
+          <div class="form-group">
+            <label for="itemID">ID</label>
+            <input
+              type="number"
+              min="0"
+              class="form-control"
+              id="itemID"
+              [(ngModel)]="addItem.item_id"
+              required
+              name="itemID"
+            />
+          </div>
+        </div>
+        <!-- Temporary -->
+        <div class="row">
+          <div class="col-no-margin form-group w-25">
+            <label for="itemQuantity">Quantity</label>
+            <div class="input-group">
               <input
                 type="number"
                 min="0"
                 class="form-control"
-                id="itemID"
-                [(ngModel)]="addItem.item_id"
+                aria-describedby="multiply-addon"
+                id="itemQuantity"
+                [(ngModel)]="addItem.item_quantity"
                 required
-                name="itemID"
+                name="itemQuantity"
               />
-            </div>
-          </div>
-          <!-- Temporary -->
-          <div class="row">
-            <div class="col-no-margin form-group w-25">
-              <label for="itemQuantity">Quantity</label>
-              <div class="input-group">
-                <input
-                  type="number"
-                  min="0"
-                  class="form-control"
-                  aria-describedby="multiply-addon"
-                  id="itemQuantity"
-                  [(ngModel)]="addItem.item_quantity"
-                  required
-                  name="itemQuantity"
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text" id="multiply-addon"> × </span>
-                </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="multiply-addon"> × </span>
               </div>
             </div>
-            <div class="col form-group">
-              <label for="itemName">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="itemName"
-                [(ngModel)]="addItem.item_name"
-                required
-                name="itemName"
-              />
-            </div>
           </div>
-          <div class="row">
-            <div class="form-group">
-              <label for="itemExpirationDate">Expiration Date</label>
-              <input
-                type="Date"
-                class="form-control"
-                id="itemExpirationDate"
-                [(ngModel)]="addItem.item_expiration_date"
-                required
-                name="itemExpirationDate"
-              />
-            </div>
+          <div class="col form-group">
+            <label for="itemName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="itemName"
+              [(ngModel)]="addItem.item_name"
+              required
+              name="itemName"
+            />
           </div>
-          <div class="row">
-            <div class="form-group w-50 col">
-              <label for="itemStorage">Storage</label>
-              <select
-                class="form-control"
-                id="itemStorage"
-                [(ngModel)]="addItem.item_storage_loc_id"
-                required
-                name="itemStorage">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
-            <div class="form-group w-50 col">
-              <label for="itemCategory">Category</label>
-              <select
-                class="form-control"
-                id="itemCategory"
-                [(ngModel)]="addItem.item_category_id"
-                required
-                name="itemCategory">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for="itemExpirationDate">Expiration Date</label>
+            <input
+              type="Date"
+              class="form-control"
+              id="itemExpirationDate"
+              [(ngModel)]="addItem.item_expiration_date"
+              required
+              name="itemExpirationDate"
+            />
           </div>
-          <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Save</button>
-        </form>
-
+        </div>
+        <div class="row">
+          <div class="form-group w-50 col">
+            <label for="itemStorage">Storage</label>
+            <select
+              class="form-control"
+              id="itemStorage"
+              [(ngModel)]="addItem.item_storage_loc_id"
+              required
+              name="itemStorage">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+          <div class="form-group w-50 col">
+            <label for="itemCategory">Category</label>
+            <select
+              class="form-control"
+              id="itemCategory"
+              [(ngModel)]="addItem.item_category_id"
+              required
+              name="itemCategory">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+          </div>
+        </div>
+        <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Save</button>
+      </form>
+    </div>
+    <div *ngIf="saved">
+      <div class="alert alert-success">
+        <h4 class="alert-heading">New Item was created!</h4>
+        <p class="mb-0">To add another Item to the Database click the <b>"Add"</b> Button</p>
       </div>
-      <div *ngIf="saved">
-        <h4>New Item was created successfully!</h4>
-        <button (click)="newItem()" type="button" class="btn btn-block btn-outline-dark">Add another Item</button>
+      <div class="alert alert-primary">
+        <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
       </div>
+      <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-primary">Finished</button>
+      <button (click)="newItem()" type="button" class="btn btn-block btn-outline-dark">Add</button>
+    </div>
   </div>
-  <!--
-  <div class="modal-footer">
-    <button type="button"
-            class="btn btn-outline-dark"
-            (click)="modal.close('Save click')">
-      Save
-    </button>
-  </div>
-  -->
 </ng-template>
