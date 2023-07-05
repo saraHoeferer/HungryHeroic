@@ -1,124 +1,240 @@
-<div [style.background-image]="'url(assets/images/background.jpg)'" class="background">
-    <header id="home-header">
-      <h2>HungryHeroic</h2>
-      <a routerLink="/login"><button id="loginButton">Login</button></a>
-    </header>
-    <div id="SignUp">
-      <h1>Start saving food on your own!</h1>
-      <h3>by tracking your groceries</h3>
-      <a routerLink="/register"><button>Sign Up</button></a>
+<div class="bg-image background container-no-margin" id="Start" style="background-image: url(assets/images/background.jpg);">
+  <div class="container-no-margin">
+    <div class="row signature">
+      <div class="col">
+        <h2 class="fw-bold">HungryHeroic</h2>
+      </div>
+      <div class="col-md-8"></div>
+      <div class="col">
+        <h2 routerLink="/login">
+          <button class="btn btn-block btn-outline-custom-success fw-bold">Login</button>
+        </h2>
+      </div>
+      <span class="border border-white"></span>
+    </div>
+
+    <!-- Signature & Login End -->
+    <div class="row text-center" style="min-height: 80vh;">
+      <div class="col align-self-center">
+        <h1 class="text-capitalize bg-black bg-opacity-10">Start saving food on your own!</h1>
+        <h3>by tracking your groceries</h3>
+        <h2 class="text-center">
+          <button routerLink="/register" class="btn btn-block w-25 btn-outline-custom-danger fw-bold">Sign Up</button>
+        </h2>
+      </div>
     </div>
   </div>
-  <div id="cause">
-    <div id="cause-header">
-      <h2>What's the cause?</h2>
-      <p>(food waste in Austria)</p>
+</div>
+<nav class="navbar sticky-top navbar-expand bg-black bg-opacity-75">
+  <a class="btn btn-outline-light btn-block w-25 m-2" href="#Start">Start</a>
+  <a class="btn btn-outline-custom-success btn-block w-25 m-2" href="#Cause">Cause</a>
+  <a class="btn btn-outline-custom-warning btn-block w-25 m-2" href="#Features">Features</a>
+  <a class="btn btn-outline-light btn-block w-25 m-2" href="#Team">Team</a>
+</nav>
+<div class="container-no-margin home-section p-5" id="Cause">
+  <div class="mb-5">
+    <div class="alert alert-success w-50 mb-2">
+      <h2 class="fw-bold mb-0">
+        What's the cause ?
+      </h2>
     </div>
-    <div id="cause-body">
-      <p>
-        Food waste in Austria is a significant concern, with private households playing a substantial role in its magnitude.
-        It is estimated that around <b>42%</b> of the total food waste in the country originates from homes, amounting to approximately <b>577,000 tons</b> of discarded food annually.
-        Several factors contribute to this wastage.<br><br>
-        <em><b>Inadequate meal planning</b></em> is a common issue, leading to excessive food preparation and subsequent disposal.
-        Additionally, a <em><b>lack of portion control</b></em> results in leftovers being discarded.<br>
-        <em><b>Misinterpretation of expiration dates</b></em> also plays a role, as consumers often discard food that is still perfectly safe to consume.<br>
-        <em><b>Impulse buying</b></em>, <em><b>overstocking</b></em>, and a <em><b>general lack of knowledge regarding proper food storage</b></em> and preservation techniques further contribute to the problem.<br><br>
-        The consequences of food waste are far-reaching.
-        Environmentally, it leads to unnecessary greenhouse gas emissions and the wastage of precious resources such as water and land.
-        Socially, food waste represents missed opportunities to address hunger and food insecurity within Austria. <br><br>
-        By taking small but impactful steps, such as planning meals in advance, buying only what is needed, and finding creative ways to use leftovers, individuals can contribute to minimizing food waste in Austria.
-      </p>
-      <!-- Diagram not finished -->
-      <div id="circle-progress">
+    <p class="m-0 p-1">How bad is food waste in Austria</p>
+  </div>
+  <div class="container-no-margin">
+    <div class="row h-100">
+      <div class="col-lg-8 align-self-center">
+        <p>
+          Food waste in Austria is a significant concern, with private households playing a substantial role in its magnitude.
+          It is estimated that around <b>42%</b> of the total food waste in the country originates from homes, amounting to approximately <b>577,000 tons</b> of discarded food annually.
+
+          The consequences of food waste are far-reaching.<br><br>
+          <b>Environmentally</b>, it leads to unnecessary greenhouse gas emissions and the wastage of precious resources such as water and land.<br><br>
+          <b>Socially</b>, food waste represents missed opportunities to address hunger and food insecurity within Austria.<br><br>
+          By taking small but impactful steps, such as planning meals in advance, buying only what is needed, and finding creative ways to use leftovers, individuals can contribute to minimizing food waste in Austria.
+        </p>
+      </div>
+      <div class="col-lg-4 align-self-center d-flex justify-content-center">
         <circle-progress [percent]="42" [subtitle]="'in private homes'"></circle-progress>
       </div>
     </div>
   </div>
-  <div id="features">
-    <div id="features-header">
-      <h2>Features</h2>
-      <p>What is HungryHeroic good for?</p>
+</div>
+<div class="container-no-margin home-section p-5" id="Features">
+  <div class="mb-5">
+    <div class="alert alert-warning w-50 mb-2">
+      <h2 class="fw-bold mb-0">
+        Features
+      </h2>
     </div>
-    <div id="features-body" class="grid">
-      <section class="block">
-        <article>
-          <img src="../../assets/icons/shopping.png" class="icons" alt="shopping-icon">
-          <h3>Track your Groceries & Storage</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-      </section>
-      <section class="block">
-        <article>
-          <img src="../../assets/icons/danger.png" class="icons" alt="danger-icon">
-          <h3>Warning before food expires</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-      </section>
-      <section class="block">
-        <article>
-          <img src="../../assets/icons/idea.png" class="icons" alt="idea-icon">
-          <h3>Recipe Ideas based on stored food</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-        </p>
-      </section>
-    </div>
+    <p class="m-0 p-1">What is HungryHeroic good for?</p>
   </div>
-  <div id="team">
-    <div id="team-header">
-      <h2>Team</h2>
-      <p>Who are we, why are we doing this?</p>
-    </div>
-    <div id="team-body" class="grid">
-      <section>
-        <article>
-          <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
-          <h3>Marlene Zoe Ruf</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum.
-        </p>
-      </section>
-      <section>
-        <article>
-          <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
-          <h3>Merve Tuz</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum.
-        </p>
-      </section>
-      <section>
-        <article>
-          <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
-          <h3>Sara Höferer</h3>
-        </article>
-        <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-          At vero eos et accusam et justo duo dolores et ea rebum.
-        </p>
-      </section>
-    </div>
-  </div>
-  <footer>
-    <a href="https://www.flaticon.com/free-icons/idea" title="idea icons">Idea icons created by Freepik - Flaticon<br></a>
-    <a href="https://www.flaticon.com/free-icons/basket" title="basket icons">Basket icons created by Freepik - Flaticon<br></a>
-    <a href="https://www.flaticon.com/free-icons/alert" title="alert icons">Alert icons created by Freepik - Flaticon<br></a>
 
-  </footer>
+
+
+  <div class="container-no-margin" >
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="container">
+          <div class="row h-100 mb-4">
+            <div class="col-lg-4 align-self-center d-flex justify-content-center">
+              <img src="../../assets/icons/shopping.png" class="icons" alt="shopping-icon">
+            </div>
+            <div class="col-lg-6 align-self-center d-flex justify-content-center">
+              <h2>Track your Groceries & Storage</h2>
+            </div>
+          </div>
+          <div class="row h-100 mb-3">
+            <div class="col-md-12 align-self-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="container">
+          <div class="row h-100 mb-4">
+            <div class="col-lg-4 align-self-center d-flex justify-content-center">
+              <img src="../../assets/icons/danger.png" class="icons" alt="danger-icon">
+            </div>
+            <div class="col-lg-6 align-self-center d-flex justify-content-center">
+              <h2>Warning before food expires</h2>
+            </div>
+          </div>
+          <div class="row h-100 mb-3">
+            <div class="col-md-12 align-self-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="container">
+          <div class="row h-100 mb-4">
+            <div class="col-lg-4 align-self-center d-flex justify-content-center">
+              <img src="../../assets/icons/idea.png" class="icons" alt="idea-icon">
+            </div>
+            <div class="col-lg-6 align-self-center d-flex justify-content-center">
+              <h2>Recipe Ideas based on stored food</h2>
+            </div>
+          </div>
+          <div class="row h-100 mb-3">
+            <div class="col-md-12 align-self-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-no-margin home-section p-5" id="Team">
+  <div class="mb-5">
+    <div class="alert alert-dark w-50 mb-2">
+      <h2 class="fw-bold mb-0">
+        Team
+      </h2>
+    </div>
+    <p class="m-0 p-1">Who are we, why are we doing this?</p>
+  </div>
+
+  <!-- body here -->
+  <div class="container-no-margin">
+    <div class="row">
+      <div class="col-lg-4">
+
+
+        <div class="container">
+          <div class="row h-100 mb-2">
+            <div class="col align-self-center d-flex justify-content-center">
+              <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
+            </div>
+          </div>
+          <div class="row h-100 mb-4">
+            <div class="col align-self-center d-flex justify-content-center">
+              <h3>Marlene Zoë Ruf</h3>
+            </div>
+          </div>
+          <div class="row h-100 mb-5">
+            <div class="col align-self-center d-flex justify-content-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-lg-4">
+
+        <div class="container">
+          <div class="row h-100 mb-2">
+            <div class="col align-self-center d-flex justify-content-center">
+              <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
+            </div>
+          </div>
+          <div class="row h-100 mb-4">
+            <div class="col align-self-center d-flex justify-content-center">
+              <h3>Merve Tuz</h3>
+            </div>
+          </div>
+          <div class="row h-100 mb-5">
+            <div class="col align-self-center d-flex justify-content-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-lg-4">
+
+        <div class="container">
+          <div class="row h-100 mb-2">
+            <div class="col align-self-center d-flex justify-content-center">
+              <img src="../../assets/images/no-image.png" class="team-image" alt="no-image">
+            </div>
+          </div>
+          <div class="row h-100 mb-4">
+            <div class="col align-self-center d-flex justify-content-center">
+              <h3>Sara Höferer</h3>
+            </div>
+          </div>
+          <div class="row h-100 mb-5">
+            <div class="col align-self-center d-flex justify-content-center">
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+                At vero eos et accusam et justo duo dolores et ea rebum.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="row h-100">
+  <a href="https://www.flaticon.com/free-icons/idea" title="idea icons">Idea icons created by Freepik - Flaticon<br></a>
+  <a href="https://www.flaticon.com/free-icons/basket" title="basket icons">Basket icons created by Freepik - Flaticon<br></a>
+  <a href="https://www.flaticon.com/free-icons/alert" title="alert icons">Alert icons created by Freepik - Flaticon<br></a>
+</footer>
