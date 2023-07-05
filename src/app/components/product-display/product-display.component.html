@@ -87,6 +87,7 @@
                 aria-describedby="multiply-addon"
                 id="itemQuantity"
                 required
+                [(ngModel)]="currentInventory.quantity"
                 name="itemQuantity"
               />
               <div class="input-group-append">
@@ -100,8 +101,8 @@
               type="text"
               class="form-control"
               id="itemName"
-              [(ngModel)]="currentItem.item_name"
-              required
+              readonly
+              [(ngModel)] = "this.item.item_name"
               name="itemName"
             />
           </div>
@@ -114,6 +115,7 @@
               class="form-control"
               id="itemExpirationDate"
               required
+              [(ngModel)]="currentInventory.expiration_date"
               name="itemExpirationDate"
             />
           </div>
@@ -125,10 +127,9 @@
               class="form-control"
               id="itemStorage"
               required
+              [(ngModel)]="currentInventory.storage_loc_id"
               name="itemStorage">
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option *ngFor="let storageLocation of storages" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
             </select>
           </div>
           <div class="form-group w-50 col">
@@ -137,10 +138,9 @@
               class="form-control"
               id="itemCategory"
               required
+              [(ngModel)]="currentInventory.category_id"
               name="itemCategory">
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-              <option value="3">Option 3</option>
+              <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
             </select>
           </div>
         </div>

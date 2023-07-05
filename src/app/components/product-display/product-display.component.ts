@@ -5,6 +5,7 @@ import { ItemsService } from 'src/app/services/itemService/items.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
+import { Storage } from 'src/app/models/storageModel/storage.model';
 
 @Component({
   selector: 'app-product-display',
@@ -14,6 +15,7 @@ import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.
 export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   @Input() item!: Item;
   @Input() categories?: Category[]
+  @Input() storages?: Storage[]
   @Input() inventoryList?: InventoryList;
   closeResult = '';
   message = '';
@@ -23,6 +25,8 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     if (this.inventoryList != null){
       this.getItem(this.inventoryList.item_id!.toString())
+      this.currentInventory = this.inventoryList
+      console.log(this.currentInventory)
     }
   }
 
@@ -34,6 +38,16 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     item_id: 0,
     item_name: '',
   };
+
+  currentInventory: InventoryList = {
+    item_id: 0,
+    user_id: 1,
+    quantity: 0,
+    expiration_date: new Date,
+    storage_loc_id: 0,
+    category_id: 0
+  }
+
   edited = false;
 
 
@@ -138,7 +152,8 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   }
 
   updateItem(): void {
-    this.itemService.update(this.item.item_id, this.currentItem)
+    console.log(this.inventoryList)
+    this.inventoryService.update(this.item.item_id, this.inventoryList?.user_id, this.currentInventory)
       .subscribe({
         next: (res) => {
           console.log(res);

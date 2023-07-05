@@ -59,7 +59,29 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-  
+  const user_id = req.params.userId;
+  const item_id = req.params.itemId
+
+
+  InventoryLists.update(req.body, {
+    where: { item_id: item_id, user_id: user_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Item was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Item with id=${item_id}. Maybe Item was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Item with id=" + item_id
+      });
+    });
 };
 
 // Delete a Tutorial with the specified id in the request

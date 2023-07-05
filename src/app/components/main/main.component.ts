@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Item } from 'src/app//models/itemModel/item.model';
 import { Lists } from 'src/app/models/Lists/lists.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
@@ -18,7 +18,7 @@ import { empty } from 'rxjs';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit{
+export class MainComponent implements OnInit, OnChanges{
   categories?: Category[];
   storageLocations?: Storage[];
   inventory?: InventoryList[];
@@ -60,6 +60,14 @@ export class MainComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.retrieveItems();
+    this.retrieveCategories();
+    this.retrieveStorageLocations();
+    this.retrieveShopping()
+    this.retrieveInventory()
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.retrieveItems();
     this.retrieveCategories();
     this.retrieveStorageLocations();
@@ -250,13 +258,24 @@ export class MainComponent implements OnInit{
       },
       error: (e) => console.error(e)
     });
+    this.newItem()
   }
 
   //Set the addItem back to dummy values
   newItem(): void {
     this.saved = false;
+    this.found = false;
+    this.needsToBeCreated = false;
     this.addItem = {
       item_name: '',
     };
+    this.addToInventory = {
+      quantity: 0,
+      user_id: 0,
+      item_id: 0,
+      expiration_date: new Date(),
+      storage_loc_id: 0,
+      category_id: 0
+    }
   }
 }

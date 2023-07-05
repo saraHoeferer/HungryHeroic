@@ -64,7 +64,7 @@
         </div>
       </div>
 </div>
-  <app-lists  *ngIf="supply == true" [inventoryList]="inventory"></app-lists>
+  <app-lists *ngIf="supply == true" [inventoryList]="inventory" [storages]="storageLocations"></app-lists>
   <app-shopping-list  *ngIf="supply == false" [inventoryList]="shopping"></app-shopping-list>
 <!-- PopUp Add Item to DB -->
 <ng-template #addItemPopUp let-modal>
@@ -73,7 +73,7 @@
       Add a new Item
     </h4>
     <button type="button" class="close"
-            aria-label="Close" (click)="modal.dismiss('Cross click')">
+            aria-label="Close" (click)="modal.dismiss('Cross click'); newItem()">
               <span aria-hidden="true">
                   ×
               </span>
