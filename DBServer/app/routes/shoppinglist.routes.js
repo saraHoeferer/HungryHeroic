@@ -19,7 +19,7 @@ module.exports = app => {
     router.put("/:id", tutorials.update);
   
     // Delete a Tutorial with id
-    router.delete("/:id", tutorials.delete);
+    router.delete("/one/:item/:user", tutorials.delete);
   
     // Delete all Tutorials
     router.delete("/", tutorials.deleteAll);

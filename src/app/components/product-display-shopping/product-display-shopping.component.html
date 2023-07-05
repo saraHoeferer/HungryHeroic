@@ -4,15 +4,156 @@
         <div class="card-avatar">
           <i class={{getIcon()}}></i>
         </div>
-        <div *ngIf="item!=null" class="card-title">{{item.item_name}}</div>
+        <div *ngIf="ShoppingList!=null" class="card-title">{{ShoppingList.item_name}}</div>
       </div>
       <ul class="card-social">
         <li class="card-social__item">
-          <i class="fa-solid fa-bag-shopping"></i>
+          <i (click)="open(editItemPopUp)" class="fa-solid fa-bag-shopping"></i>
         </li>
         <li class="card-social__item">
-          <i class="fa-solid fa-trash"></i>
+          <i (click)="open(deleteItemPopUp)" class="fa-solid fa-trash"></i>
         </li>
       </ul>
   </div>
 </section>
+<!-- PopUp Delete Item from DB -->
+<ng-template #deleteItemPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="deleteItemPopUpTitle">
+      Delete Item
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger">
+      <h4 class="alert-heading">
+        Danger Zone
+      </h4>
+      <p>By clicking on <b>"Delete"</b> you will permanently delete <b *ngIf="ShoppingList!=null">{{ShoppingList.item_name}}</b> form the Database!</p>
+    </div>
+    <div class=" alert alert-dark">
+      <p class="mb-0">Click <b>"Keep"</b> if you changes your mind. This will close the window.</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            id="deleteButton"
+            class="btn btn-outline-custom-danger btn-block"
+            (click)="deleteItem(); modal.close('Delete click')">
+      Delete
+    </button>
+    <button type="button"
+            id="keepButton"
+            class="btn btn-outline-dark btn-block"
+            (click)="modal.close('Keep click')">
+      Keep
+    </button>
+  </div>
+</ng-template>
+<!-- PopUp Edit Item in DB -->
+<ng-template #editItemPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="editItemPopUpTitle">
+      Add Item to Inventory
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="!edited">
+      <form>
+        <div class="row">
+          <div class="col-no-margin form-group w-25">
+            <label for="itemQuantity">Quantity</label>
+            <div class="input-group">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                aria-describedby="multiply-addon"
+                id="itemQuantity"
+                required
+                *ngIf="ShoppingList != null"
+                [(ngModel)]="ShoppingList.quantity"
+                name="itemQuantity"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text" id="multiply-addon"> × </span>
+              </div>
+            </div>
+          </div>
+          <div class="col form-group">
+            <label for="itemName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="itemName"
+              readonly
+              *ngIf="ShoppingList != null"
+              [(ngModel)] = "ShoppingList.item_name"
+              name="itemName"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label for="itemExpirationDate">Expiration Date</label>
+            <input
+              type="Date"
+              class="form-control"
+              id="itemExpirationDate"
+              required
+              [(ngModel)]="currentInventory.expiration_date"
+              name="itemExpirationDate"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group w-50 col">
+            <label for="itemStorage">Storage</label>
+            <select
+              class="form-control"
+              id="itemStorage"
+              required
+              [(ngModel)]="currentInventory.storage_loc_id"
+              name="itemStorage">
+              <option *ngFor="let storageLocations of storageLocation" value="{{storageLocations.storage_loc_id}}">{{storageLocations.storage_loc_name}}</option>
+            </select>
+          </div>
+          <div class="form-group w-50 col">
+            <label for="itemCategory">Category</label>
+            <select
+              class="form-control"
+              id="itemCategory"
+              required
+              *ngIf="ShoppingList != null"
+              [(ngModel)]="ShoppingList.category_id"
+              name="itemCategory">
+              <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
+            </select>
+          </div>
+        </div>
+        <button (click)="addToInventory()" type="button" class="btn btn-block btn-outline-dark">Add to Inventory</button>
+      </form>
+    </div>
+    <div *ngIf="edited">
+      <div class="alert alert-custom-success">
+        <h4 class="alert-heading">Item was edited!</h4>
+        <p class="mb-0">To add another Item to the inventory close the window and click the <b>"Shopping Bag"</b> Symbol</p>
+      </div>
+      <div class="alert alert-dark">
+        <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
+      </div>
+      <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+    </div>
+  </div>
+</ng-template>

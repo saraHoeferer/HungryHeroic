@@ -117,6 +117,16 @@ export class MainComponent implements OnInit, OnChanges{
     .subscribe({
       next: (data) => {
         this.shopping = data;
+        for (let shoppings of this.shopping){
+          this.itemService.get(shoppings.item_id)
+            .subscribe({
+              next: (data) => {
+                this.currentItem = data;
+                shoppings.item_name = this.currentItem.item_name;
+              },
+              error: (e) => console.error(e)
+            });
+        }
       },
       error: (e) => console.error(e)
     })
@@ -212,7 +222,21 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   saveShoppping(): void{
-    console.log("hier")
+    console.log(this.currentItem)
+    const data = {
+      user_id: 1,
+      item_id: this.currentItem.item_id,
+      quantity: this.addToShopping.quantity,
+      category_id: this.addToShopping.category_id,
+    };
+    this.ShoppingListService.create(data)
+      .subscribe({
+        next: (res) => {
+          console.log(res)
+          this.saved = true;
+        },
+        error: (e) => console.error(e)
+      });
   }
 
   saveItem(): void {
@@ -256,6 +280,12 @@ export class MainComponent implements OnInit, OnChanges{
       item_id: 0,
       expiration_date: new Date(),
       storage_loc_id: 0,
+      category_id: 0
+    }
+    this.addToShopping ={
+      user_id: 0,
+      item_id: 0,
+      quantity: 0,
       category_id: 0
     }
   }
