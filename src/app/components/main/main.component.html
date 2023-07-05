@@ -64,7 +64,7 @@
         </div>
       </div>
 </div>
-  <div>{{sortListInventory()}}</div>
+  <!--<div>{{sortListInventory()}}</div>-->
   <app-lists *ngIf="supply == true" [inventoryList]="inventory" [storages]="storageLocations"></app-lists>
   <app-shopping-list  *ngIf="supply == false" [inventoryList]="shopping"></app-shopping-list>
 <!-- PopUp Add Item to DB -->
