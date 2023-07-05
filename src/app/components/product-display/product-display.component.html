@@ -4,10 +4,10 @@
           <div class="card-avatar">
             <i class="{{getIcon()}}"></i>
           </div>
-          <div *ngIf="item!=null&&inventoryList!=null" class="card-title">{{item.item_name}} {{getDays(inventoryList!.expiration_date)}}</div>
+          <div *ngIf="inventoryList!=null" class="card-title">{{inventoryList.item_name}} {{getDays(inventoryList!.expiration_date)}}</div>
           <div *ngIf="inventoryList!=null" class="card-subtitle">Expires at: {{inventoryList.expiration_date}}</div>
           <div class="progress">
-            <div *ngIf="item!=null" class="progress-bar bg-custom-{{getProgressString()}}" role="progressbar" style="width: {{progress}}%" aria-valuenow="{progress}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-custom-{{getProgressString()}}" role="progressbar" style="width: {{progress}}%" aria-valuenow="{progress}" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
 
         </div>
@@ -39,7 +39,7 @@
       <h4 class="alert-heading">
         Danger Zone
       </h4>
-      <p>By clicking on <b>"Delete"</b> you will permanently delete <b>{{item.item_name}}</b> form the Database!</p>
+      <p>By clicking on <b>"Delete"</b> you will permanently delete <b *ngIf="inventoryList!=null">{{inventoryList.item_name}}</b> form the Database!</p>
     </div>
     <div class=" alert alert-dark">
       <p class="mb-0">Click <b>"Keep"</b> if you changes your mind. This will close the window.</p>
@@ -102,7 +102,7 @@
               class="form-control"
               id="itemName"
               readonly
-              [(ngModel)] = "this.item.item_name"
+              [(ngModel)] = "this.currentInventory.item_name"
               name="itemName"
             />
           </div>

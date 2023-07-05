@@ -64,6 +64,7 @@
         </div>
       </div>
 </div>
+  <div>{{sortListInventory()}}</div>
   <app-lists *ngIf="supply == true" [inventoryList]="inventory" [storages]="storageLocations"></app-lists>
   <app-shopping-list  *ngIf="supply == false" [inventoryList]="shopping"></app-shopping-list>
 <!-- PopUp Add Item to DB -->
@@ -73,7 +74,7 @@
       Add a new Item
     </h4>
     <button type="button" class="close"
-            aria-label="Close" (click)="modal.dismiss('Cross click'); newItem()">
+            aria-label="Close" (click)="modal.dismiss('Cross click'); newItem(); refreshList()">
               <span aria-hidden="true">
                   ×
               </span>
@@ -119,62 +120,98 @@
             <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
-          <div class="row" style="margin-left: -10px">
-            <div class="col-no-margin form-group w-25">
-              <label for="itemQuantity">Quantity</label>
-              <div class="input-group ">
-                <input
-                  type="number"
-                  min="0"
-                  class="form-control"
-                  aria-describedby="multiply-addon"
-                  id="itemQuantity"
-                  required
-                  [(ngModel)]="addToInventory.quantity"
-                  name="itemQuantity"
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text" id="multiply-addon"> × </span>
+            <div *ngIf="supply">
+              <div class="row" style="margin-left: -10px">
+                <div class="col-no-margin form-group w-25">
+                  <label for="itemQuantity">Quantity</label>
+                  <div class="input-group ">
+                    <input
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      aria-describedby="multiply-addon"
+                      id="itemQuantity"
+                      required
+                      [(ngModel)]="addToInventory.quantity"
+                      name="itemQuantity"
+                    />
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="multiply-addon"> × </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group w-75">
+                  <label for="itemExpirationDate">Expiration Date</label>
+                  <input
+                    type="Date"
+                    class="form-control"
+                    id="itemExpirationDate"
+                    [(ngModel)]="addToInventory.expiration_date"
+                    required
+                    name="itemExpirationDate"
+                  />
                 </div>
               </div>
             </div>
-            <div class="form-group w-75">
-              <label for="itemExpirationDate">Expiration Date</label>
-              <input
-                type="Date"
-                class="form-control"
-                id="itemExpirationDate"
-                [(ngModel)]="addToInventory.expiration_date"
-                required
-                name="itemExpirationDate"
-              />
-            </div>
-          </div>
           <div class="row" style="margin-left: -10px">
+              <div class="form-group w-50 col">
+                <div *ngIf="supply">
+                  <label for="itemStorage">Storage</label>
+                  <select
+                    class="form-control"
+                    id="itemStorage"
+                    required
+                    [(ngModel)]="addToInventory.storage_loc_id"
+                    name="itemStorage">
+                    <option *ngFor="let storageLocation of storageLocations" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
+                  </select>
+                </div>
+                <div *ngIf="!supply">
+                  <label for="itemQuantity">Quantity</label>
+                  <div class="input-group ">
+                    <input
+                      type="number"
+                      min="0"
+                      class="form-control"
+                      aria-describedby="multiply-addon"
+                      id="itemQuantity"
+                      required
+                      [(ngModel)]="addToShopping.quantity"
+                      name="itemQuantity"
+                    />
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="multiply-addon"> × </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <div class="form-group w-50 col">
-              <label for="itemStorage">Storage</label>
-              <select
-                class="form-control"
-                id="itemStorage"
-                required
-                [(ngModel)]="addToInventory.storage_loc_id"
-                name="itemStorage">
-                <option *ngFor="let storageLocation of storageLocations" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
-              </select>
-            </div>
-            <div class="form-group w-50 col">
-              <label for="itemCategory">Category</label>
-              <select
-                class="form-control"
-                id="itemCategory"
-                required
-                [(ngModel)]="addToInventory.category_id"
-                name="itemCategory">
-                <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
-              </select>
+              <div *ngIf="supply">
+                <label for="itemCategory">Category</label>
+                <select
+                  class="form-control"
+                  id="itemCategory"
+                  required
+                  [(ngModel)]="addToInventory.category_id"
+                  name="itemCategory">
+                  <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
+                </select>
+              </div>
+              <div *ngIf="!supply">
+                <label for="itemCategory">Category</label>
+                <select
+                  class="form-control"
+                  id="itemCategory"
+                  required
+                  [(ngModel)]="addToShopping.category_id"
+                  name="itemCategory">
+                  <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
+                </select>
+              </div>
             </div>
           </div>
-          <button (click)="saveInventory()" type="button" class="btn btn-block btn-outline-dark">Save</button>
+          <button *ngIf="supply" (click)="saveInventory()" type="button" class="btn btn-block btn-outline-dark">Save</button>
+          <button *ngIf="!supply" (click)="saveShoppping()" type="button" class="btn btn-block btn-outline-dark">Save</button>
           </div>
         </form>
 
@@ -188,7 +225,7 @@
           <p class="mb-0">To close the Window click the <b>Finish</b> Button</p>
         </div>
         <button (click)="newItem()" type="button" class="btn btn-block btn-outline-custom-success">Add another Item</button>
-        <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+        <button (click)="newItem(); modal.close('clicked Finished'); refreshList()" type="button" class="btn btn-block btn-outline-dark">Finished</button>
       </div>
   </div>
 </ng-template>

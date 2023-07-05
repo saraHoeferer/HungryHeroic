@@ -23,7 +23,7 @@ export class ListsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.retrieveItems()
+    
   }
 
   retrieveCategories() {
@@ -34,23 +34,6 @@ export class ListsComponent implements OnInit, OnChanges {
         },
         error: (e) => console.error(e)
       });
-  }
-
-  retrieveItems() {
-    console.log(this.inventoryList)
-    if (this.inventoryList != null) {
-      this.items = []
-      for (let i = 0; i < this.inventoryList.length; i++) {
-        this.itemService.get(this.inventoryList[i].item_id)
-          .subscribe({
-            next: (data) => {
-              this.items[i] = data
-              console.log(data)
-            },
-            error: (e) => console.error(e)
-          })
-      }
-    }
   }
 
 }

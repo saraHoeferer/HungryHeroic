@@ -132,7 +132,7 @@ exports.findAllPublished = (req, res) => {
 
 exports.findByName = (req, res) => {
   const item_name = req.params.name;
-  var condition = item_name ? { item_name: { [Op.like]: `%${item_name}%` } } : null;
+  var condition = item_name ? { item_name: { [Op.like]: `${item_name}` } } : null;
 
   Items.findAll({ where: condition})
     .then(data => {

@@ -26,7 +26,6 @@ export class MainComponent implements OnInit, OnChanges{
   supply? = true;
   category?: Category[];
   items?: Item[];
-  currentItem: Item = {};
   currentIndex = -1;
   title = '';
   found = false
@@ -40,6 +39,11 @@ export class MainComponent implements OnInit, OnChanges{
     item_name: '',
   };
 
+  currentItem: Item = {
+    item_id: 0,
+    item_name: '',
+  };
+
   addToInventory: InventoryList = {
     quantity: 0,
     user_id: 0,
@@ -48,6 +52,14 @@ export class MainComponent implements OnInit, OnChanges{
     storage_loc_id: 0,
     category_id: 0
   }
+
+  addToShopping: ShoppingList ={
+    user_id: 0,
+    item_id: 0,
+    quantity: 0,
+    category_id: 0
+  }
+
   saved = false;
 
   constructor(
@@ -60,7 +72,6 @@ export class MainComponent implements OnInit, OnChanges{
   ) {}
 
   ngOnInit(): void {
-    this.retrieveItems();
     this.retrieveCategories();
     this.retrieveStorageLocations();
     this.retrieveShopping()
@@ -68,7 +79,6 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.retrieveItems();
     this.retrieveCategories();
     this.retrieveStorageLocations();
     this.retrieveShopping()
@@ -81,29 +91,25 @@ export class MainComponent implements OnInit, OnChanges{
     .subscribe({
       next: (data) => {
         this.inventory = data;
-        console.log(data);
+        for (let inventories of this.inventory){
+          this.itemService.get(inventories.item_id)
+            .subscribe({
+              next: (data) => {
+                this.currentItem = data;
+                inventories.item_name = this.currentItem.item_name;
+              },
+              error: (e) => console.error(e)
+            });
+        }
       },
       error: (e) => console.error(e)
     });
   }
-  retrieveItems(): void {
-    this.itemService.getAll()
-      .subscribe({
-        next: (data) => {
-          this.items = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
-    this.categoryService.getAll()
-    .subscribe({
-      next: (data) => {
-        this.categories = data;
-        console.log(data);
-      },
-      error: (e) => console.error(e)
-    });
+
+  sortListInventory(): void {
+    this.inventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
   }
+
 
   retrieveShopping(): void {
     this.supply = false
@@ -111,20 +117,18 @@ export class MainComponent implements OnInit, OnChanges{
     .subscribe({
       next: (data) => {
         this.shopping = data;
-        console.log(data);
       },
       error: (e) => console.error(e)
     })
   }
-  refreshList(): void {
-    this.retrieveItems();
-    this.currentItem = {};
-    this.currentIndex = -1;
-  }
 
-  setActiveItem(item: Item, index: number): void {
-    this.currentItem = item;
-    this.currentIndex = index;
+  refreshList(): void {
+    if (this.supply){
+      this.retrieveInventory()
+      this.sortListInventory()
+    } else {
+      this.retrieveShopping()
+    }
   }
 
   retrieveCategories(): void {
@@ -145,31 +149,6 @@ export class MainComponent implements OnInit, OnChanges{
       },
       error: (e) => console.error(e)
     });
-  }
-
-  removeAllItems(): void {
-    this.itemService.deleteAll()
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
-  searchTitle(): void {
-    this.currentItem = {};
-    this.currentIndex = -1;
-
-    this.itemService.findByTitle(this.title)
-      .subscribe({
-        next: (data) => {
-          this.items = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
   }
 
   searchForItem():void{
@@ -232,11 +211,13 @@ export class MainComponent implements OnInit, OnChanges{
       });
   }
 
+  saveShoppping(): void{
+    console.log("hier")
+  }
+
   saveItem(): void {
     const data = {
       item_name: this.addItem.item_name,
-      progress: 20,
-      progressString: "danger"
     };
     var query: Item[]
     this.itemService.create(data)

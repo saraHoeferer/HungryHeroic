@@ -24,20 +24,13 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     if (this.inventoryList != null){
-      this.getItem(this.inventoryList.item_id!.toString())
       this.currentInventory = this.inventoryList
-      console.log(this.currentInventory)
     }
   }
 
   ngAfterViewChecked(): void {
     
   }
-
-  currentItem: Item = {
-    item_id: 0,
-    item_name: '',
-  };
 
   currentInventory: InventoryList = {
     item_id: 0,
@@ -49,8 +42,6 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   }
 
   edited = false;
-
-
 
   constructor(
     private itemService: ItemsService,
@@ -118,7 +109,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
 
   //Open Pop-Up with Content Function
   open(content: any) {
-    this.getItem(this.item.item_id!.toString()); // To display current Item Information
+   // To display current Item Information
     this.modalService.open(content,
       {ariaLabelledBy: content.toString()+'Title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -139,21 +130,9 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  getItem(id: string): void {
-    this.itemService.get(id)
-      .subscribe({
-        next: (data) => {
-          this.item = data;
-          this.currentItem = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
-  }
-
   updateItem(): void {
     console.log(this.inventoryList)
-    this.inventoryService.update(this.item.item_id, this.inventoryList?.user_id, this.currentInventory)
+    this.inventoryService.update(this.inventoryList?.item_id, this.inventoryList?.user_id, this.currentInventory)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -165,7 +144,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   }
 
   deleteItem(): void {
-    this.inventoryService.delete(this.item.item_id, 1)
+    this.inventoryService.delete(this.inventoryList?.item_id, this.inventoryList?.user_id)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -177,10 +156,6 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   //Set the addItem back to dummy values
   newItem(): void {
     this.edited = false;
-    this.currentItem = {
-      item_id: 0,
-      item_name: '',
-    };
   }
 
 }

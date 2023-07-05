@@ -5,4 +5,5 @@ export class InventoryList {
     expiration_date?: Date;
     category_id?: number;
     storage_loc_id?: number;
+    item_name?: string
 }
