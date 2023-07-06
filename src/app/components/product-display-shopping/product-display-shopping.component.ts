@@ -19,14 +19,16 @@ export class ProductDisplayShoppingComponent implements OnInit{
   @Input() categories?: Category[];
   @Input() ShoppingList?: ShoppingList;
   @Input() storageLocation?: Storage[]
+  @Input() ShoppingLists?: ShoppingList[];
   closeResult = '';
   message = '';
+  date = new Date()
 
   currentInventory: InventoryList = {
     item_id: 0,
     user_id: 1,
     quantity: 0,
-    expiration_date: new Date,
+    expiration_date: new Date(this.date.setDate(this.date.getDate()+this.getExpiryDays())),
     storage_loc_id: 0,
     category_id: 0
   }
@@ -36,12 +38,32 @@ export class ProductDisplayShoppingComponent implements OnInit{
   ngOnInit(): void {
     
   }
+
   constructor(
     private itemService: ItemsService,
     private modalService: NgbModal,
     private shoppingListService: ShoppingListService,
     private inventoryListService: InventoryListService
   ) {}
+
+  getExpiryDays(): number{
+    if (this.categories != null){
+      for (var category of this.categories){
+        if (this.ShoppingList != undefined && this.ShoppingList.category_id != undefined){
+          if (this.ShoppingList.category_id == category.category_id){
+            return category.category_expiryDays!
+          }
+        } else {
+          return 0
+        }
+      }
+    }
+    return 0
+  }
+
+  getDate(): Date{
+    return new Date(this.date.setDate(this.date.getDate()+this.getExpiryDays()))
+  }
 
   getIcon(): string{
     if (this.categories != null){
@@ -89,6 +111,9 @@ export class ProductDisplayShoppingComponent implements OnInit{
         },
         error: (e) => console.error(e)
       });
+      this.ShoppingLists!.forEach( (item, index) => {
+        if(item === this.ShoppingList) this.ShoppingLists!.splice(index,1);
+      });
     }
 
    addToInventory(){
@@ -109,6 +134,9 @@ export class ProductDisplayShoppingComponent implements OnInit{
         error: (e) => console.error(e)
       });
     this.deleteItem()
+    this.ShoppingLists!.forEach( (item, index) => {
+      if(item === this.ShoppingList) this.ShoppingLists!.splice(index,1);
+    });
    }
  
    //Set the addItem back to dummy values

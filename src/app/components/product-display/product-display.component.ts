@@ -17,6 +17,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   @Input() categories?: Category[]
   @Input() storages?: Storage[]
   @Input() inventoryList?: InventoryList;
+  @Input() InventoryLists?: InventoryList[];
   closeResult = '';
   message = '';
   currentDate = new Date()
@@ -150,6 +151,9 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
           console.log(res);
         },
         error: (e) => console.error(e)
+      });
+      this.InventoryLists!.forEach( (item, index) => {
+        if(item === this.inventoryList) this.InventoryLists!.splice(index,1);
       });
   }
 

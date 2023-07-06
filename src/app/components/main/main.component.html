@@ -65,8 +65,18 @@
       </div>
 </div>
   <!--<div>{{sortListInventory()}}</div>-->
-  <app-lists *ngIf="supply == true" [inventoryList]="inventory" [storages]="storageLocations"></app-lists>
-  <app-shopping-list  *ngIf="supply == false" [inventoryList]="shopping" [storages]="storageLocations"></app-shopping-list>
+  <div *ngIf="supply == true">
+    <div class="productDiv">
+      <p *ngIf ="inventory != null && inventory.length == 0"> Füge Produkte hinzu!</p>
+      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item"></app-product-display>
+    </div>
+  </div>
+  <div *ngIf="supply == false">
+    <div class="productDiv">
+      <p *ngIf ="shopping != null && shopping.length == 0"> Füge Produkte hinzu!</p>
+      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item"></app-product-display-shopping>
+    </div>
+  </div>
 <!-- PopUp Add Item to DB -->
 <ng-template #addItemPopUp let-modal>
   <div class="modal-header">
@@ -100,7 +110,7 @@
                 type="text"
                 class="form-control"
                 id="itemName"
-                [(ngModel)]="addItem.item_name"
+                [(ngModel)]="currentItem.item_name"
                 required
                 name="itemName"
                 readonly

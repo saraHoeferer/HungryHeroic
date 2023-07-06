@@ -15,8 +15,6 @@ import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
-import { ListsComponent } from './components/Lists/lists/lists.component';
-import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
 
 @NgModule({
@@ -30,8 +28,6 @@ import { ProductDisplayShoppingComponent } from './components/product-display-sh
     AddItemComponent,
     ItemDetailsComponent,
     RegisterComponent,
-    ListsComponent,
-    ShoppingListComponent,
     ProductDisplayShoppingComponent,
   ],
   imports: [
