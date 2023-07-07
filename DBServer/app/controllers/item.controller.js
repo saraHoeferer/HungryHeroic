@@ -49,7 +49,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Tutorial with an id
+// Find a single Item with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
@@ -59,13 +59,13 @@ exports.findOne = (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tutorial with id=${id}.`
+          message: `Cannot find Item with id=${id}.`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Tutorial with id=" + id
+        message: "Error retrieving Item with id=" + id
       });
     });
 };
@@ -120,12 +120,12 @@ exports.delete = (req, res) => {
     });
 };
 
-// Delete all Tutorials from the database.
+// Delete all Items from the database.
 exports.deleteAll = (req, res) => {
 
 };
 
-// Find all published Tutorials
+// Find all published Items
 exports.findAllPublished = (req, res) => {
 
 };
