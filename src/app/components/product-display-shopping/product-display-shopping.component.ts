@@ -22,13 +22,13 @@ export class ProductDisplayShoppingComponent implements OnInit{
   @Input() ShoppingLists?: ShoppingList[];
   closeResult = '';
   message = '';
-  date = new Date()
+  date2 = new Date().toISOString().slice(0,10)
 
   currentInventory: InventoryList = {
     item_id: 0,
     user_id: 1,
     quantity: 0,
-    expiration_date: new Date(this.date.setDate(this.date.getDate()+this.getExpiryDays())),
+    expiration_date: new Date(this.date2),
     storage_loc_id: 0,
     category_id: 0
   }
@@ -46,23 +46,23 @@ export class ProductDisplayShoppingComponent implements OnInit{
     private inventoryListService: InventoryListService
   ) {}
 
-  getExpiryDays(): number{
+  getExpiryDays(id: number): number{
     if (this.categories != null){
       for (var category of this.categories){
-        if (this.ShoppingList != undefined && this.ShoppingList.category_id != undefined){
-          if (this.ShoppingList.category_id == category.category_id){
+          if (id == category.category_id){
             return category.category_expiryDays!
           }
-        } else {
-          return 0
-        }
       }
     }
     return 0
   }
 
-  getDate(): Date{
-    return new Date(this.date.setDate(this.date.getDate()+this.getExpiryDays()))
+
+  getDate(id: number): void{
+    console.log("here")
+    var days = this.getExpiryDays(id)
+    this.date2 = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().slice(0,10)
+    console.log(this.date2)
   }
 
   getIcon(): string{
@@ -121,7 +121,7 @@ export class ProductDisplayShoppingComponent implements OnInit{
       user_id: this.ShoppingList?.user_id,
       item_id: this.ShoppingList?.item_id,
       quantity: this.ShoppingList?.quantity,
-      expiration_date: this.currentInventory.expiration_date,
+      expiration_date: new Date(this.date2),
       category_id: this.ShoppingList?.category_id,
       storage_loc_id:this.currentInventory.storage_loc_id
     };

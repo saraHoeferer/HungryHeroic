@@ -107,12 +107,13 @@
         <div class="row">
           <div class="form-group">
             <label for="itemExpirationDate">Expiration Date</label>
+            <div>{{getDate(ShoppingList!.category_id!)}}</div>
             <input
               type="date"
               class="form-control"
               id="itemExpirationDate"
               required
-              [(ngModel)]="currentInventory.expiration_date"
+              [(ngModel)]="date2"
               value="2023-07-07"
               name="itemExpirationDate"
             />
@@ -127,6 +128,7 @@
               required
               [(ngModel)]="currentInventory.storage_loc_id"
               name="itemStorage">
+              <option disabled value=0>Select a Storage Location</option>
               <option *ngFor="let storageLocations of storageLocation" value="{{storageLocations.storage_loc_id}}">{{storageLocations.storage_loc_name}}</option>
             </select>
           </div>
@@ -139,6 +141,7 @@
               *ngIf="ShoppingList != null"
               [(ngModel)]="ShoppingList.category_id"
               name="itemCategory">
+              <option disabled value=0>Select a Category</option>
               <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
             </select>
           </div>
