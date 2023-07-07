@@ -16,6 +16,7 @@ import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.c
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ProductDisplayShoppingComponent } from './components/product-display-sh
     ItemDetailsComponent,
     RegisterComponent,
     ProductDisplayShoppingComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,

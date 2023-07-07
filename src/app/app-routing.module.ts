@@ -7,11 +7,12 @@ import { ItemListComponent } from './testDbSachen/item-list/item-list.component'
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { RegisterComponent } from './components/register/register.component';
+import {AccountComponent} from "./components/account/account.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'start', 
+    redirectTo: 'start',
     pathMatch: 'full'
   },
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     component: RegisterComponent,
     title: 'Register page'
   },
+  {
+    path: 'account',
+    component: AccountComponent,
+    title: 'Account page'
+  }
 ];
 
 @NgModule({
