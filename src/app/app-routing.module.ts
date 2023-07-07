@@ -2,11 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main/main.component';
 import { HomeComponent } from './components/home/home.component';
+
+import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
 import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
-import { RegisterComponent } from './components/register/register.component';
+
 import {AccountComponent} from "./components/account/account.component";
 
 const routes: Routes = [
@@ -43,6 +47,11 @@ const routes: Routes = [
     path: 'account',
     component: AccountComponent,
     title: 'Account page'
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    title: 'Profile page'
   }
 ];
 

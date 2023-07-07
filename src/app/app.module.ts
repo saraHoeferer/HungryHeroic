@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -14,21 +16,22 @@ import { ItemListComponent } from './testDbSachen/item-list/item-list.component'
 import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterComponent } from './components/register/register.component';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
 import { AccountComponent } from './components/account/account.component';
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
     MainComponent,
     ProductDisplayComponent,
     ItemListComponent,
     AddItemComponent,
     ItemDetailsComponent,
-    RegisterComponent,
     ProductDisplayShoppingComponent,
     AccountComponent,
   ],
@@ -61,7 +64,7 @@ import { AccountComponent } from './components/account/account.component';
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
