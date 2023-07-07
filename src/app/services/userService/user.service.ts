@@ -1,42 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/models/userModel/user.model';
 
-const baseUrl = 'http://localhost:8080/api/user';
+const API_URL = 'http://localhost:8080/api/test/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  getAll(): Observable<User[]> {
-    return this.http.get<User[]>(baseUrl);
+  getPublicContent(): Observable<any> {
+    return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
 
-  get(id: any): Observable<User> {
-    return this.http.get(`${baseUrl}/${id}`);
+  getUserBoard(): Observable<any> {
+    return this.http.get(API_URL + 'user', { responseType: 'text' });
+  }
+  
+  getModeratorBoard(): Observable<any> {
+    return this.http.get(API_URL + 'mod', { responseType: 'text' });
   }
 
-  create(data: any): Observable<any> {
-    return this.http.post(baseUrl, data);
-  }
-
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
-  }
-
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
-  }
-
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
-  findByTitle(title: any): Observable<User[]> {
-    return this.http.get<User[]>(`${baseUrl}?title=${title}`);
+  getAdminBoard(): Observable<any> {
+    return this.http.get(API_URL + 'admin', { responseType: 'text' });
   }
 }

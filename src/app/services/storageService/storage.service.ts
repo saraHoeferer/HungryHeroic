@@ -4,13 +4,39 @@ import { Observable } from 'rxjs';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 
 const baseUrl = 'http://localhost:8080/api/storage';
-
+const USER_KEY = 'auth-user';
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
   constructor(private http: HttpClient) { }
+  clean(): void {
+    window.sessionStorage.clear();
+  }
+
+  public saveUser(users: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(users));
+  }
+
+  public getUser(): any {
+    const users = window.sessionStorage.getItem(USER_KEY);
+    if (users) {
+      return JSON.parse(users);
+    }
+
+    return null;
+  }
+
+  public isLoggedIn(): boolean {
+    const users = window.sessionStorage.getItem(USER_KEY);
+    if (users) {
+      return true;
+    }
+
+    return false;
+  }
 
   getAll(): Observable<Storage[]> {
     return this.http.get<Storage[]>(baseUrl);
