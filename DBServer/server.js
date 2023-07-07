@@ -7,7 +7,9 @@ var corsOptions = {
   origin: "http://localhost:4200"
 };
 
+// database
 const db = require("./app/models");
+
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -15,6 +17,7 @@ db.sequelize.sync()
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
+  
 
 app.use(cors(corsOptions));
 
@@ -24,18 +27,16 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-
-
-
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
-
+// routes
 require("./app/routes/item.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/user.routes")(app);
+require('./app/routes/auth.routes')(app);
 require("./app/routes/inventorylist.routes")(app);
 require("./app/routes/shoppinglist.routes")(app);
 require("./app/routes/storagelocation.routes")(app);
