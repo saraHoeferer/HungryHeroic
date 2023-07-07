@@ -1,7 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const Users = db.users;
-const Roles = db.roles;
+const User = db.users;
+const Role = db.roles;
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
@@ -9,14 +9,14 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  Users.create({
+  User.create({
     user_name: req.body.user_name,
     user_mail: req.body.user_mail,
     user_password: bcrypt.hashSync(req.body.user_password, 8)
   })
     .then(users => {
       if (req.body.roles) {
-        Roles.findAll({
+        Role.findAll({
           where: {
             name: {
               [Op.or]: req.body.roles
@@ -40,7 +40,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  Users.findOne({
+  User.findOne({
     where: {
       user_name: req.body.user_name
     }
