@@ -10,9 +10,6 @@ import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { IonicModule } from '@ionic/angular';
-import { ItemListComponent } from './testDbSachen/item-list/item-list.component';
-import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
-import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
@@ -26,9 +23,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     LoginComponent,
     MainComponent,
     ProductDisplayComponent,
-    ItemListComponent,
-    AddItemComponent,
-    ItemDetailsComponent,
     RegisterComponent,
     ProductDisplayShoppingComponent,
     AccountComponent,
