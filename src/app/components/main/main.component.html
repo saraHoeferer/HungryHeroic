@@ -141,6 +141,7 @@
             <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
+            <div *ngIf="supply">
               <div class="row" style="margin-left: -10px">
                 <div class="col-no-margin form-group w-25">
                   <label for="itemQuantity">Quantity</label>
@@ -174,6 +175,7 @@
                   />
                 </div>
               </div>
+            </div>
           <div class="row" style="margin-left: -10px">
               <div class="form-group w-50 col">
                 <div *ngIf="supply">
