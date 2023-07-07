@@ -141,7 +141,6 @@
             <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
-            <div *ngIf="supply">
               <div class="row" style="margin-left: -10px">
                 <div class="col-no-margin form-group w-25">
                   <label for="itemQuantity">Quantity</label>
@@ -163,17 +162,18 @@
                 </div>
                 <div class="form-group w-75">
                   <label for="itemExpirationDate">Expiration Date</label>
+                  <div>{{getDate(addToInventory.category_id!)}}</div>
                   <input
-                    type="Date"
+                    type="date"
                     class="form-control"
                     id="itemExpirationDate"
-                    [(ngModel)]="addToInventory.expiration_date"
+                    [(ngModel)]="date2"
                     required
                     name="itemExpirationDate"
+                    placeholder="dd.MM.yyyy"
                   />
                 </div>
               </div>
-            </div>
           <div class="row" style="margin-left: -10px">
               <div class="form-group w-50 col">
                 <div *ngIf="supply">
@@ -184,6 +184,7 @@
                     required
                     [(ngModel)]="addToInventory.storage_loc_id"
                     name="itemStorage">
+                    <option disabled value=0>Select a Storage Location</option>
                     <option *ngFor="let storageLocation of storageLocations" value="{{storageLocation.storage_loc_id}}">{{storageLocation.storage_loc_name}}</option>
                   </select>
                 </div>
@@ -215,6 +216,7 @@
                   required
                   [(ngModel)]="addToInventory.category_id"
                   name="itemCategory">
+                  <option disabled value=0>Select a Category</option>
                   <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
                 </select>
               </div>
@@ -226,6 +228,7 @@
                   required
                   [(ngModel)]="addToShopping.category_id"
                   name="itemCategory">
+                  <option disabled value=0>Select a Category</option>
                   <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
                 </select>
               </div>
@@ -235,7 +238,6 @@
           <button *ngIf="!supply" (click)="saveShoppping()" type="button" class="btn btn-block btn-outline-dark">Save</button>
           </div>
         </form>
-
       </div>
       <div *ngIf="saved">
         <div class="alert alert-custom-success">

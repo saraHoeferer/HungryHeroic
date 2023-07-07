@@ -43,12 +43,13 @@ export class MainComponent implements OnInit, OnChanges{
     item_id: 0,
     item_name: '',
   };
+  date2 = new Date().toISOString().slice(0,10)
 
   addToInventory: InventoryList = {
     quantity: 0,
     user_id: 0,
     item_id: 0,
-    expiration_date: new Date,
+    expiration_date: new Date(this.date2), 
     storage_loc_id: 0,
     category_id: 0
   }
@@ -141,6 +142,25 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  getExpiryDays(id: number): number{
+    if (this.categories != null){
+      for (var category of this.categories){
+          if (id == category.category_id){
+            return category.category_expiryDays!
+          }
+      }
+    }
+    return 0
+  }
+
+
+  getDate(id: number): void{
+    console.log("here")
+    var days = this.getExpiryDays(id)
+    this.date2 = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().slice(0,10)
+    console.log(this.date2)
+  }
+
   retrieveCategories(): void {
     this.categoryService.getAll()
     .subscribe({
@@ -207,7 +227,7 @@ export class MainComponent implements OnInit, OnChanges{
       user_id: 1,
       item_id: this.currentItem.item_id,
       quantity: this.addToInventory.quantity,
-      expiration_date: this.addToInventory.expiration_date,
+      expiration_date: new Date(this.date2),
       category_id: this.addToInventory.category_id,
       storage_loc_id: this.addToInventory.storage_loc_id
     };
