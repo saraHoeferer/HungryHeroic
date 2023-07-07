@@ -47,16 +47,16 @@
 
 h1{
   font-size: 10vh;
-  font-family: "Century Schoolbook", fantasy;
+  font-family: "Century Schoolbook", Helvetica;
 }
 
 h2{
-  font-family: "Century Schoolbook", fantasy;
+  font-family: "Century Schoolbook", Helvetica;
 }
 
 h3{
   font-size: 5vh;
-  font-family: "Century Schoolbook", fantasy;
+  font-family: "Century Schoolbook", Helvetica;
 }
 
 .alert-success{
