@@ -1,28 +1,32 @@
-module.exports = app => {
-    const users = require("../controllers/user.controller.js");
+const { authJwt } = require("../middleware");
+const controller = require("../controllers/user.controller");
 
-    var router = require("express").Router();
+module.exports = function(app) {
+  app.use(function(req, res, next) {
+    res.header(
+      "Access-Control-Allow-Headers",
+      "x-access-token, Origin, Content-Type, Accept"
+    );
+    next();
+  });
 
-    // Create a new Tutorial
-    router.post("/", users.create);
+  app.get("/api/test/all", controller.allAccess);
 
-    // Retrieve all Tutorials
-    router.get("/", users.findAll);
+  app.get(
+    "/api/test/user",
+    [authJwt.verifyToken],
+    controller.userBoard
+  );
 
-    // Retrieve all published Tutorials
-    router.get("/published", users.findAllPublished);
+  app.get(
+    "/api/test/mod",
+    [authJwt.verifyToken, authJwt.isModerator],
+    controller.moderatorBoard
+  );
 
-    // Retrieve a single Tutorial with id
-    router.get("/:id", users.findOne);
-
-    // Update a Tutorial with id
-    router.put("/:id", users.update);
-
-    // Delete a Tutorial with id
-    router.delete("/:id", users.delete);
-
-    // Delete all Tutorials
-    router.delete("/", users.deleteAll);
-
-    app.use('/api/user', router);
-  };
+  app.get(
+    "/api/test/admin",
+    [authJwt.verifyToken, authJwt.isAdmin],
+    controller.adminBoard
+  );
+};
