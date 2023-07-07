@@ -155,4 +155,91 @@
   .bg-custom-success{
     background-color: #c5d510;
   }
+
+  @media (min-width: 1280px) {
+    .card2{
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
+  
+  
+  @media (min-width: 1300px) {
+    .card2{
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+  }
+  
+  @media (min-width: 1330px) {
+    .card2{
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    .card2{
+      margin-right: 25px;
+      margin-left: 25px;
+    }
+  }
+  
+  @media (min-width: 1420px) {
+    .card2{
+      margin-right: 28px;
+      margin-left: 28px;
+    }
+  }
+  
+  
+  @media (min-width: 1500px) {
+    .card2{
+      margin-right: 38px;
+      margin-left: 38px;
+    }
+  }
+  
+  @media (min-width: 1550px) {
+    .card2{
+      margin-right: 45px;
+      margin-left: 45px;
+    }
+  }
+  
+  @media (min-width: 1600px) {
+    .card2{
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+  }
+  
+  @media (min-width: 1700px) {
+    .card2{
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  }
+  
+  @media (min-width: 1800px) {
+    .card2{
+      margin-right: 25px;
+      margin-left: 25px;
+    }
+  }
+  
+  @media (min-width: 1830px) {
+    .card2{
+      margin-right: 35px;
+      margin-left: 35px;
+    }
+  }
+  
+  @media (min-width: 1900px) {
+    .card2{
+      margin-right: 40px;
+      margin-left: 40px;
+    }
+  }
+  
   
