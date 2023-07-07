@@ -1,7 +1,6 @@
-<header class="brand-name">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">HungryHeoric</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" routerLink="/home">HungryHeoric</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-auto-close="false" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -22,7 +21,6 @@
         </form>
       </div>
     </nav>
-  </header>
   <div class="row">
     <div class="col-9">
         <div>
@@ -235,3 +233,9 @@
       </div>
   </div>
 </ng-template>
+
+<script type="text/javascript">
+  $('.navbar-collapse').on('click', function(event) {
+  event.stopPropagation();
+});
+</script> 

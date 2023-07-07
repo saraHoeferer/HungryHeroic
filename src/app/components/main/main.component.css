@@ -7,6 +7,15 @@ header {
     margin-right: 30px;
 }
 
+.navbar{
+  padding-left: 10px;
+  font-size: 20px;
+  padding-right: 10px;
+}
+
+.navbar-brand{
+  font-size: 25px;
+}
 
 #toggleCol{
     margin-top: 20px;
@@ -100,7 +109,6 @@ header {
     width: 95%;
     margin-bottom: 20px;
   }
-  
 }
 
 @media (min-width: 390px) {

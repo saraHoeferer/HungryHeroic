@@ -102,13 +102,16 @@ export class MainComponent implements OnInit, OnChanges{
               error: (e) => console.error(e)
             });
         }
+        this.sortListInventory()
       },
       error: (e) => console.error(e)
     });
   }
 
   sortListInventory(): void {
-    this.inventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+    if (this.inventory != undefined && this.inventory != null){
+      this.inventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+    }
   }
 
 
