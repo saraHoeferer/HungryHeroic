@@ -86,9 +86,6 @@
                 [(ngModel)]="ShoppingList.quantity"
                 name="itemQuantity"
               />
-              <div class="input-group-append">
-                <span class="input-group-text" id="multiply-addon"> × </span>
-              </div>
             </div>
           </div>
           <div class="col form-group">
@@ -128,7 +125,7 @@
               required
               [(ngModel)]="currentInventory.storage_loc_id"
               name="itemStorage">
-              <option disabled value=0>Select a Storage Location</option>
+              <option disabled value=0>Select a Location</option>
               <option *ngFor="let storageLocations of storageLocation" value="{{storageLocations.storage_loc_id}}">{{storageLocations.storage_loc_name}}</option>
             </select>
           </div>

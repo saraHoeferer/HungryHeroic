@@ -33,9 +33,25 @@ header {
     margin-left: 1.5%;
 }
 
-#addIconCol{
+.col-7{
     text-align: end;
-    padding-top: 3px;
+}
+
+#sortButton{
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+
+#buttonSearch{
+  width: 40px;
+}
+
+.StartText{
+  font-size: 26px;
+}
+
+.StartSubText{
+  font-size: 20px;
 }
 
 .btn-primary{
@@ -58,4 +74,78 @@ header {
 .btn-outline-custom-success:hover{
   background-color: #c5d510;
   color: #ffffff;
+}
+
+@media (min-width: 360px) {
+  .col-5{
+    width: 180px;
+  }
+  .col-7{
+    width: 180px;
+  }
+  #sortButton{
+    margin-left: 10px;
+  }
+  .StartText{
+    font-size: 25px;
+  }
+  
+  .StartSubText{
+    font-size: 18px;
+  }
+  .col-9{
+    width: 100%;
+  }
+  .col-3{
+    width: 95%;
+    margin-bottom: 20px;
+  }
+  
+}
+
+@media (min-width: 390px) {
+  .col-5{
+    width: 195px;
+  }
+}
+
+@media (min-width: 400px) {
+  .col-5{
+    width: 210px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .col-7{
+    text-align: end;
+    width: 57.333%;
+  }
+
+  .col-5{
+    width: 41.667%;
+  }
+
+  #sortButton{
+    margin-left: 20px;
+  }
+  .col-9{
+    width: 70%;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+  }
+  .col-3{
+    width: 30%;
+    margin-bottom: 20px;
+    margin-top: 0px;
+  }
+  .StartText{
+    font-size: 26px;
+  }
+  
+  .StartSubText{
+    font-size: 20px;
+  }
+  
+
+
 }
