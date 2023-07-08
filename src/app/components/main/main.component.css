@@ -109,6 +109,7 @@ header {
     font-size: 18px;
   }
   .col-9{
+    display: none;
     width: 100%;
   }
   .col-3{
@@ -143,6 +144,7 @@ header {
     margin-left: 20px;
   }
   .col-9{
+    display: flex;
     width: 70%;
     margin-bottom: 0px;
     padding-bottom: 0px;
