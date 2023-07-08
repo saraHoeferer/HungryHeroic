@@ -31,6 +31,9 @@ export class MainComponent implements OnInit, OnChanges{
   found = false
   searchedItem?: Item[];
   needsToBeCreated = false;
+  fixedInventory?:  InventoryList[];
+  fixedShopping?: ShoppingList[];
+  searched = false;
 
 
   closeResult = '';
@@ -38,6 +41,10 @@ export class MainComponent implements OnInit, OnChanges{
   addItem: Item = {
     item_name: '',
   };
+
+  searchItem: Item = {
+    item_name: '',
+  }
 
   currentItem: Item = {
     item_id: 0,
@@ -87,6 +94,7 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   retrieveInventory(): void {
+    this.searched = false
     this.supply = true
     this.InventoryListService.getUserInventory(1)
     .subscribe({
@@ -102,6 +110,8 @@ export class MainComponent implements OnInit, OnChanges{
               error: (e) => console.error(e)
             });
         }
+        this.fixedInventory = this.inventory
+        console.log(this.fixedInventory)
         this.sortListInventory()
       },
       error: (e) => console.error(e)
@@ -117,6 +127,7 @@ export class MainComponent implements OnInit, OnChanges{
 
   retrieveShopping(): void {
     this.supply = false
+    this.searched = false
     this.ShoppingListService.getUserShopping(1)
     .subscribe({
       next: (data) => {
@@ -131,6 +142,7 @@ export class MainComponent implements OnInit, OnChanges{
               error: (e) => console.error(e)
             });
         }
+        this.fixedShopping = this.shopping
       },
       error: (e) => console.error(e)
     })
@@ -154,6 +166,54 @@ export class MainComponent implements OnInit, OnChanges{
       }
     }
     return 0
+  }
+
+  searchForSimilarItem(){
+    if (this.searchItem.item_name != ''){
+      this.searched = true
+      let inventoryList: InventoryList[] = [];
+      let shoppingLsit: ShoppingList[] = [];
+      this.itemService.findSimilarByName(this.searchItem.item_name)
+      .subscribe({
+        next: (data) => {
+          this.items = data;
+          if (this.supply){
+            if (this.items != null && this.fixedInventory != null){
+              for (let item of this.items ){
+                for (let inventories of this.fixedInventory){
+                  if (item.item_id == inventories.item_id){
+                    inventoryList.push(inventories)
+                  }
+                }
+              }
+            }
+            if (inventoryList.length != 0){
+              this.inventory = inventoryList
+            } else {
+              this.inventory = []
+            }
+            console.log(inventoryList)
+          } else {
+            if (this.items != null && this.fixedShopping != null){
+              for (let item of this.items ){
+                for (let shopping of this.fixedShopping){
+                  if (item.item_id == shopping.item_id){
+                    shoppingLsit.push(shopping)
+                  }
+                }
+              }
+            }
+            if (shoppingLsit.length != 0){
+              this.shopping = shoppingLsit
+            } else {
+              this.shopping = []
+            }
+            console.log(this.shopping)
+          }
+        },
+        error: (e) => console.error(e)
+      });
+    }
   }
 
 
@@ -225,23 +285,36 @@ export class MainComponent implements OnInit, OnChanges{
 
   // Save new values from Form in addItem and create in DB
   saveInventory(): void {
-    console.log(this.currentItem)
-    const data = {
-      user_id: 1,
-      item_id: this.currentItem.item_id,
-      quantity: this.addToInventory.quantity,
-      expiration_date: new Date(this.date2),
-      category_id: this.addToInventory.category_id,
-      storage_loc_id: this.addToInventory.storage_loc_id
-    };
-    this.InventoryListService.create(data)
+    if (this.addToInventory.quantity != 0 && this.addToInventory.category_id != 0 && this.addToInventory.storage_loc_id != 0){
+      let checkInventory: InventoryList;
+      console.log(this.currentItem.item_id)
+      this.InventoryListService.get(this.currentItem.item_id!, 1)
       .subscribe({
         next: (res) => {
-          console.log(res)
-          this.saved = true;
+          checkInventory = res
+          console.log(checkInventory)
         },
         error: (e) => console.error(e)
       });
+      /*
+      console.log(this.currentItem)
+      const data = {
+        user_id: 1,
+        item_id: this.currentItem.item_id,
+        quantity: this.addToInventory.quantity,
+        expiration_date: new Date(this.date2),
+        category_id: this.addToInventory.category_id,
+        storage_loc_id: this.addToInventory.storage_loc_id
+      };
+      this.InventoryListService.create(data)
+        .subscribe({
+          next: (res) => {
+            console.log(res)
+            this.saved = true;
+          },
+          error: (e) => console.error(e)
+        });*/
+    }
   }
 
   saveShoppping(): void{

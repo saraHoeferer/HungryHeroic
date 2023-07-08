@@ -53,8 +53,31 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
+  const user_id = req.params.userId;
+  const item_id = req.params.itemId
 
-  
+  console.log(user_id)
+  console.log(item_id)
+
+  InventoryLists.findAll({
+    where: { item_id: item_id, user_id: user_id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Entry was found."
+        });
+      } else {
+        res.send({
+          message: `Cannot find entry with this userId and this itemIte`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error finding specific entry"
+      });
+    });
 };
 
 // Update a Tutorial by the id in the request

@@ -23,10 +23,14 @@
     </nav>
   <div class="row">
     <div class="col-9">
-        <div>
+        <div *ngIf="supply">
             <h1 class="StartText">All your groceries</h1>
             <h4 class="StartSubText">List of all the groceries you have at home</h4>
         </div>
+        <div *ngIf="!supply">
+          <h1 class="StartText">Your Shopping List</h1>
+          <h4 class="StartSubText">List of all the groceries you want to buy</h4>
+      </div>
     </div>
     <div class="col-3" id="toggleCol">
         <div class="row">
@@ -45,9 +49,9 @@
     <div class="row">
       <div class="col-5">
         <div class="input-group mb-3">
-          <input id="searchInput" type="text" class="form-control" placeholder="Search for product">
+          <input id="searchInput" [(ngModel)]="searchItem.item_name" type="text" class="form-control" placeholder="Search for product">
           <div class="input-group-append">
-            <button id="buttonSearch" class="btn btn-primary" type="button"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
+            <button id="buttonSearch" (click)="searchForSimilarItem()"class="btn btn-primary" type="button"><i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i></button>
           </div>
         </div>
       </div>
@@ -63,13 +67,15 @@
   <!--<div>{{sortListInventory()}}</div>-->
   <div *ngIf="supply == true">
     <div class="productDiv">
-      <p *ngIf ="inventory != null && inventory.length == 0"> Füge Produkte hinzu!</p>
+      <p *ngIf ="inventory != null && inventory.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
+      <p *ngIf ="inventory != null && inventory.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
       <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item"></app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">
     <div class="productDiv">
-      <p *ngIf ="shopping != null && shopping.length == 0"> Füge Produkte hinzu!</p>
+      <p *ngIf ="shopping != null && shopping.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
+      <p *ngIf ="shopping != null && shopping.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
       <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item"></app-product-display-shopping>
     </div>
   </div>

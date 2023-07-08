@@ -44,4 +44,8 @@ export class ItemsService {
     return this.http.get(`${baseUrl}/specific/${name}`);
   }
 
+  findSimilarByName(name: any): Observable<any> {
+    return this.http.get(`${baseUrl}/similiar/${name}`)
+  }
+
 }

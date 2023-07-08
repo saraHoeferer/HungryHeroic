@@ -16,8 +16,8 @@ export class InventoryListService{
     return this.http.get<Lists[]>(baseUrl);
   }
 
-  get(id: any): Observable<Lists> {
-    return this.http.get(`${baseUrl}/${id}`);
+  get(item_id: number, user_id: number,): Observable<Lists> {
+    return this.http.get(`${baseUrl}/${item_id}/${user_id}`);
   }
 
   getUserInventory(id: any): Observable<Lists[]> {

@@ -145,3 +145,19 @@ exports.findByName = (req, res) => {
       });
     });
 };
+
+exports.findSimilarByName = (req, res) => {
+  const item_name = req.params.name;
+  var condition = item_name ? { item_name: { [Op.like]: `%${item_name}%` } } : null;
+
+  Items.findAll({ where: condition})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving items."
+      });
+    });
+};
