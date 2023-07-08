@@ -1,8 +1,4 @@
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { AuthService } from 'src/app/services/authService/auth.service';
-import { StorageService } from 'src/app/services/storageService/storage.service';
-import { EventBusService } from './_shared/event-bus.service';
 
 @Component({
   selector: 'app-root',
@@ -10,52 +6,7 @@ import { EventBusService } from './_shared/event-bus.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
-  private roles: string[] = [];
-  isLoggedIn = false;
-  showAdminBoard = false;
-  showModeratorBoard = false;
-  user_name?: string;
+  title = 'hungryHeoric';
 
-  eventBusSub?: Subscription;
-
-  constructor(
-    private storageService: StorageService,
-    private authService: AuthService,
-    private eventBusService: EventBusService
-  ) {}
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.storageService.isLoggedIn();
-
-    if (this.isLoggedIn) {
-      const users = this.storageService.getUser();
-      this.roles = users.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.user_name = users.user_name;
-    }
-
-    this.eventBusSub = this.eventBusService.on('logout', () => {
-      this.logout();
-    });
-  }
-
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.clean();
-
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
-  }
+  public userId = 1;
 }

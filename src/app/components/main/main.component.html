@@ -10,16 +10,20 @@
           <li class="nav-item">
             <a class="nav-link">Lists <span class="sr-only">(current)</span></a>
           </li>
+          <!--          
           <li class="nav-item">
-            <a class="nav-link" routerLink="/account">Profile</a>
-          </li>
+            <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link">Recipes</a>
           </li>
+          <li class="nav-item">
+            <a href="/profile" class="nav-link" routerLink="profile">{{ user_name }}</a>
+          </li>
+          <li class="nav-item">
+            <a href class="nav-link" (click)="logout()" button class="btn btn-primary my-2 my-sm-0" type="submit">LogOut</a>
+          </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <a routerLink="/"><button class="btn btn-primary my-2 my-sm-0" type="submit">loginout</button></a>
-        </form>
       </div>
     </nav>
   </header>
