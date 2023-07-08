@@ -6,7 +6,12 @@ const app = express();
 var corsOptions = {
   origin: "http://localhost:4200"
 };
-
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:4200"],
+  })
+);
 // database
 const db = require("./app/models");
 
