@@ -8,7 +8,7 @@ import { CategoryService } from 'src/app/services/categoryService/category.servi
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 import { empty } from 'rxjs';
@@ -57,7 +57,7 @@ export class MainComponent implements OnInit, OnChanges{
     quantity: 0,
     user_id: 0,
     item_id: 0,
-    expiration_date: new Date(this.date2), 
+    expiration_date: new Date(this.date2),
     storage_loc_id: 0,
     category_id: 0
   }
@@ -362,7 +362,7 @@ export class MainComponent implements OnInit, OnChanges{
           },
           error: (e) => console.error(e)
         });
-        
+
       },
       error: (e) => console.error(e)
     });

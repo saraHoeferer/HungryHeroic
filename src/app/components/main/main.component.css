@@ -85,6 +85,12 @@ header {
   color: #ffffff;
 }
 
+#brand{
+  font-family: "Century Schoolbook", sans-serif;
+  font-weight: bolder;
+  margin-left: 1%;
+}
+
 @media (min-width: 360px) {
   .col-5{
     width: 180px;
@@ -98,7 +104,7 @@ header {
   .StartText{
     font-size: 25px;
   }
-  
+
   .StartSubText{
     font-size: 18px;
   }
@@ -149,11 +155,10 @@ header {
   .StartText{
     font-size: 26px;
   }
-  
+
   .StartSubText{
     font-size: 20px;
   }
-  
 
 
 }
