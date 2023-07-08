@@ -59,25 +59,16 @@ exports.findOne = (req, res) => {
   console.log(user_id)
   console.log(item_id)
 
-  InventoryLists.findAll({
-    where: { item_id: item_id, user_id: user_id }
+  InventoryLists.findAll({ where: { user_id: user_id, item_id: item_id } })
+  .then(data => {
+    res.send(data);
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "Entry was found."
-        });
-      } else {
-        res.send({
-          message: `Cannot find entry with this userId and this itemIte`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error finding specific entry"
-      });
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving specific inventory."
     });
+  });
 };
 
 // Update a Tutorial by the id in the request
@@ -148,7 +139,7 @@ exports.findUserInventory = (req, res) => {
   .catch(err => {
     res.status(500).send({
       message:
-        err.message || "Some error occurred while retrieving tutorials."
+        err.message || "Some error occurred while retrieving User Inventory."
     });
   });
 };

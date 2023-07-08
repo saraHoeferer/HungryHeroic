@@ -75,7 +75,7 @@
     <div class="productDiv">
       <p *ngIf ="shopping != null && shopping.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
       <p *ngIf ="shopping != null && shopping.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
-      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item"></app-product-display-shopping>
+      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item">{{sortListShopping(this.sort)}}</app-product-display-shopping>
     </div>
   </div>
 <!-- PopUp Add Item to DB -->
@@ -92,7 +92,7 @@
     </button>
   </div>
   <div class="modal-body">
-      <div *ngIf="!saved">
+      <div *ngIf="!saved && !alreadyThere">
         <form>
           <div class="form-group">
             <label for="itemName">Name</label>
@@ -234,6 +234,12 @@
           <p class="mb-0">To close the Window click the <b>Finish</b> Button</p>
         </div>
         <button (click)="newItem()" type="button" class="btn btn-block btn-outline-custom-success">Add another Item</button>
+        <button (click)="newItem(); modal.close('clicked Finished'); refreshList()" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+      </div>
+      <div *ngIf="alreadyThere">
+        <div class="alert alert-dark">
+          <p class="mb-0">You already added <b>{{currentItem.item_name}}</b> to your list. If you want to update it use the <b>Edit</b> Icon. If you want to add a new one please <b>Delete</b> the old one first</p>
+        </div>
         <button (click)="newItem(); modal.close('clicked Finished'); refreshList()" type="button" class="btn btn-block btn-outline-dark">Finished</button>
       </div>
   </div>

@@ -69,7 +69,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <div *ngIf="!edited">
+    <div *ngIf="!edited && !alreadyThere">
       <form>
         <div class="row">
           <div class="col-no-margin form-group w-25">
@@ -155,6 +155,12 @@
         <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
       </div>
       <button (click)="newItem(); modal.close('clicked Finished')" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+    </div>
+    <div *ngIf="alreadyThere">
+      <div class="alert alert-dark">
+        <p class="mb-0">You already added <b>{{ShoppingList!.item_name}}</b> to your Supply List. If you want to update it use the <b>Edit</b> Icon on the Supply List Page. If you want to add a New one please <b>Delete</b> the Old one first</p>
+      </div>
+      <button (click)="newItem(); modal.close('clicked Finished');" type="button" class="btn btn-block btn-outline-dark">Finished</button>
     </div>
   </div>
 </ng-template>

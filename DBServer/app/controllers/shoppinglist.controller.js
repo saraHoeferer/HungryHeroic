@@ -51,8 +51,22 @@ exports.findAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOne = (req, res) => {
+  const user_id = req.params.userId;
+  const item_id = req.params.itemId
 
-  
+  console.log(user_id)
+  console.log(item_id)
+
+  ShoppingLists.findAll({ where: { user_id: user_id, item_id: item_id } })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving specific inventory."
+    });
+  });
 };
 
 // Update a Tutorial by the id in the request

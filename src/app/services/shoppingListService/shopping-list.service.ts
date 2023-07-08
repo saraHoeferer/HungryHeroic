@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Lists } from 'src/app/models/Lists/lists.model';
+import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 
 const baseUrl = 'http://localhost:8080/api/shopping';
 
@@ -16,8 +17,8 @@ export class ShoppingListService{
     return this.http.get<Lists[]>(baseUrl);
   }
 
-  get(id: any): Observable<Lists> {
-    return this.http.get(`${baseUrl}/${id}`);
+  get(item_id: any, user_id: any): Observable<ShoppingList[]> {
+    return this.http.get<ShoppingList[]>(`${baseUrl}/${item_id}/${user_id}`);
   }
 
   getUserShopping(id: any): Observable<Lists[]> {
