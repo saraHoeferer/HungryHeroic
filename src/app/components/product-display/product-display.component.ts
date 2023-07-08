@@ -2,7 +2,7 @@ import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 import { ItemsService } from 'src/app/services/itemService/items.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 import { Storage } from 'src/app/models/storageModel/storage.model';
@@ -24,13 +24,13 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   progress = 0
 
   ngOnInit(): void {
-    if (this.inventoryList != null){
+    if (this.inventoryList != null) {
       this.currentInventory = this.inventoryList
     }
   }
 
   ngAfterViewChecked(): void {
-    
+
   }
 
   currentInventory: InventoryList = {
@@ -48,13 +48,13 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     private itemService: ItemsService,
     private modalService: NgbModal,
     private inventoryService: InventoryListService
-  ) {}
+  ) { }
 
-  getIcon(): string{
-    if (this.categories != null){
-      for (var category of this.categories){
-        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined){
-          if (this.inventoryList.category_id == category.category_id){
+  getIcon(): string {
+    if (this.categories != null) {
+      for (var category of this.categories) {
+        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined) {
+          if (this.inventoryList.category_id == category.category_id) {
             return category.category_icon!
           }
         } else {
@@ -65,11 +65,11 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     return "fa-solid fa-xmark fa-4x"
   }
 
-  getExpiryDays(): number{
-    if (this.categories != null){
-      for (var category of this.categories){
-        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined){
-          if (this.inventoryList.category_id == category.category_id){
+  getExpiryDays(): number {
+    if (this.categories != null) {
+      for (var category of this.categories) {
+        if (this.inventoryList != undefined && this.inventoryList.category_id != undefined) {
+          if (this.inventoryList.category_id == category.category_id) {
             return category.category_expiryDays!
           }
         } else {
@@ -80,14 +80,14 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     return 0
   }
 
-  getDays(date?: Date){
+  getDays(date?: Date) {
     var date2 = new Date(date!.toString())
-    if (date != null){
-      if (this.currentDate.getTime() < date2.getTime()){
+    if (date != null) {
+      if (this.currentDate.getTime() < date2.getTime()) {
         var days = this.getExpiryDays()
-        var date3 = new Date(date2.setDate(date2.getDate()-days))
-        var difference = (+this.currentDate - +date3)/1000/60/60/24
-        this.progress = 100 - difference/days * 100
+        var date3 = new Date(date2.setDate(date2.getDate() - days))
+        var difference = (+this.currentDate - +date3) / 1000 / 60 / 60 / 24
+        this.progress = 100 - difference / days * 100
       } else {
         this.progress = 101
       }
@@ -96,12 +96,12 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  getProgressString(): string{
-    if (this.progress == 101){
+  getProgressString(): string {
+    if (this.progress == 101) {
       return "danger"
-    } else if (this.progress > 66){
+    } else if (this.progress > 66) {
       return "success"
-    } else if (this.progress > 34){
+    } else if (this.progress > 34) {
       return "warning"
     } else {
       return "danger"
@@ -110,14 +110,14 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
 
   //Open Pop-Up with Content Function
   open(content: any) {
-   // To display current Item Information
+    // To display current Item Information
     this.modalService.open(content,
-      {ariaLabelledBy: content.toString()+'Title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult =
-        `Dismissed ${ProductDisplayComponent.getDismissReason(reason)}`;
-    });
+      { ariaLabelledBy: content.toString() + 'Title' }).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult =
+          `Dismissed ${ProductDisplayComponent.getDismissReason(reason)}`;
+      });
   }
 
   //Get Dismiss Reason to close PopUp
@@ -152,9 +152,9 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         },
         error: (e) => console.error(e)
       });
-      this.InventoryLists!.forEach( (item, index) => {
-        if(item === this.inventoryList) this.InventoryLists!.splice(index,1);
-      });
+    this.InventoryLists!.forEach((item, index) => {
+      if (item === this.inventoryList) this.InventoryLists!.splice(index, 1);
+    });
   }
 
   //Set the addItem back to dummy values
