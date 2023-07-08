@@ -11,7 +11,9 @@ import { ShoppingListService } from 'src/app/services/shoppingListService/shoppi
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
-import { empty } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/authService/auth.service';
+import { EventBusService } from 'src/app/_shared/event-bus.service';
 
 @Component({
   selector: 'app-main',
