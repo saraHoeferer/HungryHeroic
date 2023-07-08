@@ -64,12 +64,11 @@
         </div>
       </div>
 </div>
-  <!--<div>{{sortListInventory()}}</div>-->
   <div *ngIf="supply == true">
     <div class="productDiv">
       <p *ngIf ="inventory != null && inventory.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
       <p *ngIf ="inventory != null && inventory.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
-      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item"></app-product-display>
+      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item">{{sortListInventory(this.sort)}}</app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">

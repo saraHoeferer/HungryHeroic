@@ -34,6 +34,7 @@ export class MainComponent implements OnInit, OnChanges{
   fixedInventory?:  InventoryList[];
   fixedShopping?: ShoppingList[];
   searched = false;
+  sort = "asc"
 
 
   closeResult = '';
@@ -111,16 +112,22 @@ export class MainComponent implements OnInit, OnChanges{
             });
         }
         this.fixedInventory = this.inventory
-        console.log(this.fixedInventory)
-        this.sortListInventory()
       },
       error: (e) => console.error(e)
     });
   }
 
-  sortListInventory(): void {
+  sortListInventory(sorting: string): void {
+    let clear = true
     if (this.inventory != undefined && this.inventory != null){
-      this.inventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+      for (let inventories of this.inventory){
+        if (inventories.item_name == undefined){
+          clear = false
+        }
+      }
+      if (clear && sorting == "asc"){
+        this.inventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+      }
     }
   }
 
@@ -151,7 +158,7 @@ export class MainComponent implements OnInit, OnChanges{
   refreshList(): void {
     if (this.supply){
       this.retrieveInventory()
-      this.sortListInventory()
+      //this.sortListInventory()
     } else {
       this.retrieveShopping()
     }
