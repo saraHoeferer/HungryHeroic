@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+// database
 const db = require("./app/models");
-const Role = db.roles;
+const Role = db.role;
+
 const app = express();
 
 var corsOptions = {
@@ -13,17 +15,6 @@ app.use(
     origin: ["http://localhost:4200"],
   })
 );
-// database
-const db = require("./app/models");
-
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
-
 
 app.use(cors(corsOptions));
 
@@ -32,6 +23,16 @@ app.use(express.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
+
+
+
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
 
 // simple route
 app.get("/", (req, res) => {
