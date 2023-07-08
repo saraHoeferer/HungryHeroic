@@ -1,7 +1,8 @@
 const db = require("../models");
 const config = require("../config/auth.config");
-const User = db.users;
-const Role = db.roles;
+const User = db.user;
+const Role = db.role;
+
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
@@ -14,7 +15,7 @@ exports.signup = (req, res) => {
     user_mail: req.body.user_mail,
     user_password: bcrypt.hashSync(req.body.user_password, 8)
   })
-    .then(users => {
+    .then(user => {
       if (req.body.roles) {
         Role.findAll({
           where: {
@@ -23,13 +24,13 @@ exports.signup = (req, res) => {
             }
           }
         }).then(roles => {
-          users.setRoles(roles).then(() => {
+          user.setRoles(roles).then(() => {
             res.send({ message: "User registered successfully!" });
           });
         });
       } else {
-        // users role = 1
-        users.setRoles([1]).then(() => {
+        // user role = 1
+        user.setRoles([1]).then(() => {
           res.send({ message: "User registered successfully!" });
         });
       }
@@ -45,14 +46,14 @@ exports.signin = (req, res) => {
       user_name: req.body.user_name
     }
   })
-    .then(users => {
-      if (!users) {
+    .then(user => {
+      if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
         req.body.user_password,
-        users.user_password
+        user.user_password
       );
 
       if (!passwordIsValid) {
@@ -62,7 +63,7 @@ exports.signin = (req, res) => {
         });
       }
 
-      const token = jwt.sign({ id: users.user_id },
+      const token = jwt.sign({ user_id: user.user_id },
                               config.secret,
                               {
                                 algorithm: 'HS256',
@@ -71,14 +72,14 @@ exports.signin = (req, res) => {
                               });
 
       var authorities = [];
-      users.getRoles().then(roles => {
+      user.getRoles().then(roles => {
         for (let i = 0; i < roles.length; i++) {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
-          id: users.user_id,
-          user_name: users.user_name,
-          user_mail: users.user_mail,
+          user_id: user.user_id,
+          user_name: user.user_name,
+          user_mail: user.user_mail,
           roles: authorities,
           accessToken: token
         });
