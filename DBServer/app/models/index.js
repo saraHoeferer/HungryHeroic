@@ -29,15 +29,6 @@ db.inventoryLists = require("./inventorylist.model.js")(sequelize, Sequelize);
 db.shoppingLists = require("./shoppinglist.model.js")(sequelize, Sequelize);
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
-db.roles = require("../models/role.model.js")(sequelize, Sequelize);
 
-db.roles.belongsToMany(db.user, {
-  through: "user_roles"
-});
-db.user.belongsToMany(db.roles, {
-  through: "user_roles"
-});
-
-db.roles = ["user", "admin", "moderator"];
 
 module.exports = db;
