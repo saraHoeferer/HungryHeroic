@@ -1,4 +1,50 @@
 :host {
     --content-padding: 0px;
-  }
+}
 
+header {
+  display: block;
+  height: 50px;
+  box-shadow: 0 5px 25px #d8d8d8;
+}
+.nav-item{
+  margin-right: 30px;
+}
+
+.navbar{
+  padding-left: 10px;
+  font-size: 20px;
+  padding-right: 10px;
+}
+
+.navbar-brand{
+  font-size: 25px;
+}
+
+#toggleCol{
+  margin-top: 20px;
+  text-align: center;
+}
+
+#leftToggle{
+  color: #eb7658;
+}
+
+.btn-primary{
+  background-color: #eb7658;
+  border-color: #eb7658;
+  border-radius: 7px;
+}
+
+.btn-primary:hover{
+  background-color: white;
+  border-color: #eb7658;
+  color: #eb7658;
+  border-radius: 7px;
+}
+
+#brand{
+  font-family: "Century Schoolbook", sans-serif;
+  font-weight: bolder;
+  margin-left: 1%;
+}

@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'hungryHeoric';
+  title = 'hungryHeroic';
 
+  public isHomePage = false;
   public userId = 1;
+
+  getIsHome(): boolean{
+    return this.isHomePage
+  }
+
+  setIsHome(value: boolean){
+    this.isHomePage = value
+  }
 }

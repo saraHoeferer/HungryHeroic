@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {User} from "../../models/userModel/user.model";
 import { UserService } from 'src/app/services/userService/user.service';
+import { AppComponent } from "../../app.component";
 
 @Component({
   selector: 'app-account',
@@ -17,11 +18,13 @@ export class AccountComponent implements OnInit, OnChanges{
   };
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private appComponent: AppComponent
   ) {}
 
   ngOnInit(): void {
     this.getUser("1")
+    this.appComponent.setIsHome(false)
   }
 
   ngOnChanges(changes: SimpleChanges): void {}

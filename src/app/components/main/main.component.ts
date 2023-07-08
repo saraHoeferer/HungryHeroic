@@ -10,6 +10,7 @@ import { ShoppingListService } from 'src/app/services/shoppingListService/shoppi
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
+import { AppComponent } from "../../app.component";
 
 @Component({
   selector: 'app-main',
@@ -76,7 +77,8 @@ export class MainComponent implements OnInit, OnChanges {
     private InventoryListService: InventoryListService,
     private ShoppingListService: ShoppingListService,
     private modalService: NgbModal,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +86,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.retrieveStorageLocations();
     this.retrieveShopping()
     this.retrieveInventory()
+    this.appComponent.setIsHome(false)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -136,7 +139,7 @@ export class MainComponent implements OnInit, OnChanges {
       });
   }
 
-  
+
   retrieveShopping(): void {
     this.supply = false
     this.searched = false
