@@ -15,12 +15,15 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { EventBusService } from 'src/app/_shared/event-bus.service';
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
 export class MainComponent implements OnInit, OnChanges{
+  currentUser: any;
   categories?: Category[];
   storageLocations?: Storage[];
   inventory?: InventoryList[];
@@ -82,11 +85,13 @@ export class MainComponent implements OnInit, OnChanges{
     private eventBusService: EventBusService
   ) {}
 
+
   ngOnInit(): void {
     this.retrieveCategories();
     this.retrieveStorageLocations();
     this.retrieveShopping()
     this.retrieveInventory()
+    this.currentUser = this.storageService.getUser();
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.retrieveCategories();
