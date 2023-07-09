@@ -33,7 +33,6 @@ export class MainComponent implements OnInit, OnChanges{
   found = false
   searchedItem?: Item[];
   needsToBeCreated = false;
-  private roles: string[] = [];
   isLoggedIn = false;
   // showAdminBoard = false;
   // showModeratorBoard = false;
@@ -88,34 +87,6 @@ export class MainComponent implements OnInit, OnChanges{
     this.retrieveStorageLocations();
     this.retrieveShopping()
     this.retrieveInventory()
-    this.isLoggedIn = this.storageService.isLoggedIn();
-
-    if (this.isLoggedIn) {
-      const users = this.storageService.getUser();
-      this.roles = users.roles;
-
-      // this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      // this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
-      this.user_name = users.user_name;
-    }
-
-    this.eventBusSub = this.eventBusService.on('logout', () => {
-      this.logout();
-    });
-  }
-  logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.clean();
-
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.retrieveCategories();

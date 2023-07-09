@@ -5,9 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AccountComponent } from './components/account/account.component';
+import { BoardUserComponent } from './components/board-user/board-user.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -17,7 +20,7 @@ import { AddItemComponent } from './testDbSachen/add-item/add-item.component';
 import { ItemDetailsComponent } from './testDbSachen/item-details/item-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
-import { AccountComponent } from './components/account/account.component';
+
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 
 @NgModule({
@@ -34,6 +37,7 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
     ItemDetailsComponent,
     ProductDisplayShoppingComponent,
     AccountComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,

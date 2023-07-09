@@ -3,16 +3,13 @@ import { Subscription } from 'rxjs';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { EventBusService } from 'src/app/_shared/event-bus.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
-  private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
@@ -31,11 +28,6 @@ export class AppComponent {
 
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
-      this.roles = user.roles;
-
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
-
       this.user_name = user.user_name;
     }
 
@@ -49,7 +41,7 @@ export class AppComponent {
       next: res => {
         console.log(res);
         this.storageService.clean();
-
+        
         window.location.reload();
       },
       error: err => {
