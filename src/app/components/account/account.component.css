@@ -1,23 +1,19 @@
-
-
-body{
-  background-color:#545454;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
+.myFont{
+  font-family: "Century Schoolbook", sans-serif;
 }
 
 .container{
-  height: 100vh;
+  height: 87vh;
 }
 
 .card{
-  width: 380px;
+  width: 400px;
   border: none;
   border-radius: 15px;
   padding: 8px;
-  background-color: #fff;
+  background-color: #ffffff;
   position: relative;
-  height: 370px;
+  height: 400px;
 }
 
 .upper{
@@ -51,7 +47,6 @@ body{
 }
 
 .edit{
-  border-radius: 15px;
   padding-left: 20px;
   padding-right: 20px;
   height: 35px;

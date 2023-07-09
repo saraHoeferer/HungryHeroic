@@ -26,11 +26,13 @@ export class AccountComponent implements OnInit, OnChanges{
   ) {}
 
   ngOnInit(): void {
-    this.getUser("2")
+    this.getUser("1") //TODO: use ID of current User not static User 1
     this.appComponent.setIsHome(false)
   }
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getUser("1")
+  }
 
   getUser(id: string): void {
     this.userService.get(id)
@@ -63,6 +65,9 @@ export class AccountComponent implements OnInit, OnChanges{
         error: (e) => console.error(e)
       });
   }
+
+  //TODO: Function to get number of Items in Inventory List
+  //TODO: Function to get number of Items in Supply List
 
   //Open Pop-Up with Content Function
   open(content: any) {
