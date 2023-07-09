@@ -36,7 +36,6 @@ export class MainComponent implements OnInit, OnChanges {
   sort = "asc";
   alreadyThere = false
 
-
   closeResult = '';
 
   addItem: Item = {

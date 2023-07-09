@@ -16,11 +16,11 @@
 
         <div class="stats">
           <h6 class="mb-0">Inventory Items</h6>
-          <span>142</span>
+          <span>{{lengthInventoryList}}</span>
         </div>
         <div class="stats">
           <h6 class="mb-0">Supply Items</h6>
-          <span>43</span>
+          <span>{{lengthShoppingList}}</span>
         </div>
       </div>
     </div>
@@ -43,18 +43,6 @@
   </div>
   <div class="modal-body">
     <form>
-      <div class="form-group">
-        <label for="userID">User ID</label>
-        <input
-          type="number"
-          class="form-control"
-          id="userID"
-          required
-          [(ngModel)]="currentUser.user_id"
-          name="userID"
-          readonly
-        />
-      </div>
       <div class="form-group">
         <label for="userName">Name</label>
         <input

@@ -17,6 +17,8 @@ export class AccountComponent implements OnInit, OnChanges{
     user_mail: '',
     user_password: ''
   };
+  lengthInventoryList = 0;
+  lengthShoppingList = 0;
   closeResult = '';
 
   constructor(
