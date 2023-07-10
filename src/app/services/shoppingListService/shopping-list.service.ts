@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Lists } from 'src/app/models/Lists/lists.model';
 import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 
-const baseUrl = 'http://192.168.0.239:8080/api/shopping';
+const baseUrl = 'http://localhost:8080/api/shopping'; //:TODO
 
 @Injectable({
   providedIn: 'root'
