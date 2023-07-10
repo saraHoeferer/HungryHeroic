@@ -1,10 +1,11 @@
 <div class="col-md-12">
-  <div class="card card-container">
+  <div class="card card-container shadow-lg bg-white">
     <img
       id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      src="assets/icons/user.png"
       class="profile-img-card"
     />
+    <!-- //ssl.gstatic.com/accounts/ui/avatar_2x.png -->
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -18,6 +19,7 @@
           type="text"
           class="form-control"
           name="username"
+          id="username"
           [(ngModel)]="form.user_name"
           required
           #user_name="ngModel"
@@ -33,6 +35,7 @@
           type="password"
           class="form-control"
           name="user_password"
+          id="user_password"
           [(ngModel)]="form.user_password"
           required
           minlength="6"
@@ -47,19 +50,24 @@
         </div>
       </div>
       <div class="form-group">
-        <button class="btn btn-primary btn-block">
-          Login
-        </button>
+        <button class="btn btn-outline-custom-success btn-block">Login</button>
       </div>
       <div class="form-group">
-        <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
-          Login failed: {{ errorMessage }}
+        <div *ngIf="f.submitted && isLoginFailed"  role="alert">
+          <div class="alert alert-danger">
+            <h4 class="alert-heading">Login failed!</h4>
+            <p>{{ errorMessage }}</p>
+          </div>
         </div>
       </div>
     </form>
 
-    <div class="alert alert-success" *ngIf="isLoggedIn">
-      Logged in as {{user_name}}.
+    <div *ngIf="isLoggedIn">
+      <div class="alert alert-custom-success mb-3">
+        <h4>Logged in successfully!</h4>
+        <p>Welcome back {{user_name}}</p>
+      </div>
+      <button routerLink="/home" class="btn btn-outline-dark btn-block">To Main Page</button>
     </div>
   </div>
 </div>
