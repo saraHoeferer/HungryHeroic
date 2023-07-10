@@ -3,6 +3,7 @@ import { User } from "../../models/userModel/user.model";
 import { UserService } from 'src/app/services/userService/user.service';
 import { AppComponent } from "../../app.component";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { StorageService } from 'src/app/services/storageService/storage.service';
 
 @Component({
   selector: 'app-account',
@@ -10,9 +11,9 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit, OnChanges{
-
-  currentUser: User = {
-    user_id: 0,
+  currentUser: any;
+  currentUser2: User = {
+    user_id: this.appComponent.userId,
     user_name: '',
     user_mail: '',
     user_password: ''
@@ -24,23 +25,25 @@ export class AccountComponent implements OnInit, OnChanges{
   constructor(
     private userService: UserService,
     private appComponent: AppComponent,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private storageService: StorageService,
   ) {}
 
   ngOnInit(): void {
-    this.getUser("1") //TODO: use ID of current User not static User 1
+    this.getUser(this.appComponent.userId?.toString()!) //TODO: use ID of current User not static User 1
     this.appComponent.setIsHome(false)
+    this.currentUser = this.storageService.getUser();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getUser("1")
+    this.getUser(this.appComponent.userId?.toString()!)
   }
 
   getUser(id: string): void {
     this.userService.get(id)
       .subscribe({
         next: (data) => {
-          this.currentUser = data;
+          this.currentUser2 = data;
           console.log(data);
         },
         error: (e) => console.error(e)
@@ -48,7 +51,7 @@ export class AccountComponent implements OnInit, OnChanges{
   }
 
   updateUser(): void {
-    this.userService.update(this.currentUser.user_id, this.currentUser)
+    this.userService.update(this.currentUser2.user_id, this.currentUser2)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -59,7 +62,7 @@ export class AccountComponent implements OnInit, OnChanges{
   }
 
   deleteUser(): void {
-    this.userService.delete(this.currentUser.user_id)
+    this.userService.delete(this.currentUser2.user_id)
       .subscribe({
         next: (res) => {
           console.log(res);

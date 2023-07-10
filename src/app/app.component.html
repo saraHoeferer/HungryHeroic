@@ -29,8 +29,8 @@
                 <a class="nav-link" routerLink="/recipes">Recipes</a>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <a routerLink="/"><button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button></a>
+            <form *ngIf="isLoggedIn" class="form-inline my-2 my-lg-0">
+              <a (click)="logout()"><button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button></a>
             </form>
           </div>
         </nav>

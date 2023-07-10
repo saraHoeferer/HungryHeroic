@@ -1,4 +1,4 @@
-import { Component, OnInit, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/userService/user.service';
 import { AppComponent } from "../../app.component";
 
@@ -30,6 +30,6 @@ export class HomeComponent implements OnInit {
         }
       }
     });
+    this.appComponent.setIsHome(true)
   }
-  this.appComponent.setIsHome(true)
 }

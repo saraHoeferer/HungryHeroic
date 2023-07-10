@@ -16,7 +16,7 @@ export class AppComponent {
   showModeratorBoard = false;
   user_name?: string;
   eventBusSub?: Subscription;
-  public userId = 1;
+  public userId?: number;
   public isHomePage = false;
 
   constructor(
@@ -31,6 +31,7 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       this.user_name = user.user_name;
+      this.userId = user.user_id;
     }
 
     this.eventBusSub = this.eventBusService.on('logout', () => {
@@ -39,17 +40,8 @@ export class AppComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe({
-      next: res => {
-        console.log(res);
-        this.storageService.clean();
-        
-        window.location.reload();
-      },
-      error: err => {
-        console.log(err);
-      }
-    });
+    this.storageService.clean();
+    window.location.href = '/';
   }
 
   setIsHome(value: boolean){

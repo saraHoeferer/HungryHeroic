@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 import { Storage } from 'src/app/models/storageModel/storage.model';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-product-display',
@@ -13,6 +14,14 @@ import { Storage } from 'src/app/models/storageModel/storage.model';
   styleUrls: ['./product-display.component.css'],
 })
 export class ProductDisplayComponent implements OnInit, AfterViewChecked {
+
+  constructor(
+    private itemService: ItemsService,
+    private modalService: NgbModal,
+    private inventoryService: InventoryListService,
+    private appComponent: AppComponent
+  ) { }
+
   @Input() item!: Item;
   @Input() categories?: Category[]
   @Input() storages?: Storage[]
@@ -36,7 +45,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
 
   currentInventory: InventoryList = {
     item_id: 0,
-    user_id: 1,
+    user_id: this.appComponent.userId,
     quantity: 0,
     expiration_date: new Date,
     storage_loc_id: 0,
@@ -45,11 +54,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
 
   edited = false;
 
-  constructor(
-    private itemService: ItemsService,
-    private modalService: NgbModal,
-    private inventoryService: InventoryListService
-  ) { }
+
 
   getIcon(): string {
     if (this.categories != null) {

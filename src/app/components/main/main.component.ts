@@ -23,6 +23,19 @@ import { EventBusService } from 'src/app/_shared/event-bus.service';
 })
 
 export class MainComponent implements OnInit, OnChanges{
+  constructor(
+    private itemService: ItemsService,
+    private categoryService: CategoryService,
+    private InventoryListService: InventoryListService,
+    private ShoppingListService: ShoppingListService,
+    private modalService: NgbModal,
+    private storageService: StorageService,
+    private authService: AuthService,
+    private eventBusService: EventBusService,
+    private appComponent: AppComponent
+  ) { }
+
+
   currentUser: any;
   categories?: Category[];
   storageLocations?: Storage[];
@@ -65,7 +78,7 @@ export class MainComponent implements OnInit, OnChanges{
 
   addToInventory: InventoryList = {
     quantity: 0,
-    user_id: 0,
+    user_id: this.appComponent.userId,
     item_id: 0,
     expiration_date: new Date(this.date2),
     storage_loc_id: 0,
@@ -73,7 +86,7 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   addToShopping: ShoppingList = {
-    user_id: 0,
+    user_id: this.appComponent.userId,
     item_id: 0,
     quantity: 0,
     category_id: 0
@@ -81,17 +94,7 @@ export class MainComponent implements OnInit, OnChanges{
 
   saved = false;
 
-  constructor(
-    private itemService: ItemsService,
-    private categoryService: CategoryService,
-    private InventoryListService: InventoryListService,
-    private ShoppingListService: ShoppingListService,
-    private modalService: NgbModal,
-    private storageService: StorageService,
-    private authService: AuthService,
-    private eventBusService: EventBusService,
-    private appComponent: AppComponent
-  ) { }
+  
 
 
   ngOnInit(): void {
@@ -132,7 +135,7 @@ export class MainComponent implements OnInit, OnChanges{
   async retrieveInventory(): Promise<void> {
     this.searched = false
     this.supply = true
-    this.fixedInventory = await this.InventoryListService.getUserInventory(1)
+    this.fixedInventory = await this.InventoryListService.getUserInventory(this.appComponent.userId)
     if (this.fixedInventory != null){
       for (let inventories of this.fixedInventory){
         this.currentItem = await this.itemService.get(inventories.item_id)
@@ -147,7 +150,7 @@ export class MainComponent implements OnInit, OnChanges{
   async retrieveShopping(): Promise<void> {
     this.supply = false
     this.searched = false
-    this.fixedShopping = await this.ShoppingListService.getUserShopping(1)
+    this.fixedShopping = await this.ShoppingListService.getUserShopping(this.appComponent.userId)
     if (this.fixedShopping != null){
       for (let shoppings of this.fixedShopping){
         this.currentItem = await this.itemService.get(shoppings.item_id)
@@ -330,7 +333,7 @@ export class MainComponent implements OnInit, OnChanges{
             this.currentItem = this.searchedItem[0]
             this.found = true
             if (this.supply) {
-              this.InventoryListService.get(this.currentItem.item_id!, 1)
+              this.InventoryListService.get(this.currentItem.item_id!, this.appComponent.userId!)
                 .subscribe({
                   next: (data) => {
                     checkInventory = data
@@ -341,7 +344,7 @@ export class MainComponent implements OnInit, OnChanges{
                   error: (e) => console.error(e)
                 });
             } else {
-              this.ShoppingListService.get(this.currentItem.item_id!, 1)
+              this.ShoppingListService.get(this.currentItem.item_id!, this.appComponent.userId!)
                 .subscribe({
                   next: (data) => {
                     checkShopping = data
@@ -386,7 +389,7 @@ export class MainComponent implements OnInit, OnChanges{
   saveInventory(): void {
     if (this.addToInventory.quantity != 0 && this.addToInventory.category_id != 0 && this.addToInventory.storage_loc_id != 0) {
       const data = {
-        user_id: 1,
+        user_id: this.addToInventory.user_id,
         item_id: this.currentItem.item_id,
         quantity: this.addToInventory.quantity,
         expiration_date: new Date(this.date2),
@@ -407,7 +410,7 @@ export class MainComponent implements OnInit, OnChanges{
   saveShoppping(): void {
     if (this.addToShopping.quantity != 0 && this.addToShopping.category_id != 0) {
       const data = {
-        user_id: 1,
+        user_id: this.addToShopping.user_id,
         item_id: this.currentItem.item_id,
         quantity: this.addToShopping.quantity,
         category_id: this.addToShopping.category_id,
@@ -461,14 +464,14 @@ export class MainComponent implements OnInit, OnChanges{
     };
     this.addToInventory = {
       quantity: 0,
-      user_id: 0,
+      user_id: this.appComponent.userId,
       item_id: 0,
       expiration_date: new Date(),
       storage_loc_id: 0,
       category_id: 0
     }
     this.addToShopping = {
-      user_id: 0,
+      user_id: this.appComponent.userId,
       item_id: 0,
       quantity: 0,
       category_id: 0

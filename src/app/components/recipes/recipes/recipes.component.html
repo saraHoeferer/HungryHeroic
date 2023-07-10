@@ -1,3 +1,4 @@
+<div class="container-no-margin" *ngIf="currentUser; else loggedOut">
 <h1>List of Recipes</h1>
 <h4>A list of recipes according to what items are about to expire</h4>
 <section class="cards">
@@ -25,3 +26,8 @@
         </div>
     </div>
 </section>
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

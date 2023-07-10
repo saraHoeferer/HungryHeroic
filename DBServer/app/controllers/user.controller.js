@@ -1,3 +1,8 @@
+const db = require("../models");
+const Users = db.user;
+const Op = db.Sequelize.Op;
+
+
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
