@@ -11,10 +11,6 @@ export class AppComponent {
   public isHomePage = false;
   public userId = 1;
 
-  getIsHome(): boolean{
-    return this.isHomePage
-  }
-
   setIsHome(value: boolean){
     this.isHomePage = value
   }
