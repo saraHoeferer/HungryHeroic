@@ -26,6 +26,11 @@ header {
     color: #eb7658;
 }
 
+.alignDiv{
+  float: right;
+  padding-left: 0px;
+}
+
 .productDiv{
     margin-top: 1%;
     display: flex;
@@ -93,10 +98,11 @@ header {
 
 @media (min-width: 360px) {
   .col-5{
-    width: 180px;
+    width: 100%;
   }
   .col-7{
-    width: 180px;
+    width: 100%;
+    text-align: center;
   }
   #sortButton{
     margin-left: 10px;
@@ -116,18 +122,23 @@ header {
     width: 95%;
     margin-bottom: 20px;
   }
+  .alignDiv{
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-bottom: 5px;
+  }
+  
 }
 
 @media (min-width: 390px) {
-  .col-5{
-    width: 195px;
+  .alignDiv{
+    padding-left: 22px;
+    padding-right: 22px;
   }
 }
 
 @media (min-width: 400px) {
-  .col-5{
-    width: 210px;
-  }
+
 }
 
 @media (min-width: 1280px) {
@@ -138,6 +149,12 @@ header {
 
   .col-5{
     width: 41.667%;
+  }
+
+  .alignDiv{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0px;
   }
 
   #sortButton{

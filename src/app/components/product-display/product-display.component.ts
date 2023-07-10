@@ -26,6 +26,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   ngOnInit(): void {
     if (this.inventoryList != null) {
       this.currentInventory = this.inventoryList
+      this.getDays(this.currentInventory.expiration_date)
     }
   }
 

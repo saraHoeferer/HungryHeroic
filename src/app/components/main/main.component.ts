@@ -33,7 +33,6 @@ export class MainComponent implements OnInit, OnChanges {
   fixedInventory?: InventoryList[];
   fixedShopping?: ShoppingList[];
   searched = false;
-  sort = "asc";
   alreadyThere = false
 
   closeResult = '';
@@ -203,6 +202,46 @@ export class MainComponent implements OnInit, OnChanges {
           this.shopping!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
         }
       }
+    }
+  }
+
+  filterInventoryList(type: string, id?: number): void {
+    let inventoryList: InventoryList[] = [];
+    if (type == "category") {
+      if (this.fixedInventory != null && id != null) {
+        for (let inventory of this.fixedInventory) {
+          if (inventory.category_id == id) {
+            inventoryList.push(inventory)
+          }
+        }
+      }
+    } else if (type == "storage") {
+      if (this.fixedInventory != null && id != null) {
+        for (let inventory of this.fixedInventory) {
+          if (inventory.storage_loc_id == id) {
+            inventoryList.push(inventory)
+          }
+        }
+      }
+    }
+    if (inventoryList.length != 0) {
+      this.inventory = inventoryList
+    }
+  }
+
+  filterShoppingList(id?: number): void {
+    let shoppingList: ShoppingList[] = [];
+
+    if (this.fixedShopping != null && id != null) {
+      for (let shopping of this.fixedShopping) {
+        if (shopping.category_id == id) {
+          shoppingList.push(shopping)
+        }
+      }
+    }
+
+    if (shoppingList.length != 0) {
+      this.shopping = shoppingList
     }
   }
 

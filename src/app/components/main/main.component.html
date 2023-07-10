@@ -33,11 +33,44 @@
         </div>
       </div>
         <div class="col-7" id="addColl">
+                <div class="dropdown alignDiv">
+                  <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-carrot" style="color: #ffffff;"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div *ngIf="supply">
+                      <a *ngFor="let category of categories" (click)="filterInventoryList('category', category.category_id)" class="dropdown-item">{{category.category_name}}</a>
+                    </div>
+                    <div *ngIf="!supply">
+                      <a *ngFor="let category of categories" (click)="filterShoppingList(category.category_id)" class="dropdown-item">{{category.category_name}}</a>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="supply" class="dropdown alignDiv">
+                  <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-door-closed" style="color: #ffffff;"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a *ngFor="let storageLocation of storageLocations" (click)="filterInventoryList('storage', storageLocation.storage_loc_id)" class="dropdown-item">{{storageLocation.storage_loc_name}}</a>
+                  </div>
+                </div>
+                <div class="dropdown alignDiv">
+                  <button class="btn btn-primary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-arrow-up-wide-short" style="color: #ffffff;"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a *ngIf="supply" class="dropdown-item" (click)="sortListInventory('asc')" >Name Asc</a>
+                    <a *ngIf="supply" class="dropdown-item" (click)="sortListInventory('desc')" >Name Desc</a>
+                    <a *ngIf="supply" class="dropdown-item" (click)="sortListInventory('ascDate')">Date Asc</a>
+                    <a *ngIf="supply" class="dropdown-item" (click)="sortListInventory('descDate')">Date Desc</a>
+                    <a *ngIf="!supply" class="dropdown-item" (click)="sortListShopping('asc')" >Name Asc</a>
+                    <a *ngIf="!supply" class="dropdown-item" (click)="sortListShopping('desc')" >Name Desc</a>
+                  </div>
+                </div>
+                <div class="alignDiv">
                 <i (click)="open(addItemPopUp)" class="fa-solid fa-circle-plus fa-2x" id="addIcon"style="color: #c5d510;"></i>
-                <button class="btn btn-primary" id="sortButton">
-                  Sort
-                  <i class="fa-solid fa-arrow-up-wide-short" style="color: #ffffff;"></i>
-                </button>
+                </div>
+                
         </div>
       </div>
 </div>
@@ -45,14 +78,14 @@
     <div class="productDiv">
       <p *ngIf ="inventory != null && inventory.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
       <p *ngIf ="inventory != null && inventory.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
-      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item">{{sortListInventory(this.sort)}}</app-product-display>
+      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages] ="storageLocations" *ngFor="let item of inventory"[inventoryList]="item">{{sortListInventory('asc')}}</app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">
     <div class="productDiv">
       <p *ngIf ="shopping != null && shopping.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
       <p *ngIf ="shopping != null && shopping.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
-      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item">{{sortListShopping(this.sort)}}</app-product-display-shopping>
+      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping" [storageLocation] ="storageLocations" *ngFor="let item of shopping"[ShoppingList]="item">{{sortListShopping('asc')}}</app-product-display-shopping>
     </div>
   </div>
 <!-- PopUp Add Item to DB -->
