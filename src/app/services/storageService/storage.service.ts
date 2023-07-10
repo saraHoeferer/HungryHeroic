@@ -15,23 +15,23 @@ export class StorageService {
     window.sessionStorage.clear();
   }
 
-  public saveUser(users: any): void {
+  public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(users));
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   public getUser(): any {
-    const users = window.sessionStorage.getItem(USER_KEY);
-    if (users) {
-      return JSON.parse(users);
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
+      return JSON.parse(user);
     }
 
     return null;
   }
 
   public isLoggedIn(): boolean {
-    const users = window.sessionStorage.getItem(USER_KEY);
-    if (users) {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
       return true;
     }
 
