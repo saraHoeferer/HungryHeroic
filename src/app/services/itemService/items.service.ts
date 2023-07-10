@@ -16,8 +16,8 @@ export class ItemsService {
     return this.http.get<Item[]>(baseUrl);
   }
 
-  get(id: any): Observable<Item> {
-    return this.http.get(`${baseUrl}/${id}`);
+  get(id: any): Promise<any> {
+    return this.http.get(`${baseUrl}/${id}`).toPromise();
   }
 
   create(data: any): Observable<any> {

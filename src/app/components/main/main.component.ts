@@ -114,51 +114,33 @@ export class MainComponent implements OnInit, OnChanges {
       });
   }
 
-  retrieveInventory(): void {
+  async retrieveInventory(): Promise<void> {
     this.searched = false
     this.supply = true
-    this.InventoryListService.getUserInventory(1)
-      .subscribe({
-        next: (data) => {
-          this.inventory = data;
-          for (let inventories of this.inventory) {
-            this.itemService.get(inventories.item_id)
-              .subscribe({
-                next: (data) => {
-                  this.currentItem = data;
-                  inventories.item_name = this.currentItem.item_name;
-                },
-                error: (e) => console.error(e)
-              });
-          }
-          this.fixedInventory = this.inventory
-        },
-        error: (e) => console.error(e)
-      });
+    this.fixedInventory = await this.InventoryListService.getUserInventory(1)
+    if (this.fixedInventory != null){
+      for (let inventories of this.fixedInventory){
+        this.currentItem = await this.itemService.get(inventories.item_id)
+        inventories.item_name = this.currentItem.item_name
+      }
+    }
+    this.fixedInventory!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+    this.inventory = this.fixedInventory
   }
 
 
-  retrieveShopping(): void {
+  async retrieveShopping(): Promise<void> {
     this.supply = false
     this.searched = false
-    this.ShoppingListService.getUserShopping(1)
-      .subscribe({
-        next: (data) => {
-          this.shopping = data;
-          for (let shoppings of this.shopping) {
-            this.itemService.get(shoppings.item_id)
-              .subscribe({
-                next: (data) => {
-                  this.currentItem = data;
-                  shoppings.item_name = this.currentItem.item_name;
-                },
-                error: (e) => console.error(e)
-              });
-          }
-          this.fixedShopping = this.shopping
-        },
-        error: (e) => console.error(e)
-      })
+    this.fixedShopping = await this.ShoppingListService.getUserShopping(1)
+    if (this.fixedShopping != null){
+      for (let shoppings of this.fixedShopping){
+        this.currentItem = await this.itemService.get(shoppings.item_id)
+        shoppings.item_name = this.currentItem.item_name
+      }
+    }
+    this.fixedShopping!.sort((a, b) => a.item_name!.localeCompare(b.item_name!))
+    this.shopping = this.fixedShopping
   }
 
   sortListInventory(sorting: string): void {
@@ -318,6 +300,7 @@ export class MainComponent implements OnInit, OnChanges {
   getDate(id: number): void {
     var days = this.getExpiryDays(id)
     this.date2 = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().slice(0, 10)
+    console.log(this.date2)
   }
 
   searchForItem(): void {

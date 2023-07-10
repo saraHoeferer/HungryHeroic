@@ -98,7 +98,7 @@ header {
 
 @media (min-width: 360px) {
   .col-5{
-    width: 100%;
+    width: 95%;
   }
   .col-7{
     width: 100%;
@@ -137,8 +137,18 @@ header {
   }
 }
 
-@media (min-width: 400px) {
+@media (min-width: 405px) {
+  .alignDiv{
+    padding-left: 24.5px;
+    padding-right: 24.5px;
+  }
+}
 
+@media (min-width: 413px) {
+  .alignDiv{
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 
 @media (min-width: 1280px) {

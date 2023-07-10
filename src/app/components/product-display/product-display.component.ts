@@ -139,6 +139,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         next: (res) => {
           console.log(res);
           this.message = res.message ? res.message : 'This Item was updated successfully!';
+          this.getDays(this.inventoryList?.expiration_date)
           this.edited = true;
         },
         error: (e) => console.error(e)

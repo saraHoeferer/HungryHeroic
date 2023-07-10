@@ -1,0 +1,27 @@
+<h1>List of Recipes</h1>
+<h4>A list of recipes according to what items are about to expire</h4>
+<section class="cards">
+    <div class="row">
+        <div class="col-3" *ngFor="let recipe of this.recipes">
+            <article class="card card--1">
+                <div class="card__info-hover">
+                    <div class="card__clock-info">
+                        <svg class="card__clock" viewBox="0 0 24 24">
+                        </svg><span class="card__time">15 min</span>
+                    </div>
+                </div>
+                <div class="card__img"></div>
+                <a class="card_link">
+                    <div class="card__img--hover">
+                        <img id="imageRecipe" src="{{recipe.image}}">
+                    </div>
+                </a>
+                <div class="card__info">
+                    <span class="card__category"> Recipe</span>
+                    <h3 class="card__title">{{recipe.title}}</h3>
+                    <span class="card__by">Likes <a class="card__author" title="author">{{recipe.likes}}</a></span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

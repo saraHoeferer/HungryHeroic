@@ -21,8 +21,8 @@ export class ShoppingListService{
     return this.http.get<ShoppingList[]>(`${baseUrl}/${item_id}/${user_id}`);
   }
 
-  getUserShopping(id: any): Observable<Lists[]> {
-    return this.http.get<Lists[]>(`${baseUrl}/user/${id}`);
+  getUserShopping(id: any): Promise<any> {
+    return this.http.get<Lists[]>(`${baseUrl}/user/${id}`).toPromise();
   }
 
   create(data: any): Observable<any> {
