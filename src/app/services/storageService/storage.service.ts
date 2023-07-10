@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 
-const baseUrl = 'http://localhost:8080/api/storage';
+const baseUrl = 'http://192.168.0.239:8080/api/storage';
 
 @Injectable({
   providedIn: 'root'
