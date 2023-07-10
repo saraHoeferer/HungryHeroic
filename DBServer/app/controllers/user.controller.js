@@ -1,10 +1,9 @@
-const db = require("../models");
-const Users = db.users;
-const Op = db.Sequelize.Op;
+exports.allAccess = (req, res) => {
+  res.status(200).send("Public Content.");
+};
 
-// Create and Save a new User
-exports.create = (req, res) => {
-
+exports.userBoard = (req, res) => {
+  res.status(200).send("User Content.");
 };
 
 // Retrieve all User from the database.

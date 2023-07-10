@@ -5,15 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AccountComponent } from './components/account/account.component';
+import { BoardUserComponent } from './components/board-user/board-user.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { IonicModule } from '@ionic/angular';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterComponent } from './components/register/register.component';
 import { ProductDisplayShoppingComponent } from './components/product-display-shopping/product-display-shopping.component';
-import { AccountComponent } from './components/account/account.component';
+
+import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RecipesComponent } from './components/recipes/recipes/recipes.component';
 
@@ -22,12 +27,15 @@ import { RecipesComponent } from './components/recipes/recipes/recipes.component
     AppComponent,
     HomeComponent,
     LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
     MainComponent,
     ProductDisplayComponent,
     RegisterComponent,
     ProductDisplayShoppingComponent,
     AccountComponent,
     RecipesComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +72,7 @@ import { RecipesComponent } from './components/recipes/recipes/recipes.component
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

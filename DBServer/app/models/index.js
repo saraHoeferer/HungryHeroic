@@ -1,7 +1,10 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+const sequelize = new Sequelize(
+  dbConfig.DB, 
+  dbConfig.USER, 
+  dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   operatorsAliases: false,
@@ -22,8 +25,10 @@ db.sequelize = sequelize;
 db.items = require("./items.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.storageLocation = require("./storagelocation.model.js")(sequelize, Sequelize);
-db.users = require("./user.model.js")(sequelize, Sequelize);
 db.inventoryLists = require("./inventorylist.model.js")(sequelize, Sequelize);
 db.shoppingLists = require("./shoppinglist.model.js")(sequelize, Sequelize);
+
+db.user = require("../models/user.model.js")(sequelize, Sequelize);
+
 
 module.exports = db;

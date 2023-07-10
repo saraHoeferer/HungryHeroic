@@ -11,13 +11,19 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 import { AppComponent } from "../../app.component";
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/authService/auth.service';
+import { EventBusService } from 'src/app/_shared/event-bus.service';
+
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent implements OnInit, OnChanges {
+
+export class MainComponent implements OnInit, OnChanges{
+  currentUser: any;
   categories?: Category[];
   storageLocations?: Storage[];
   inventory?: InventoryList[];
@@ -30,6 +36,12 @@ export class MainComponent implements OnInit, OnChanges {
   found = false
   searchedItem?: Item[];
   needsToBeCreated = false;
+  isLoggedIn = false;
+  // showAdminBoard = false;
+  // showModeratorBoard = false;
+  user_name?: string;
+
+  eventBusSub?: Subscription;
   fixedInventory?: InventoryList[];
   fixedShopping?: ShoppingList[];
   searched = false;
@@ -76,8 +88,11 @@ export class MainComponent implements OnInit, OnChanges {
     private ShoppingListService: ShoppingListService,
     private modalService: NgbModal,
     private storageService: StorageService,
+    private authService: AuthService,
+    private eventBusService: EventBusService,
     private appComponent: AppComponent
   ) { }
+
 
   ngOnInit(): void {
     this.retrieveCategories();
@@ -85,8 +100,8 @@ export class MainComponent implements OnInit, OnChanges {
     this.retrieveShopping()
     this.retrieveInventory()
     this.appComponent.setIsHome(false)
+    this.currentUser = this.storageService.getUser();
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     this.retrieveCategories();
     this.retrieveStorageLocations();
