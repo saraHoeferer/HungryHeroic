@@ -50,6 +50,7 @@ export class MainComponent implements OnInit, OnChanges{
   searchedItem?: Item[];
   needsToBeCreated = false;
   isLoggedIn = false;
+  noInList = false;
   // showAdminBoard = false;
   // showModeratorBoard = false;
   user_name?: string;
@@ -135,6 +136,7 @@ export class MainComponent implements OnInit, OnChanges{
   async retrieveInventory(): Promise<void> {
     this.searched = false
     this.supply = true
+    this.noInList = false
     this.fixedInventory = await this.InventoryListService.getUserInventory(this.appComponent.userId)
     if (this.fixedInventory != null){
       for (let inventories of this.fixedInventory){
@@ -150,6 +152,7 @@ export class MainComponent implements OnInit, OnChanges{
   async retrieveShopping(): Promise<void> {
     this.supply = false
     this.searched = false
+    this.noInList = false
     this.fixedShopping = await this.ShoppingListService.getUserShopping(this.appComponent.userId)
     if (this.fixedShopping != null){
       for (let shoppings of this.fixedShopping){
@@ -206,6 +209,7 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   filterInventoryList(type: string, id?: number): void {
+    this.noInList = false
     let inventoryList: InventoryList[] = [];
     if (type == "category") {
       if (this.fixedInventory != null && id != null) {
@@ -226,6 +230,9 @@ export class MainComponent implements OnInit, OnChanges{
     }
     if (inventoryList.length != 0) {
       this.inventory = inventoryList
+    } else {
+      this.noInList = true
+      this.inventory = []
     }
   }
 

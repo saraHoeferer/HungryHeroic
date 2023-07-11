@@ -37,7 +37,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
   edited = false;
 
   ngOnInit(): void {
-
+    this.getDate(this.ShoppingList?.category_id!)
   }
 
   constructor(

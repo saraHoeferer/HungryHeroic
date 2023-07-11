@@ -85,16 +85,18 @@
     </div>
   </div>
   <div *ngIf="supply == true">
-    <p *ngIf="inventory != null && inventory.length == 0 && searched" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
-    <p *ngIf="inventory != null && inventory.length == 0 && !searched" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu   <i class="fa-solid fa-circle-plus"></i> </p>
+    <p *ngIf="inventory != null && inventory.length == 0 && searched && !noInList" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
+    <p *ngIf="inventory != null && inventory.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu   <i class="fa-solid fa-circle-plus"></i> </p>
+    <p *ngIf="this.noInList" class="alert alert-secondary">Die Liste hat kein Produkt dieser Kategorie</p>
     <div class="productDiv">
       <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages]="storageLocations"
         *ngFor="let item of inventory" [inventoryList]="item"></app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">
-    <p *ngIf="shopping != null && shopping.length == 0 && searched" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
-    <p *ngIf="shopping != null && shopping.length == 0 && !searched" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu  <i class="fa-solid fa-circle-plus"></i></p>
+    <p *ngIf="shopping != null && shopping.length == 0 && searched && !noInList" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
+    <p *ngIf="shopping != null && shopping.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu  <i class="fa-solid fa-circle-plus"></i></p>
+    <p *ngIf="this.noInList" class="alert alert-secondary">Die Liste hat kein Produkt dieser Kategorie</p>
     <div class="productDiv">
       <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping"
         [storageLocation]="storageLocations" *ngFor="let item of shopping"
@@ -154,7 +156,6 @@
                 </div>
                 <div class="form-group w-75">
                   <label for="itemExpirationDate">Expiration Date</label>
-                  <div>{{getDate(addToInventory.category_id!)}}</div>
                   <input type="date" class="form-control" id="itemExpirationDate" [(ngModel)]="date2" required
                     name="itemExpirationDate" placeholder="dd.MM.yyyy" />
                 </div>
@@ -183,8 +184,8 @@
                 <div *ngIf="supply">
                   <label for="itemCategory">Category</label>
                   <select class="form-control" id="itemCategory" required [(ngModel)]="addToInventory.category_id"
-                    name="itemCategory">
-                    <option disabled value=0>Select a Category</option>
+                    name="itemCategory" ngModel (ngModelChange)="getDate(addToInventory.category_id!)">
+                    <option (click)="getDate(addToInventory.category_id!)" disabled value=0>Select a Category</option>
                     <option *ngFor="let category of categories" value="{{category.category_id}}">
                       {{category.category_name}}</option>
                   </select>
@@ -194,7 +195,7 @@
                   <select class="form-control" id="itemCategory" required [(ngModel)]="addToShopping.category_id"
                     name="itemCategory">
                     <option disabled value=0>Select a Category</option>
-                    <option *ngFor="let category of categories" value="{{category.category_id}}">
+                    <option *ngFor="let category of categories"value="{{category.category_id}}">
                       {{category.category_name}}</option>
                   </select>
                 </div>
