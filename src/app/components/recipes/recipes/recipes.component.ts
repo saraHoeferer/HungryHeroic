@@ -19,13 +19,10 @@ export class RecipesComponent implements OnInit {
   test: any;
   test2: any;
   recipes: Recipe[] = []
+  fixedRecipes: Recipe[] = []
   userInventory?: InventoryList[]
-  headers = new HttpHeaders({
-    'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-    'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
-    'access-control-allow-credentials': 'false'
-  })
-
+  searchInput: string = ""
+  searched = false
   constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
@@ -68,7 +65,66 @@ export class RecipesComponent implements OnInit {
   async getResponse(ingredient1: string, ingredient2: string, ingredient3: string, ingredient4: string) {
     console.log(ingredient1, ingredient2, ingredient3, ingredient4)
     if (ingredient1 == "" && ingredient2 == "" && ingredient3 == "" && ingredient4 == "") {
-      await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2", {
+      await this.getRandomRecipes()
+      this.fixedRecipes = this.test
+      this.recipes = this.fixedRecipes
+      console.log(this.recipes)
+    } else {
+      await this.getRecipesByIngredients(ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4)
+      for (let recipes of this.test) {
+        await this.getRecipesById(recipes.id)
+        this.fixedRecipes.push(this.test2)
+      }
+      this.recipes = this.fixedRecipes
+      console.log(this.recipes)
+    }
+  }
+
+  async getSearchedRecipes() {
+    if (this.searchInput != "") {
+      this.searched = true
+      this.fixedRecipes = []
+      console.log(this.searchInput)
+      await this.getRecipesByIngredients(this.searchInput)
+      for (let recipes of this.test) {
+        await this.getRecipesById(recipes.id)
+        this.fixedRecipes.push(this.test2)
+      }
+      this.recipes = this.fixedRecipes
+      console.log(this.recipes)
+    }
+  }
+
+  async getRecipesByIngredients(ingredients: string) {
+    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", {
+      headers: {
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+      },
+      credentials: "omit"
+    }).then((response) =>
+      response.json()
+    ).then((data) =>
+      this.test = data
+    );
+  }
+
+  async getRecipesById(id: string) {
+    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id + "/information", {
+      headers: {
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+      },
+      credentials: "omit"
+    }).then((response) =>
+      response.json()
+    ).then((data) =>
+      this.test2 = data
+    );
+  }
+
+  async getRandomRecipes(){
+    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2", {
         headers: {
           'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
           'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
@@ -79,35 +135,66 @@ export class RecipesComponent implements OnInit {
       ).then((data2) =>
         this.test = data2["recipes"]
       );
-      this.recipes = this.test
-      console.log(this.recipes)
-    } else {
-      await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4 + "&number=2&ignorePantry=true&ranking=1", {
-        headers: {
-          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-          'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
-        },
-        credentials: "omit"
-      }).then((response) =>
-        response.json()
-      ).then((data) =>
-        (this.test = data)
-      );
-      for (let recipes of this.test) {
-        await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipes.id + "/information", {
-          headers: {
-            'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-            'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
-          },
-          credentials: "omit"
-        }).then((response) =>
-          response.json()
-        ).then((data) =>
-          this.test2 = data
-        );
-        this.recipes.push(this.test2)
-      }
-      console.log(this.recipes)
-    }
   }
+
+  filterListVegan(){
+    this.searched = true
+    let filterList: Recipe[] = []
+    for (let recipe of this.fixedRecipes){
+      if (recipe.vegan){
+        filterList.push(recipe)
+      }
+    }
+    this.recipes = filterList
+  }
+
+  filterListVegetarian(){
+    this.searched = true
+    let filterList: Recipe[] = []
+    for (let recipe of this.fixedRecipes){
+      if (recipe.vegetarian){
+        filterList.push(recipe)
+      }
+    }
+    this.recipes = filterList
+  }
+
+  filterListGluten(){
+    this.searched = true
+    let filterList: Recipe[] = []
+    for (let recipe of this.fixedRecipes){
+      if (recipe.glutenFree){
+        filterList.push(recipe)
+      }
+    }
+    this.recipes = filterList
+  }
+
+  filterListDairy(){
+    this.searched = true
+    let filterList: Recipe[] = []
+    for (let recipe of this.fixedRecipes){
+      if (recipe.dairyFree){
+        filterList.push(recipe)
+      }
+    }
+    this.recipes = filterList
+  }
+
+  filterListSustainable(){
+    this.searched = true
+    let filterList: Recipe[] = []
+    for (let recipe of this.fixedRecipes){
+      if (recipe.sustainable){
+        filterList.push(recipe)
+      }
+    }
+    this.recipes = filterList
+  }
+
+  resetSearch(){
+    this.searched = false
+    this.recipes = this.fixedRecipes
+  }
+
 }
