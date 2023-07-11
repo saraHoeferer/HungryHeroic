@@ -1,33 +1,43 @@
 <div class="container-no-margin" *ngIf="currentUser; else loggedOut">
-<h1>List of Recipes</h1>
-<h4>A list of recipes according to what items are about to expire</h4>
-<section class="cards">
-    <div class="row">
-        <div class="col-3" *ngFor="let recipe of this.recipes">
-            <article class="card card--1">
-                <div class="card__info-hover">
-                    <div class="card__clock-info">
-                        <svg class="card__clock" viewBox="0 0 24 24">
-                        </svg><span class="card__time">15 min</span>
-                    </div>
-                </div>
-                <div class="card__img"></div>
-                <a class="card_link">
-                    <div class="card__img--hover">
-                        <img id="imageRecipe" src="{{recipe.image}}">
-                    </div>
+    <h1>List of Recipes</h1>
+    <h4>A list of recipes according to what items are about to expire</h4>
+    <section class="cards productDiv">
+            <div *ngFor="let recipe of this.recipes">
+                <a href={{recipe.sourceUrl}} target="_blank">
+                    <article class="card card--1">
+                        <div class="card__info-hover">
+                            <div class="card__clock-info">
+                                <svg class="card__clock" viewBox="0 0 24 24">
+                                </svg><span class="card__time">{{recipe.readyInMinutes}} min</span>
+                            </div>
+                        </div>
+                        <div class="card__img"></div>
+                        <a class="card_link">
+                            <div class="card__img--hover">
+                                <img id="imageRecipe" src="{{recipe.image}}">
+                            </div>
+                        </a>
+                        <div class="card__info">
+                            <span class="card__category"> Recipe</span>
+                            <h3 class="card__title">{{recipe.title}}</h3>
+                            <i *ngIf=recipe.vegan class="fa-solid fa-leaf"></i>
+                            <i *ngIf=recipe.vegetarian class="fa-solid fa-seedling"></i>
+                            <i *ngIf=recipe.dairyFree class="fa-solid fa-cow"></i>
+                            <i *ngIf=recipe.glutenFree class="fa-solid fa-wheat-awn"></i>
+                            <i *ngIf=recipe.sustainable class="fa-solid fa-recycle"></i>
+                            <br>
+                            <span class="card__by">Servings <a class="card__author"
+                                    title="author">{{recipe.servings}}</a></span>
+                                    <br>
+                            <span class="card__by">By <a class="card__author"
+                                    title="author">{{recipe.sourceName}}</a></span>
+                        </div>
+                    </article>
                 </a>
-                <div class="card__info">
-                    <span class="card__category"> Recipe</span>
-                    <h3 class="card__title">{{recipe.title}}</h3>
-                    <span class="card__by">Likes <a class="card__author" title="author">{{recipe.likes}}</a></span>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
+            </div>
+    </section>
 </div>
 
 <ng-template #loggedOut>
-  Please login.
+    Please login.
 </ng-template>

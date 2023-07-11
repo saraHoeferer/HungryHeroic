@@ -3,5 +3,16 @@ export class Recipe {
     title?: string
     image?: string
     imageType?: string
-    likes?: number
+    servings?: number
+    readyInMinutes?: number
+    sourceUrl?: string
+    sourceName?: string
+    vegan?: boolean
+    vegetarian?: boolean
+    sustainable?: boolean
+    dairyFree?: boolean
+    glutenFree?: boolean
+    diets?: string[]
+    dishType?: string[]
+
 }

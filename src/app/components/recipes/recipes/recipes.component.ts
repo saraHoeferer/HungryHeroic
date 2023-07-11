@@ -6,6 +6,9 @@ import { ItemsService } from 'src/app/services/itemService/items.service';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from 'src/app/services/storageService/storage.service';
+import { AppComponent } from 'src/app/app.component';
+import { response } from 'express';
+import { TmplAstBoundAttribute } from '@angular/compiler';
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
@@ -13,26 +16,31 @@ import { StorageService } from 'src/app/services/storageService/storage.service'
 })
 export class RecipesComponent implements OnInit {
   currentUser: any;
+  test: any;
+  test2: any;
   recipes: Recipe[] = []
   userInventory?: InventoryList[]
   headers = new HttpHeaders({
     'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-    'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f'
+    'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+    'access-control-allow-credentials': 'false'
   })
 
-  constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService) { }
+  constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
-    //this.getUserInventory()
+    this.getUserInventory()
     this.currentUser = this.storageService.getUser();
   }
 
   async getUserInventory() {
     let cnt = 0
     let items: Item[] = []
-    this.userInventory = await this.InventoryListService.getUserInventory(1)
+    let ingredients: string[] = []
+    this.userInventory = await this.InventoryListService.getUserInventory(this.appComponent.userId)
     let item: Item
     for (let inventories of this.userInventory!) {
+      console.log(inventories)
       item = await this.itemService.get(inventories.item_id)
       inventories.item_name = item.item_name
     }
@@ -47,20 +55,59 @@ export class RecipesComponent implements OnInit {
         break
       }
     }
-    if (items.length == 4) {
-      this.getResponse(items![0].item_name!, items![1].item_name!, items![2].item_name!, items![3].item_name!)
+    for (let i = 0; i < 4; i++) {
+      if (items[i] == undefined) {
+        ingredients[i] = ""
+      } else {
+        ingredients[i] = items[i].item_name!
+      }
     }
+    this.getResponse(ingredients[0], ingredients[1], ingredients[2], ingredients[3])
   }
 
-  getResponse(ingredient1: string = "Tomate", ingredient2: string = "", ingredient3: string = "", ingredient4: string = "") {
+  async getResponse(ingredient1: string, ingredient2: string, ingredient3: string, ingredient4: string) {
     console.log(ingredient1, ingredient2, ingredient3, ingredient4)
-    this.http.get<any>("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4 + "&ignorePantry=true&ranking=1", {
-      headers: this.headers
-    })
-      .subscribe(data => {
-        this.recipes = data
-        console.log(data)
-        console.log(this.recipes)
-      })
+    if (ingredient1 == "" && ingredient2 == "" && ingredient3 == "" && ingredient4 == "") {
+      await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2", {
+        headers: {
+          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+          'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+        },
+        credentials: "omit",
+      }).then((response) =>
+        (response.json())
+      ).then((data2) =>
+        this.test = data2["recipes"]
+      );
+      this.recipes = this.test
+      console.log(this.recipes)
+    } else {
+      await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4 + "&number=2&ignorePantry=true&ranking=1", {
+        headers: {
+          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+          'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+        },
+        credentials: "omit"
+      }).then((response) =>
+        response.json()
+      ).then((data) =>
+        (this.test = data)
+      );
+      for (let recipes of this.test) {
+        await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + recipes.id + "/information", {
+          headers: {
+            'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+            'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+          },
+          credentials: "omit"
+        }).then((response) =>
+          response.json()
+        ).then((data) =>
+          this.test2 = data
+        );
+        this.recipes.push(this.test2)
+      }
+      console.log(this.recipes)
+    }
   }
 }
