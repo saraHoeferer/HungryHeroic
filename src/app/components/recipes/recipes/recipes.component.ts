@@ -66,6 +66,7 @@ export class RecipesComponent implements OnInit {
 
   async getResponse(ingredient1: string, ingredient2: string, ingredient3: string, ingredient4: string) {
     console.log(ingredient1, ingredient2, ingredient3, ingredient4)
+    this.found = true
     if (ingredient1 == "" && ingredient2 == "" && ingredient3 == "" && ingredient4 == "") {
       await this.getRandomRecipes()
       this.fixedRecipes = this.test
@@ -148,6 +149,7 @@ export class RecipesComponent implements OnInit {
 
   filterListVegan(){
     this.searched = true
+    this.found = false
     let filterList: Recipe[] = []
     for (let recipe of this.fixedRecipes){
       if (recipe.vegan){
@@ -159,6 +161,7 @@ export class RecipesComponent implements OnInit {
 
   filterListVegetarian(){
     this.searched = true
+    this.found = false
     let filterList: Recipe[] = []
     for (let recipe of this.fixedRecipes){
       if (recipe.vegetarian){
@@ -170,6 +173,7 @@ export class RecipesComponent implements OnInit {
 
   filterListGluten(){
     this.searched = true
+    this.found = false
     let filterList: Recipe[] = []
     for (let recipe of this.fixedRecipes){
       if (recipe.glutenFree){
@@ -181,6 +185,7 @@ export class RecipesComponent implements OnInit {
 
   filterListDairy(){
     this.searched = true
+    this.found = false
     let filterList: Recipe[] = []
     for (let recipe of this.fixedRecipes){
       if (recipe.dairyFree){
@@ -192,6 +197,7 @@ export class RecipesComponent implements OnInit {
 
   filterListSustainable(){
     this.searched = true
+    this.found = false
     let filterList: Recipe[] = []
     for (let recipe of this.fixedRecipes){
       if (recipe.sustainable){

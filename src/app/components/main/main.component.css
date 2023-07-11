@@ -102,6 +102,12 @@ header {
   margin-left: 1%;
 }
 
+.alert-secondary{
+  text-align: center;
+  margin: 50px;
+  font-size: 1.2rem;
+}
+
 @media (min-width: 360px) {
   .col-5{
     width: 95%;
@@ -132,6 +138,11 @@ header {
   .alignDiv{
     padding-right: 10px;
     margin-bottom: 5px;
+  }
+  .alert-secondary{
+    text-align: center;
+    margin: 10px;
+    font-size: 1rem;
   }
   
 }
@@ -189,5 +200,9 @@ header {
   
   }
 
-
+  .alert-secondary{
+    text-align: center;
+    margin: 50px;
+    font-size: 1.2rem;
+  }
 }

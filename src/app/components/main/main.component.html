@@ -85,17 +85,17 @@
     </div>
   </div>
   <div *ngIf="supply == true">
+    <p *ngIf="inventory != null && inventory.length == 0 && searched" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
+    <p *ngIf="inventory != null && inventory.length == 0 && !searched" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu   <i class="fa-solid fa-circle-plus"></i> </p>
     <div class="productDiv">
-      <p *ngIf="inventory != null && inventory.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
-      <p *ngIf="inventory != null && inventory.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
       <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages]="storageLocations"
         *ngFor="let item of inventory" [inventoryList]="item"></app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">
+    <p *ngIf="shopping != null && shopping.length == 0 && searched" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
+    <p *ngIf="shopping != null && shopping.length == 0 && !searched" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu  <i class="fa-solid fa-circle-plus"></i></p>
     <div class="productDiv">
-      <p *ngIf="shopping != null && shopping.length == 0 && searched"> Dieses Produkt ist nicht in deiner Liste</p>
-      <p *ngIf="shopping != null && shopping.length == 0 && !searched"> Füge Produkte zu deiner Liste hinzu!</p>
       <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping"
         [storageLocation]="storageLocations" *ngFor="let item of shopping"
         [ShoppingList]="item"></app-product-display-shopping>

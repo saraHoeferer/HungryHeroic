@@ -65,14 +65,14 @@
         </div>
 </section>
 </div>
-<div *ngIf="recipes.length == 0 && searched && found">
-    <p class="userMessage"><i class="fa-solid fa-clock-rotate-left"></i> Rezepte werden geladen ...</p>
+<div *ngIf="recipes.length == 0 && found">
+    <p class="alert alert-secondary"><i class="fa-solid fa-clock-rotate-left"></i> Rezepte werden geladen ...</p>
 </div>
 <div *ngIf="recipes.length == 0 && searched && !found">
-    <p class="userMessage"><i class="fa-solid fa-triangle-exclamation"></i> Keine Rezepte zu dieser Suche </p>
+    <p class="alert alert-secondary"><i class="fa-solid fa-triangle-exclamation"></i> Keine Rezepte zu dieser Suche </p>
 </div>
 <div *ngIf="recipes.length == 0 && !found && !searched">
-    <p class="userMessage"><i class="fa-solid fa-triangle-exclamation"></i> Es wurden leider keine Rezepte gefunden</p>
+    <p class="alert alert-secondary"><i class="fa-solid fa-triangle-exclamation"></i> Es wurden leider keine Rezepte gefunden</p>
 </div>
 </div>
 
