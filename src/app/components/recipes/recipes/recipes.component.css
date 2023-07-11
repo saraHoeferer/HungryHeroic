@@ -192,6 +192,13 @@ i {
   border-radius: 7px;
 }
 
+.userMessage{
+  margin-left: 20px;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  text-align: center;
+}
+
 @media (min-width: 360px) {
   .card {
     margin-right: 10px;
@@ -203,6 +210,13 @@ i {
     margin-bottom: 20px;
     width: 330px;
     margin-left: 10px;
+  }
+
+  .userMessage{
+    margin-left: 10px;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: center;
   }
 
   h4{
@@ -260,6 +274,13 @@ i {
     margin-bottom: 50px;
     width: 330px;
     margin-left: 32px;
+  }
+
+  .userMessage{
+    margin-left: 20px;
+    font-size: 1.5rem;
+    margin-top: 20px;
+    text-align: center;
   }
 
   h4{

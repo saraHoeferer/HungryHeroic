@@ -20,9 +20,11 @@ export class RecipesComponent implements OnInit {
   test2: any;
   recipes: Recipe[] = []
   fixedRecipes: Recipe[] = []
+  searchedRecipes: Recipe[] = []
   userInventory?: InventoryList[]
   searchInput: string = ""
   searched = false
+  found = false
   constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
@@ -82,15 +84,22 @@ export class RecipesComponent implements OnInit {
 
   async getSearchedRecipes() {
     if (this.searchInput != "") {
+      this.found = true
+      this.recipes = []
       this.searched = true
-      this.fixedRecipes = []
+      this.searchedRecipes = []
       console.log(this.searchInput)
       await this.getRecipesByIngredients(this.searchInput)
       for (let recipes of this.test) {
         await this.getRecipesById(recipes.id)
-        this.fixedRecipes.push(this.test2)
+        this.searchedRecipes.push(this.test2)
       }
-      this.recipes = this.fixedRecipes
+      if (this.searchedRecipes.length != 0){
+        this.found = true
+      } else {
+        this.found = false
+      }
+      this.recipes = this.searchedRecipes
       console.log(this.recipes)
     }
   }
@@ -195,6 +204,7 @@ export class RecipesComponent implements OnInit {
   resetSearch(){
     this.searched = false
     this.recipes = this.fixedRecipes
+    this.found = false
   }
 
 }

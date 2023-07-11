@@ -118,7 +118,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
   addToInventory() {
     let checkInventory: InventoryList[]
     if (this.currentInventory.storage_loc_id != 0) {
-      this.inventoryListService.get(this.ShoppingList!.item_id!, 1)
+      this.inventoryListService.get(this.ShoppingList!.item_id!, this.ShoppingList?.user_id!)
         .subscribe({
           next: (data) => {
             checkInventory = data

@@ -31,6 +31,12 @@ header {
   padding-left: 0px;
 }
 
+.alignDiv2{
+  float: left;
+  padding-left: 5px;
+
+}
+
 .productDiv{
     margin-top: 1%;
     display: flex;
@@ -103,6 +109,7 @@ header {
   .col-7{
     width: 100%;
     text-align: center;
+    align-items: center;
   }
   #sortButton{
     margin-left: 10px;
@@ -123,32 +130,19 @@ header {
     margin-bottom: 20px;
   }
   .alignDiv{
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-right: 10px;
     margin-bottom: 5px;
   }
   
 }
 
 @media (min-width: 390px) {
-  .alignDiv{
-    padding-left: 22px;
-    padding-right: 22px;
-  }
 }
 
-@media (min-width: 405px) {
-  .alignDiv{
-    padding-left: 24.5px;
-    padding-right: 24.5px;
-  }
+@media (min-width: 406px) {
 }
 
 @media (min-width: 413px) {
-  .alignDiv{
-    padding-left: 25px;
-    padding-right: 25px;
-  }
 }
 
 @media (min-width: 1280px) {
@@ -187,6 +181,12 @@ header {
 
   .StartSubText{
     font-size: 20px;
+  }
+
+  .alignDiv2{
+    float: right;
+    padding-right: 15px;
+  
   }
 
 
