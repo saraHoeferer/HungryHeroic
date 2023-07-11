@@ -51,7 +51,7 @@ export class AccountComponent implements OnInit, OnChanges{
   }
 
   updateUser(): void {
-    this.userService.update(this.currentUser2.user_id, this.currentUser2)
+    this.userService.update(this.currentUser.user_id, this.currentUser)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -62,7 +62,7 @@ export class AccountComponent implements OnInit, OnChanges{
   }
 
   deleteUser(): void {
-    this.userService.delete(this.currentUser2.user_id)
+    this.userService.delete(this.currentUser.user_id)
       .subscribe({
         next: (res) => {
           console.log(res);

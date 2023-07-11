@@ -114,5 +114,10 @@ h3{
     display: grid;
   }
 
+  .makeWidder{
+    text-align: center;
+    width: 100%;
+  }
+
   /* Weitere Anpassungen für andere Elemente */
 }
