@@ -12,8 +12,6 @@
   }
 }
 
-
-
 label {
   display: block;
   margin-top: 10px;
@@ -25,16 +23,17 @@ label {
 }
 
 .card {
-  background-color: #f7f7f7;
+  //background-color: #f7f7f7;
+  border: none;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  //-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  //-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  //box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img-card {
@@ -45,4 +44,20 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+
+.alert-custom-success{
+  background-color:#e9f471;
+  color:#000000;
+}
+
+.btn-outline-custom-success{
+  color: #c5d510;
+  background-color: #ffffff;
+  border-color: #c5d510;
+}
+
+.btn-outline-custom-success:hover{
+  background-color: #c5d510;
+  color: #ffffff;
 }
