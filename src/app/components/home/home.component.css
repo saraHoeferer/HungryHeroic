@@ -94,13 +94,25 @@ h3{
     /* z.B. ändere die Höhe, um den Inhalt besser darzustellen */
     min-height: 80vh;
   }
-  
+
   .team-image {
     /* Stile für Bildschirmgrößen bis 768px Breite */
     /* z.B. ändere die Größe des Team-Bildes für eine bessere Darstellung auf kleinen Bildschirmen */
     width: 200px;
     height: 150px;
   }
-  
+
+  h1{
+    font-size: 20px;
+  }
+
+  h3{
+    font-size: 18px;
+  }
+
+  .signature{
+    display: grid;
+  }
+
   /* Weitere Anpassungen für andere Elemente */
 }
