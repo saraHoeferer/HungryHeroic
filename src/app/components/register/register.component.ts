@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { AppComponent } from "../../app.component";
 
+// This component binds form data (username, email, password) from template to 
+// AuthService.register() method that returns an Observable object.
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,7 +20,7 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
 
   constructor(private authService: AuthService,private appComponent: AppComponent ) { }
-
+  //Form submission
   onSubmit(): void {
     const { user_name, user_mail, user_password } = this.form;
     this.authService.register(user_name, user_mail, user_password).subscribe({

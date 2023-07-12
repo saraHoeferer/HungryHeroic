@@ -38,7 +38,7 @@ export class AppComponent {
       this.logout();
     });
   }
-
+  // Logout button link that call logout() method and reload the window.
   logout(): void {
     this.storageService.clean();
     window.location.href = '/';

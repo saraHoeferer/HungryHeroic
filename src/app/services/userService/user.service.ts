@@ -18,23 +18,23 @@ export class UserService {
   getUserBoard(): Observable<any> {
     return this.http.get(baseUrl + 'user', { responseType: 'text' });
   }
-
+  // Retrieve all users from the server
   getAll(): Observable<User[]> {
     return this.http.get<User[]>(baseUrl);
   }
-
+  // Retrieve a specific user by ID from the server
   get(id: any): Observable<User> {
     return this.http.get(`${baseUrl}/${id}`);
   }
-
+  // Create a new user on the server
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
-
+  // Update an existing user on the server
   update(id: any, data: any): Observable<any> {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
-
+  // Delete a user from the server
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
   }  

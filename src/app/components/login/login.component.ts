@@ -2,7 +2,8 @@ import { Component, OnInit} from '@angular/core';
 import { AppComponent } from "../../app.component";
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { StorageService } from 'src/app/services/storageService/storage.service';
-
+// Login Component also uses AuthService to work with Observable object. Besides that,
+// it calls StorageService methods to check loggedIn status and save User info to Session Storage.
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
+    // Check if the user is already logged in
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.user_name = this.storageService.getUser().user_name;
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-  
+  // Reload the page
   reloadPage(): void {
     window.location.reload();
   }

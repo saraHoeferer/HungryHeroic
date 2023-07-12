@@ -5,7 +5,6 @@
       src="assets/icons/user.png"
       class="profile-img-card"
     />
-    <!-- //ssl.gstatic.com/accounts/ui/avatar_2x.png -->
     <form
       *ngIf="!isSuccessful"
       name="form"
@@ -13,6 +12,9 @@
       #f="ngForm"
       novalidate
     >
+
+    <!-- username: required, minLength=3, maxLength=20 -->
+   
       <div class="form-group">
         <label for="user_name">Username</label>
         <input
@@ -37,6 +39,9 @@
           </div>
         </div>
       </div>
+
+      <!-- email: required, email format -->
+
       <div class="form-group">
         <label for="user_mail">Email</label>
         <input
@@ -57,6 +62,7 @@
           </div>
         </div>
       </div>
+      <!-- password: required, minLength=6 -->
       <div class="form-group">
         <label for="user_password">Password</label>
         <input
