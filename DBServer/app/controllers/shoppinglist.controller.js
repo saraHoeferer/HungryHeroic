@@ -69,6 +69,22 @@ exports.findOne = (req, res) => {
   });
 };
 
+exports.count = (req,res) => {
+  const user_id = req.params.userId;
+  ShoppingLists.count({
+    where: {user_id: user_id},
+  })
+    .then(data => {
+      res.send(data.toString());
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while couting items."
+      });
+    })
+}
+
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
   const user_id = req.params.userId;

@@ -5,6 +5,7 @@ import { AppComponent } from "../../app.component";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
+import { ShoppingListService } from "../../services/shoppingListService/shopping-list.service";
 
 @Component({
   selector: 'app-account',
@@ -28,14 +29,16 @@ export class AccountComponent implements OnInit, OnChanges{
     private appComponent: AppComponent,
     private modalService: NgbModal,
     private storageService: StorageService,
-    private inventoryService: InventoryListService
+    private inventoryService: InventoryListService,
+    private shoppingService: ShoppingListService
   ) {}
 
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
     this.getUser(this.currentUser.user_id) //this.appComponent.userId?.toString()!
     this.appComponent.setIsHome(false)
-   // this.getCount()
+    this.getCountInventory()
+    this.getCountShopping()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -75,18 +78,29 @@ export class AccountComponent implements OnInit, OnChanges{
       });
   }
 
-  getCount(){
+  //TODO: Function to get number of Items in Inventory List
+  getCountInventory(){
     this.inventoryService.getCount(this.currentUser.user_id)
     .subscribe({
       next: (res) => {
         console.log(res);
+        this.lengthInventoryList = res
       },
       error: (e) => console.error(e)
     });
   }
 
-  //TODO: Function to get number of Items in Inventory List
   //TODO: Function to get number of Items in Supply List
+  getCountShopping(){
+    this.shoppingService.getCount(this.currentUser.user_id)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.lengthShoppingList = res
+        },
+        error: (e) => console.error(e)
+      });
+  }
 
   //Open Pop-Up with Content Function
   open(content: any) {
