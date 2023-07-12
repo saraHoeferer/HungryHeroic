@@ -115,7 +115,7 @@ export class RecipesComponent implements OnInit {
   }
 
   async getRecipesByIngredients(ingredients: string) {
-    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=5&ignorePantry=true&ranking=1", {
+    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=12&ignorePantry=true&ranking=1", {
       headers: {
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
         'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
@@ -143,7 +143,7 @@ export class RecipesComponent implements OnInit {
   }
 
   async getRandomRecipes() {
-    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2", {
+    await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=12", {
       headers: {
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
         'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',

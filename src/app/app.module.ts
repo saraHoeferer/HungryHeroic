@@ -10,7 +10,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AccountComponent } from './components/account/account.component';
-import { BoardUserComponent } from './components/board-user/board-user.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
@@ -37,7 +36,6 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     ProductDisplayShoppingComponent,
     AccountComponent,
     RecipesComponent,
-    BoardUserComponent,
     ErrorPageComponent,
     ImpressumComponent
   ],
