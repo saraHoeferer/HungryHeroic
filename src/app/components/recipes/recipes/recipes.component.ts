@@ -109,6 +109,7 @@ export class RecipesComponent implements OnInit {
       console.log(this.recipes)
     } else {
       this.recipes = this.fixedRecipes
+      this.searched = false
     }
   }
 
