@@ -278,6 +278,7 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   searchForSimilarItem() {
+    this.noInList = false
     if (this.searchItem.item_name != '') {
       this.searched = true
       let inventoryList: InventoryList[] = [];

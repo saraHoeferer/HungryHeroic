@@ -15,5 +15,6 @@
     </div>
 </section>
 <div class="link-container">
-    <a href="/" class="more-link">Go to Startpage</a>
+    <a *ngIf="currentUser" href="/home" class="more-link">Go to Startpage</a>
+    <a *ngIf="!currentUser" href="/" class="more-link">Go to Startpage</a>
 </div>
