@@ -54,7 +54,7 @@ header {
   border-radius: 7px;
 }
 
-#brand {
+.brand {
   font-family: "Century Schoolbook", sans-serif;
   font-weight: bolder;
   margin-left: 1%;
