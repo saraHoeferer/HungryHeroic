@@ -149,22 +149,6 @@
             <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
-            <div *ngIf="supply">
-              <div class="row" style="margin-left: -10px">
-                <div class="col-no-margin form-group w-25">
-                  <label for="itemQuantity">Quantity</label>
-                  <div class="input-group">
-                    <input type="number" min="0" class="form-control" aria-describedby="multiply-addon"
-                      id="itemQuantity" required [(ngModel)]="addToInventory.quantity" name="itemQuantity" />
-                  </div>
-                </div>
-                <div class="form-group w-75">
-                  <label for="itemExpirationDate">Estimated Expiration Date</label>
-                  <input type="date" class="form-control" id="itemExpirationDate" [(ngModel)]="date2" required
-                    name="itemExpirationDate" placeholder="dd.MM.yyyy" />
-                </div>
-              </div>
-            </div>
             <div class="row" style="margin-left: -10px">
               <div class="form-group w-50 col">
                 <div *ngIf="supply">
@@ -202,6 +186,22 @@
                     <option *ngFor="let category of categories"value="{{category.category_id}}">
                       {{category.category_name}}</option>
                   </select>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="supply">
+              <div class="row" style="margin-left: -10px">
+                <div class="col-no-margin form-group w-25">
+                  <label for="itemQuantity">Quantity</label>
+                  <div class="input-group">
+                    <input type="number" min="0" class="form-control" aria-describedby="multiply-addon"
+                      id="itemQuantity" required [(ngModel)]="addToInventory.quantity" name="itemQuantity" />
+                  </div>
+                </div>
+                <div class="form-group w-75">
+                  <label for="itemExpirationDate">Estimated Expiration Date</label>
+                  <input type="date" class="form-control" id="itemExpirationDate" [(ngModel)]="date2" required
+                    name="itemExpirationDate" placeholder="dd.MM.yyyy" />
                 </div>
               </div>
             </div>
