@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/userService/user.service';
 import { AppComponent } from "../../app.component";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { StorageService } from 'src/app/services/storageService/storage.service';
+import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 
 @Component({
   selector: 'app-account',
@@ -27,12 +28,14 @@ export class AccountComponent implements OnInit, OnChanges{
     private appComponent: AppComponent,
     private modalService: NgbModal,
     private storageService: StorageService,
+    private inventoryService: InventoryListService
   ) {}
 
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
     this.getUser(this.currentUser.user_id) //this.appComponent.userId?.toString()!
     this.appComponent.setIsHome(false)
+   // this.getCount()
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,6 +73,16 @@ export class AccountComponent implements OnInit, OnChanges{
         },
         error: (e) => console.error(e)
       });
+  }
+
+  getCount(){
+    this.inventoryService.getCount(this.currentUser.user_id)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => console.error(e)
+    });
   }
 
   //TODO: Function to get number of Items in Inventory List

@@ -21,6 +21,10 @@ export class InventoryListService{
     return this.http.get<InventoryList[]>(`${baseUrl}/${item_id}/${user_id}`);
   }
 
+  getCount(user_id: number): Observable<any>{
+    return this.http.get<any>(baseUrl+"/count/"+user_id)
+  }
+
   getUserInventory(id: any): Promise<any> {
     return this.http.get(baseUrl+"/user/"+id).toPromise();
   }

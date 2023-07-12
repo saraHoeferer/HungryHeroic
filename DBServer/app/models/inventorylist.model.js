@@ -1,4 +1,4 @@
-module.exports = async (sequelize, Sequelize) => {
+module.exports = (sequelize, Sequelize) => {
   const InventoryList = sequelize.define("inventorylists", {
     user_id: {
       type: Sequelize.INTEGER,
@@ -23,11 +23,6 @@ module.exports = async (sequelize, Sequelize) => {
   }, {
     timestamps: false
   });
-
-  const count = await InventoryList.count({
-    where: {user_id: "1"},
-  });
-
   return InventoryList;
 };
 

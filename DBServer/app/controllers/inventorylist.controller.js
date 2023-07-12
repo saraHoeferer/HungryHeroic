@@ -34,6 +34,22 @@ exports.create = (req, res) => {
     });
 };
 
+exports.count = (req,res) => {
+  const user_id = req.params.userId;
+  InventoryLists.count({
+    where: {user_id: user_id},
+  })
+  .then(data => {
+    res.send(data.toString());
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while couting items."
+    });
+  })
+}
+
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
