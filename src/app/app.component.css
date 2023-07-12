@@ -1,5 +1,15 @@
 :host {
-    --content-padding: 0px;
+  --content-padding: 0px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main{
+  min-height: 100vh;
 }
 
 header {
@@ -7,44 +17,49 @@ header {
   height: 50px;
   box-shadow: 0 5px 25px #d8d8d8;
 }
-.nav-item{
+
+.nav-item {
   margin-right: 30px;
 }
 
-.navbar{
+.navbar {
   padding-left: 10px;
   font-size: 20px;
   padding-right: 10px;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-size: 25px;
 }
 
-#toggleCol{
+#toggleCol {
   margin-top: 20px;
   text-align: center;
 }
 
-#leftToggle{
+#leftToggle {
   color: #eb7658;
 }
 
-.btn-primary{
+.btn-primary {
   background-color: #eb7658;
   border-color: #eb7658;
   border-radius: 7px;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   background-color: white;
   border-color: #eb7658;
   color: #eb7658;
   border-radius: 7px;
 }
 
-#brand{
+#brand {
   font-family: "Century Schoolbook", sans-serif;
   font-weight: bolder;
   margin-left: 1%;
+}
+
+footer {
+  margin-top: auto;
 }

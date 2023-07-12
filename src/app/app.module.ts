@@ -22,6 +22,7 @@ import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RecipesComponent } from './components/recipes/recipes/recipes.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { ImpressumComponent } from './components/impressum/impressum.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ErrorPageComponent } from './components/error-page/error-page.component
     AccountComponent,
     RecipesComponent,
     BoardUserComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ImpressumComponent
   ],
   imports: [
     BrowserModule,
