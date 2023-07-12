@@ -66,6 +66,7 @@ export class AccountComponent implements OnInit, OnChanges{
       .subscribe({
         next: (res) => {
           console.log(res);
+          this.appComponent.logout()
         },
         error: (e) => console.error(e)
       });
