@@ -175,6 +175,15 @@
   }
 }
 
+@media (min-width: 1050px) {
+  .user-margin{
+    margin-top: 0px;
+  }
+  .upper{
+    height: 5px;
+  }
+}
+
 @media (min-width: 1280px) {
   .col-7{
     text-align: end;
