@@ -8,7 +8,6 @@ import { HomeComponent } from './components/home/home.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { AccountComponent } from './components/account/account.component';
 import { MainComponent } from './components/main/main.component';
 import { ProductDisplayComponent } from './components/product-display/product-display.component';
@@ -29,7 +28,6 @@ import { ImpressumComponent } from './components/impressum/impressum.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     MainComponent,
     ProductDisplayComponent,
     RegisterComponent,

@@ -13,6 +13,6 @@ export class Recipe {
     dairyFree?: boolean
     glutenFree?: boolean
     diets?: string[]
-    dishType?: string[]
+    dishType?: string[] //TODO: dishType not needed?
 
 }

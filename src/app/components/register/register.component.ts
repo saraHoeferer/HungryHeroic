@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/authService/auth.service';
 import { AppComponent } from "../../app.component";
 
-// This component binds form data (username, email, password) from template to 
+// This component binds form data (username, email, password) from template to
 // AuthService.register() method that returns an Observable object.
 @Component({
   selector: 'app-register',
@@ -19,7 +19,15 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService,private appComponent: AppComponent ) { }
+  constructor(
+    private authService: AuthService,
+    private appComponent: AppComponent
+  ) { }
+
+  ngOnInit() {
+    this.appComponent.setIsHome(false)
+  }
+
   //Form submission
   onSubmit(): void {
     const { user_name, user_mail, user_password } = this.form;
@@ -35,9 +43,4 @@ export class RegisterComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit() {
-    this.appComponent.setIsHome(false)
-  }
-
 }

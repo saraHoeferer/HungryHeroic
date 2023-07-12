@@ -5,8 +5,8 @@
         <div *ngIf="isHomePage == false">
           <!-- Navigation for all Pages except HomePage -->
           <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a *ngIf="!isLoggedIn"class="navbar-brand " id="brand" routerLink="/">HungryHeroic</a>
-            <a *ngIf="isLoggedIn" class="navbar-brand " id="brand" routerLink="/home">HungryHeroic</a>
+            <a *ngIf="!isLoggedIn" class="navbar-brand brand" routerLink="/">HungryHeroic</a>
+            <a *ngIf="isLoggedIn" class="navbar-brand brand" routerLink="/home">HungryHeroic</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-auto-close="false"
               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
               aria-label="Toggle navigation">
@@ -39,9 +39,10 @@
             </div>
           </nav>
         </div>
-        <router-outlet></router-outlet>
+        <router-outlet></router-outlet> <!-- Component of given route  -->
       </section>
     </main>
+    <!-- Footer for all Pages -->
     <footer class="row bg-light">
       <div class="col d-flex justify-content-end">
         <a href="/impressum" title="icons" class="text-secondary m-2">Impressum<br></a>

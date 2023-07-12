@@ -24,16 +24,19 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     public mainComponent: MainComponent
   ) { }
 
+  // Get Variable from Parent Component
   @Input() item!: Item;
   @Input() categories?: Category[]
   @Input() storages?: Storage[]
   @Input() inventoryList?: InventoryList;
+
   closeResult = '';
   message = '';
   currentDate = new Date()
   progress = 0
   icon = "";
 
+  // When component is loaded
   ngOnInit(): void {
     if (this.inventoryList != null) {
       this.currentInventory = this.inventoryList
@@ -42,6 +45,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  // TODO: Can this function be deleted?
   ngAfterViewChecked(): void {
 
   }
@@ -74,6 +78,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     return "error.png"
   }
 
+  // TODO: This function is never used can we delete it?
   getIconStorage(): string {
     if (this.storages != null) {
       for (var storage of this.storages) {
@@ -155,6 +160,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  // To edit the Item and save the changes in the Database
   updateItem(): void {
     console.log(this.inventoryList)
     this.inventoryService.update(this.inventoryList?.item_id, this.inventoryList?.user_id, this.currentInventory)
@@ -169,6 +175,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  // Delete Item form Inventory table with PK: item_id & user_id
   deleteItem(): void {
     this.inventoryService.delete(this.inventoryList?.item_id, this.inventoryList?.user_id)
       .subscribe({

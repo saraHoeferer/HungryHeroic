@@ -16,10 +16,12 @@ import { MainComponent } from '../main/main.component';
   styleUrls: ['./product-display-shopping.component.css']
 })
 export class ProductDisplayShoppingComponent implements OnInit {
+  // Get variables form Parent component
   @Input() item!: Item;
   @Input() categories?: Category[];
   @Input() ShoppingList?: ShoppingList;
   @Input() storageLocation?: Storage[]
+
   closeResult = '';
   message = '';
   date2 = new Date().toISOString().slice(0, 10)
@@ -37,6 +39,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
 
   edited = false;
 
+  // When component is loaded
   ngOnInit(): void {
     this.getDate(this.ShoppingList?.category_id!)
     this. currentInventory = {
@@ -113,6 +116,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
     }
   }
 
+  // Edit Item in Shopping list with PK: item_id & user_id
   updateItem(): void {
     const data = {
       user_id: this.ShoppingList?.user_id,
@@ -131,6 +135,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
       });
   }
 
+  // Delete Item form Shopping List with PK: item_id & user_id
   deleteItem(): void {
     this.shoppingListService.delete(this.ShoppingList?.item_id, this.ShoppingList?.user_id)
       .subscribe({

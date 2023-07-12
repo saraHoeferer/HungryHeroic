@@ -10,9 +10,13 @@ import { AppComponent } from "../../app.component";
 export class HomeComponent implements OnInit {
   content?: string;
 
-  constructor(private userService: UserService, private appComponent: AppComponent) { }
+  constructor(
+    private userService: UserService,
+    private appComponent: AppComponent
+  ) { }
 
+  // When component is loaded
   ngOnInit(): void {
-    this.appComponent.setIsHome(true)
+    this.appComponent.setIsHome(true) // so the navigation bar is NOT shown on the Start Page
   }
 }

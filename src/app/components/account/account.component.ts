@@ -15,21 +15,27 @@ import { AuthService } from 'src/app/services/authService/auth.service';
 })
 export class AccountComponent implements OnInit, OnChanges{
   currentUser: any;
+
+  // Variable to save the input from the edit form
   currentUserInfo: User = {
     user_id: this.appComponent.userId,
     user_name: '',
     user_mail: '',
     user_password: ''
   };
+
+  // Variables to show the length of the lists
   lengthInventoryList = 0;
   lengthShoppingList = 0;
+
+  // Variable for the popUp Functions
   closeResult = '';
 
+  // Variables for the Password edit form
   passwordChange = {
     old_password: "",
     new_password: ""
   }
-
   invalid = false
   changed = false
   errorMessage = ""
@@ -44,6 +50,7 @@ export class AccountComponent implements OnInit, OnChanges{
     private authService: AuthService
   ) {}
 
+  // When component is loaded to initiate some Variables
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
     this.getUser(this.currentUser.user_id) //this.appComponent.userId?.toString()!
@@ -52,10 +59,12 @@ export class AccountComponent implements OnInit, OnChanges{
     this.getCountShopping()
   }
 
+  // To reload the User if there was a change in the component
   ngOnChanges(changes: SimpleChanges): void {
     this.getUser(this.currentUser.user_id)
   }
 
+  // Get all columns of the table user for the row with the user_id
   getUser(id: string): void {
     this.userService.get(id)
       .subscribe({
@@ -67,6 +76,7 @@ export class AccountComponent implements OnInit, OnChanges{
       });
   }
 
+  // Update the User with a given user_id and new data to be saved
   updateUser(): void {
     this.userService.update(this.currentUser.user_id, this.currentUserInfo)
       .subscribe({
@@ -78,6 +88,7 @@ export class AccountComponent implements OnInit, OnChanges{
       });
   }
 
+  // Delete the User with the user_id form the Database
   deleteUser(): void {
     this.userService.delete(this.currentUser.user_id)
       .subscribe({
@@ -89,6 +100,7 @@ export class AccountComponent implements OnInit, OnChanges{
       });
   }
 
+  // To change the password of the User with the given user_id
   changePassword(): void {
     this.authService.changePassword(this.currentUser.user_name, this.passwordChange.old_password, this.passwordChange.new_password)
     .subscribe({
@@ -104,6 +116,7 @@ export class AccountComponent implements OnInit, OnChanges{
     });
   }
 
+  // To reset the password edit form after the password was changed
   reset(){
     this.changed = false
     this.invalid = false
@@ -125,7 +138,7 @@ export class AccountComponent implements OnInit, OnChanges{
     });
   }
 
-  // Function to get number of Items in Supply List
+  // Function to get number of Items in Shopping List
   getCountShopping(){
     this.shoppingService.getCount(this.currentUser.user_id)
       .subscribe({
@@ -137,7 +150,7 @@ export class AccountComponent implements OnInit, OnChanges{
       });
   }
 
-  //Open Pop-Up with Content Function
+  // Open Pop-Up with Content
   open(content: any) {
     this.modalService.open(content,
       { ariaLabelledBy: 'popUp-title' }).result.then((result) => {
@@ -148,7 +161,7 @@ export class AccountComponent implements OnInit, OnChanges{
     });
   }
 
-  //Get Dismiss Reason to close PopUp
+  // Get Dismiss Reason to close PopUp
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';

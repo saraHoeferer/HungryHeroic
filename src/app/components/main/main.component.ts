@@ -35,7 +35,6 @@ export class MainComponent implements OnInit, OnChanges{
     private appComponent: AppComponent
   ) { }
 
-
   currentUser: any;
   categories?: Category[];
   storageLocations?: Storage[];
@@ -51,10 +50,7 @@ export class MainComponent implements OnInit, OnChanges{
   needsToBeCreated = false;
   isLoggedIn = false;
   noInList = false;
-  // showAdminBoard = false;
-  // showModeratorBoard = false;
   user_name?: string;
-
   eventBusSub?: Subscription;
   fixedInventory?: InventoryList[];
   fixedShopping?: ShoppingList[];
@@ -75,6 +71,7 @@ export class MainComponent implements OnInit, OnChanges{
     item_id: 0,
     item_name: '',
   };
+
   date2 = new Date().toISOString().slice(0, 10)
 
   addToInventory: InventoryList = {
@@ -95,6 +92,7 @@ export class MainComponent implements OnInit, OnChanges{
 
   saved = false;
 
+  // When the component is first loaded
   ngOnInit(): void {
     this.retrieveCategories();
     this.retrieveStorageLocations();
@@ -103,6 +101,8 @@ export class MainComponent implements OnInit, OnChanges{
     this.appComponent.setIsHome(false)
     this.currentUser = this.storageService.getUser();
   }
+
+  // reload variable if there is a change in the component
   ngOnChanges(changes: SimpleChanges): void {
     this.retrieveCategories();
     this.retrieveStorageLocations();
@@ -253,8 +253,6 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
-
-
   refreshList(): void {
     console.log("in Funktion")
     if (this.supply) {
@@ -282,7 +280,7 @@ export class MainComponent implements OnInit, OnChanges{
     if (this.searchItem.item_name != '') {
       this.searched = true
       let inventoryList: InventoryList[] = [];
-      let shoppingLsit: ShoppingList[] = [];
+      let shoppingList: ShoppingList[] = [];
       this.itemService.findSimilarByName(this.searchItem.item_name)
         .subscribe({
           next: (data) => {
@@ -308,13 +306,13 @@ export class MainComponent implements OnInit, OnChanges{
                 for (let item of this.items) {
                   for (let shopping of this.fixedShopping) {
                     if (item.item_id == shopping.item_id) {
-                      shoppingLsit.push(shopping)
+                      shoppingList.push(shopping)
                     }
                   }
                 }
               }
-              if (shoppingLsit.length != 0) {
-                this.shopping = shoppingLsit
+              if (shoppingList.length != 0) {
+                this.shopping = shoppingList
               } else {
                 this.shopping = []
               }
@@ -381,7 +379,7 @@ export class MainComponent implements OnInit, OnChanges{
       });
   }
 
-  //Open Pop-Up with Content Function
+  //Open Pop-Up with Content
   open(content: any) {
     this.modalService.open(content,
       { ariaLabelledBy: 'popUp-title' }).result.then((result) => {
@@ -392,7 +390,7 @@ export class MainComponent implements OnInit, OnChanges{
       });
   }
 
-  //Get Dismiss Reason to close PopUp
+  // Get Dismiss Reason to close PopUp
   private static getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -425,7 +423,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
-  saveShoppping(): void {
+  saveShopping(): void {
     if (this.addToShopping.quantity != 0 && this.addToShopping.category_id != 0) {
       const data = {
         user_id: this.addToShopping.user_id,
@@ -444,6 +442,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // Add a new Item to the Database
   saveItem(): void {
     const data = {
       item_name: this.addItem.item_name,
@@ -464,7 +463,6 @@ export class MainComponent implements OnInit, OnChanges{
               },
               error: (e) => console.error(e)
             });
-
         },
         error: (e) => console.error(e)
       });
@@ -496,3 +494,5 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 }
+
+//TODO: In .html there should be no duplicate id references

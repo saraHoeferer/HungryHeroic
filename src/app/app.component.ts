@@ -25,6 +25,7 @@ export class AppComponent {
     private eventBusService: EventBusService
   ) {}
 
+  // When component is loaded
   ngOnInit(): void {
     this.isLoggedIn = this.storageService.isLoggedIn();
 
@@ -38,12 +39,14 @@ export class AppComponent {
       this.logout();
     });
   }
+
   // Logout button link that call logout() method and reload the window.
   logout(): void {
     this.storageService.clean();
     window.location.href = '/';
   }
 
+  // setter to make the variable accessible form alle the children components
   setIsHome(value: boolean){
     this.isHomePage = value
   }

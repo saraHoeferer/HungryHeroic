@@ -274,3 +274,5 @@ export class RecipesComponent implements OnInit {
   }
 
 }
+
+//TODO: Whey is there a recipes folder inside the recipes folder?

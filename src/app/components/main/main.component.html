@@ -175,7 +175,7 @@
                   <select class="form-control" id="itemCategory" required [(ngModel)]="addToShopping.category_id"
                     name="itemCategory">
                     <option disabled value=0>Select a Category</option>
-                    <option *ngFor="let category of categories"value="{{category.category_id}}">
+                    <option *ngFor="let category of categories" value="{{category.category_id}}">
                       {{category.category_name}}</option>
                   </select>
                 </div>
@@ -199,7 +199,7 @@
             </div>
             <button *ngIf="supply" (click)="saveInventory()" type="button"
               class="btn btn-block btn-outline-dark">Save</button>
-            <button *ngIf="!supply" (click)="saveShoppping()" type="button"
+            <button *ngIf="!supply" (click)="saveShopping()" type="button"
               class="btn btn-block btn-outline-dark">Save</button>
           </div>
         </form>

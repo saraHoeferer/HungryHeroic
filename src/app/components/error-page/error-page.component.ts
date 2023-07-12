@@ -8,10 +8,14 @@ import { StorageService } from 'src/app/services/storageService/storage.service'
   styleUrls: ['./error-page.component.css']
 })
 export class ErrorPageComponent implements OnInit {
- constructor(private storageService: StorageService){}
+ constructor(
+   private storageService: StorageService,
+   private appComponent: AppComponent
+ ){ }
  currentUser: any
 
  ngOnInit(): void {
    this.currentUser = this.storageService.getUser()
+   this.appComponent.setIsHome(false)
  }
 }
