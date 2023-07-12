@@ -7,9 +7,9 @@ exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
 };
 
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
+// exports.userBoard = (req, res) => {
+//   res.status(200).send("User Content.");
+// };
 
 // Retrieve all User from the database.
 exports.findAll = (req, res) => {
@@ -28,7 +28,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single User with an id
+// Find a single User by ID
 exports.findOne = (req, res) => {
   const id = req.params.id;
 

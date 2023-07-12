@@ -1,17 +1,17 @@
 const express = require("express");
 const cors = require("cors");
 
-// database
+// Import the database connection
 const db = require("./app/models");
 
 const app = express();
 
 app.use(
-  cors({
+  cors({ // Enable CORS with specific allowed origins
     credentials: true,
     origin: ["http://localhost:4200", "http://192.168.0.239:4200"],
   })
-);
+); 
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -20,21 +20,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-// synchronise with the db
+// Synchronize with the database
 db.sequelize.sync()
   .then(() => {
-    console.log("Synced db.");
+    console.log("Synced db."); // Log successful synchronization
   })
   .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
+    console.log("Failed to sync db: " + err.message); // Log synchronization failure with the error message
   });
 
-// simple route
+// Simple route for the root URL
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to hungryheroic database application." });
+  res.json({ message: "Welcome to hungryheroic database application." }); // Return a JSON response with a welcome message
 });
 
-// routes
+// Routes
 require("./app/routes/item.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/user.routes")(app);

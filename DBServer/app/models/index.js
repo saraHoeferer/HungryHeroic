@@ -3,10 +3,10 @@ const dbConfig = require("../config/db.config.js");
 //create sequelize db
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
-  dbConfig.DB, 
-  dbConfig.USER, 
-  dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
+  dbConfig.DB, // Database name
+  dbConfig.USER, // Database username
+  dbConfig.PASSWORD, { // Database password
+  host: dbConfig.HOST, // Database host
   dialect: dbConfig.dialect,
   operatorsAliases: false,
 
@@ -20,10 +20,10 @@ const sequelize = new Sequelize(
 
 const db = {};
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
+db.Sequelize = Sequelize; // Sequelize library
+db.sequelize = sequelize; // Sequelize database connection object
 
-// add models to db
+// Add models to the database
 db.items = require("./items.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.storageLocation = require("./storagelocation.model.js")(sequelize, Sequelize);
