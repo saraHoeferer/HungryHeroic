@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import {AccountComponent} from "./components/account/account.component";
 import { RecipesComponent } from './components/recipes/recipes/recipes.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     title: 'Home page'
   },
   {
-    path: '',
+    path: 'start',
     component: HomeComponent,
     title: 'Start page'
   },
@@ -43,6 +44,11 @@ const routes: Routes = [
     path: 'recipes',
     component: RecipesComponent,
     title: 'Recipe page'
+  },
+  {
+    path: '**',
+    component: ErrorPageComponent,
+    title: 'Error page'
   }
 ];
 

@@ -28,8 +28,10 @@ export class RecipesComponent implements OnInit {
   constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
-    this.getUserInventory()
     this.currentUser = this.storageService.getUser();
+    if (this.currentUser != null){
+      this.getUserInventory()
+    }
   }
 
   async getUserInventory() {

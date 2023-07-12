@@ -21,6 +21,7 @@ import { ProductDisplayShoppingComponent } from './components/product-display-sh
 import { httpInterceptorProviders } from './_helpers/http.interceptor';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RecipesComponent } from './components/recipes/recipes/recipes.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { RecipesComponent } from './components/recipes/recipes/recipes.component
     ProductDisplayShoppingComponent,
     AccountComponent,
     RecipesComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
