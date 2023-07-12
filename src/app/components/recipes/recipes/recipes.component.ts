@@ -76,6 +76,9 @@ export class RecipesComponent implements OnInit {
       console.log(this.recipes)
     } else {
       await this.getRecipesByIngredients(ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4)
+      if (this.test.length == 0){
+        await this.getRandomRecipes()
+      }
       for (let recipes of this.test) {
         await this.getRecipesById(recipes.id)
         this.fixedRecipes.push(this.test2)
