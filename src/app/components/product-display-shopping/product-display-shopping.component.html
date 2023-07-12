@@ -8,7 +8,10 @@
       </div>
       <ul class="card-social">
         <li class="card-social__item">
-          <i (click)="open(editItemPopUp)" class="fa-solid fa-bag-shopping"></i>
+          <i (click)="open(addToInventoryPopUp)" class="fa-solid fa-bag-shopping"></i>
+        </li>
+        <li class="card-social__item">
+          <i (click)="open(editItemPopUp)" class="fa-solid fa-pen"></i>
         </li>
         <li class="card-social__item">
           <i (click)="open(deleteItemPopUp)" class="fa-solid fa-trash"></i>
@@ -44,7 +47,7 @@
     <button type="button"
             id="deleteButton"
             class="btn btn-outline-custom-danger btn-block"
-            (click)="deleteItem(); modal.close('Delete click')">
+            (click)="deleteItem(); modal.close('Delete click'); this.mainComponent.refreshList()">
       Delete
     </button>
     <button type="button"
@@ -55,14 +58,14 @@
     </button>
   </div>
 </ng-template>
-<!-- PopUp Edit Item in DB -->
-<ng-template #editItemPopUp let-modal>
+<!-- PopUp Add Item to Inventory in DB -->
+<ng-template #addToInventoryPopUp let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="editItemPopUpTitle">
+    <h4 class="modal-title" id="addToInventoryPopUp">
       Add Item to Inventory
     </h4>
     <button type="button" class="close"
-            aria-label="Close" (click)="modal.dismiss('Cross click')">
+            aria-label="Close" (click)="modal.dismiss('Cross click');newItem()">
               <span aria-hidden="true">
                   ×
               </span>
@@ -82,8 +85,7 @@
                 aria-describedby="multiply-addon"
                 id="itemQuantity"
                 required
-                *ngIf="ShoppingList != null"
-                [(ngModel)]="ShoppingList.quantity"
+                [(ngModel)]="currentInventory.quantity"
                 name="itemQuantity"
               />
             </div>
@@ -95,15 +97,14 @@
               class="form-control"
               id="itemName"
               readonly
-              *ngIf="ShoppingList != null"
-              [(ngModel)] = "ShoppingList.item_name"
+              [(ngModel)] = "currentInventory.item_name"
               name="itemName"
             />
           </div>
         </div>
         <div class="row">
           <div class="form-group">
-            <label for="itemExpirationDate">Expiration Date</label>
+            <label for="itemExpirationDate">Estimated Expiration Date</label>
             <input
               type="date"
               class="form-control"
@@ -134,10 +135,9 @@
               class="form-control"
               id="itemCategory"
               required
-              *ngIf="ShoppingList != null"
-              [(ngModel)]="ShoppingList.category_id"
+              [(ngModel)]="currentInventory.category_id"
               name="itemCategory"
-              ngModel (ngModelChange)="getDate(ShoppingList.category_id!)"
+              ngModel (ngModelChange)="getDate(currentInventory.category_id!)"
               >
               <option disabled value=0>Select a Category</option>
               <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
@@ -149,7 +149,7 @@
     </div>
     <div *ngIf="edited">
       <div class="alert alert-custom-success">
-        <h4 class="alert-heading">Item was edited!</h4>
+        <h4 class="alert-heading">Item was added to your Inventory!</h4>
         <p class="mb-0">To add another Item to the inventory close the window and click the <b>"Shopping Bag"</b> Symbol</p>
       </div>
       <div class="alert alert-dark">
@@ -160,6 +160,81 @@
     <div *ngIf="alreadyThere">
       <div class="alert alert-dark">
         <p class="mb-0">You already added <b>{{ShoppingList!.item_name}}</b> to your Supply List. If you want to update it use the <b>Edit</b> Icon on the Supply List Page. If you want to add a New one please <b>Delete</b> the Old one first</p>
+      </div>
+      <button (click)="newItem(); modal.close('clicked Finished');" type="button" class="btn btn-block btn-outline-dark">Finished</button>
+    </div>
+  </div>
+</ng-template>
+
+<!-- PopUp edit Item in DB -->
+<ng-template #editItemPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="editItemPopUp">
+      Edit Item
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click');newItem()">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="!edited && !alreadyThere">
+      <form>
+        <div class="row">
+          <div class="col form-group">
+            <label for="itemName">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="itemName"
+              readonly
+              [(ngModel)] = "currentShopping.item_name"
+              name="itemName"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group w-50 col">
+            <label for="itemQuantity">Quantity</label>
+            <div class="input-group">
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                aria-describedby="multiply-addon"
+                id="itemQuantity"
+                required
+                [(ngModel)]="currentShopping.quantity"
+                name="itemQuantity"
+              />
+            </div>
+          </div>
+          <div class="form-group w-50 col">
+            <label for="itemCategory">Category</label>
+            <select
+              class="form-control"
+              id="itemCategory"
+              required
+              [(ngModel)]="currentShopping.category_id"
+              name="itemCategory"
+              >
+              <option disabled value=0>Select a Category</option>
+              <option *ngFor="let category of categories" value="{{category.category_id}}">{{category.category_name}}</option>
+            </select>
+          </div>
+        </div>
+        <button (click)="updateItem()" type="button" class="btn btn-block btn-outline-dark">Edit Item</button>
+      </form>
+    </div>
+    <div *ngIf="edited">
+      <div class="alert alert-custom-success">
+        <h4 class="alert-heading">Item was modified!</h4>
+        <p class="mb-0">To add edit another Item to the inventory close the window and click the <b>"Edit"</b> Symbol</p>
+      </div>
+      <div class="alert alert-dark">
+        <p class="mb-0">To close the Window click the <b>Finished</b> Button</p>
       </div>
       <button (click)="newItem(); modal.close('clicked Finished');" type="button" class="btn btn-block btn-outline-dark">Finished</button>
     </div>

@@ -29,8 +29,8 @@ export class ShoppingListService{
     return this.http.post(baseUrl, data);
   }
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${id}`, data);
+  update(item_id: any, user_id: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/${item_id}/${user_id}`, data);
   }
 
   delete(item_id: any, user_id: any): Observable<any> {

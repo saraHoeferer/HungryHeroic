@@ -8,6 +8,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'app-product-display-shopping',
@@ -19,7 +20,6 @@ export class ProductDisplayShoppingComponent implements OnInit {
   @Input() categories?: Category[];
   @Input() ShoppingList?: ShoppingList;
   @Input() storageLocation?: Storage[]
-  @Input() ShoppingLists?: ShoppingList[];
   closeResult = '';
   message = '';
   date2 = new Date().toISOString().slice(0, 10)
@@ -27,10 +27,19 @@ export class ProductDisplayShoppingComponent implements OnInit {
 
   currentInventory: InventoryList = {
     item_id: 0,
-    user_id: 1,
+    user_id: 0,
+    item_name: "",
     quantity: 0,
     expiration_date: new Date(this.date2),
     storage_loc_id: 0,
+    category_id: 0
+  }
+
+  currentShopping: ShoppingList = {
+    item_id: 0,
+    user_id: 0,
+    item_name: "",
+    quantity: 0,
     category_id: 0
   }
 
@@ -38,13 +47,31 @@ export class ProductDisplayShoppingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDate(this.ShoppingList?.category_id!)
+    this. currentInventory = {
+      item_id: this.ShoppingList?.item_id,
+      user_id: this.ShoppingList?.user_id,
+      item_name: this.ShoppingList?.item_name,
+      quantity: this.ShoppingList?.quantity,
+      expiration_date: new Date(this.date2),
+      storage_loc_id: 0,
+      category_id: this.ShoppingList?.category_id
+    }
+
+    this. currentShopping = {
+      item_id: this.ShoppingList?.item_id,
+      user_id: this.ShoppingList?.user_id,
+      item_name: this.ShoppingList?.item_name,
+      quantity: this.ShoppingList?.quantity,
+      category_id: this.ShoppingList?.category_id
+    }
   }
 
   constructor(
     private itemService: ItemsService,
     private modalService: NgbModal,
     private shoppingListService: ShoppingListService,
-    private inventoryListService: InventoryListService
+    private inventoryListService: InventoryListService,
+    public mainComponent: MainComponent
   ) { }
 
   getExpiryDays(id: number): number {
@@ -102,6 +129,18 @@ export class ProductDisplayShoppingComponent implements OnInit {
     }
   }
 
+  updateItem(): void {
+    this.shoppingListService.update(this.currentShopping?.item_id, this.currentShopping?.user_id, this.currentShopping!)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.message = res.message ? res.message : 'This Item was updated successfully!';
+          this.edited = true;
+        },
+        error: (e) => console.error(e)
+      });
+  }
+
   deleteItem(): void {
     this.shoppingListService.delete(this.ShoppingList?.item_id, this.ShoppingList?.user_id)
       .subscribe({
@@ -110,9 +149,6 @@ export class ProductDisplayShoppingComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
-    this.ShoppingLists!.forEach((item, index) => {
-      if (item === this.ShoppingList) this.ShoppingLists!.splice(index, 1);
-    });
   }
 
   addToInventory() {
@@ -142,9 +178,6 @@ export class ProductDisplayShoppingComponent implements OnInit {
                   error: (e) => console.error(e)
                 });
               this.deleteItem()
-              this.ShoppingLists!.forEach((item, index) => {
-                if (item === this.ShoppingList) this.ShoppingLists!.splice(index, 1);
-              });
             }
           },
           error: (e) => console.error(e)
@@ -156,5 +189,15 @@ export class ProductDisplayShoppingComponent implements OnInit {
   newItem(): void {
     this.edited = false;
     this.alreadyThere = false
+    this. currentInventory = {
+      item_id: this.ShoppingList?.item_id,
+      user_id: this.ShoppingList?.user_id,
+      item_name: this.ShoppingList?.item_name,
+      quantity: this.ShoppingList?.quantity,
+      expiration_date: new Date(this.date2),
+      storage_loc_id: 0,
+      category_id: this.ShoppingList?.category_id
+    }
+    this.mainComponent.refreshList()
   }
 }

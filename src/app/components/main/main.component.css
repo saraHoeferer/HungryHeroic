@@ -147,15 +147,6 @@ header {
   
 }
 
-@media (min-width: 390px) {
-}
-
-@media (min-width: 406px) {
-}
-
-@media (min-width: 413px) {
-}
-
 @media (min-width: 1280px) {
   .col-7{
     text-align: end;
@@ -204,5 +195,9 @@ header {
     text-align: center;
     margin: 50px;
     font-size: 1.2rem;
+  }
+
+  .productDiv{
+    margin-bottom: 20px;
   }
 }

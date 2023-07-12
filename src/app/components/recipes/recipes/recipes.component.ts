@@ -104,6 +104,8 @@ export class RecipesComponent implements OnInit {
       }
       this.recipes = this.searchedRecipes
       console.log(this.recipes)
+    } else {
+      this.recipes = this.fixedRecipes
     }
   }
 
@@ -153,7 +155,7 @@ export class RecipesComponent implements OnInit {
     this.searched = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.fixedRecipes){
+    for (let recipe of this.recipes){
       if (recipe.vegan){
         filterList.push(recipe)
       }
@@ -165,7 +167,7 @@ export class RecipesComponent implements OnInit {
     this.searched = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.fixedRecipes){
+    for (let recipe of this.recipes){
       if (recipe.vegetarian){
         filterList.push(recipe)
       }
@@ -177,7 +179,7 @@ export class RecipesComponent implements OnInit {
     this.searched = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.fixedRecipes){
+    for (let recipe of this.recipes){
       if (recipe.glutenFree){
         filterList.push(recipe)
       }
@@ -189,7 +191,7 @@ export class RecipesComponent implements OnInit {
     this.searched = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.fixedRecipes){
+    for (let recipe of this.recipes){
       if (recipe.dairyFree){
         filterList.push(recipe)
       }
@@ -201,7 +203,7 @@ export class RecipesComponent implements OnInit {
     this.searched = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.fixedRecipes){
+    for (let recipe of this.recipes){
       if (recipe.sustainable){
         filterList.push(recipe)
       }

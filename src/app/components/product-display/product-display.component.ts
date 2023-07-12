@@ -7,6 +7,7 @@ import { InventoryListService } from 'src/app/services/inventoryListService/inve
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 import { AppComponent } from 'src/app/app.component';
+import { MainComponent } from '../main/main.component';
 
 @Component({
   selector: 'app-product-display',
@@ -19,14 +20,14 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     private itemService: ItemsService,
     private modalService: NgbModal,
     private inventoryService: InventoryListService,
-    private appComponent: AppComponent
+    private appComponent: AppComponent,
+    public mainComponent: MainComponent
   ) { }
 
   @Input() item!: Item;
   @Input() categories?: Category[]
   @Input() storages?: Storage[]
   @Input() inventoryList?: InventoryList;
-  @Input() InventoryLists?: InventoryList[];
   closeResult = '';
   message = '';
   currentDate = new Date()
@@ -159,14 +160,12 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         },
         error: (e) => console.error(e)
       });
-    this.InventoryLists!.forEach((item, index) => {
-      if (item === this.inventoryList) this.InventoryLists!.splice(index, 1);
-    });
-  }
+   }
 
   //Set the addItem back to dummy values
   newItem(): void {
     this.edited = false;
+    this.mainComponent.refreshList()
   }
 
 }

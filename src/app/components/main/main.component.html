@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-5">
         <div class="input-group mb-3">
-          <input id="searchInput" [(ngModel)]="searchItem.item_name" type="text" class="form-control"
+          <input id="searchInput" [(ngModel)]="searchItem.item_name" (keyup.enter)="searchForSimilarItem()" type="text" class="form-control"
             placeholder="Search for product">
           <div class="input-group-append">
             <button id="buttonSearch" (click)="searchForSimilarItem()" class="btn btn-primary" type="button"><i
@@ -86,19 +86,19 @@
   </div>
   <div *ngIf="supply == true">
     <p *ngIf="inventory != null && inventory.length == 0 && searched && !noInList" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
-    <p *ngIf="inventory != null && inventory.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu   <i class="fa-solid fa-circle-plus"></i> </p>
+    <p *ngIf="inventory != null && inventory.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu</p>
     <p *ngIf="this.noInList" class="alert alert-secondary">Die Liste hat kein Produkt dieser Kategorie</p>
     <div class="productDiv">
-      <app-product-display [categories]="categories" [InventoryLists]="inventory" [storages]="storageLocations"
+      <app-product-display [categories]="categories" [storages]="storageLocations"
         *ngFor="let item of inventory" [inventoryList]="item"></app-product-display>
     </div>
   </div>
   <div *ngIf="supply == false">
     <p *ngIf="shopping != null && shopping.length == 0 && searched && !noInList" class="alert alert-secondary"><i class="fa-solid fa-circle-question"></i>  Dieses Produkt ist nicht in deiner Liste</p>
-    <p *ngIf="shopping != null && shopping.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu  <i class="fa-solid fa-circle-plus"></i></p>
+    <p *ngIf="shopping != null && shopping.length == 0 && !searched && !noInList" class="alert alert-secondary">Füge Produkte zu deiner Liste hinzu</p>
     <p *ngIf="this.noInList" class="alert alert-secondary">Die Liste hat kein Produkt dieser Kategorie</p>
     <div class="productDiv">
-      <app-product-display-shopping [categories]="categories" [ShoppingLists]="shopping"
+      <app-product-display-shopping [categories]="categories"
         [storageLocation]="storageLocations" *ngFor="let item of shopping"
         [ShoppingList]="item"></app-product-display-shopping>
     </div>
@@ -121,12 +121,16 @@
         <form>
           <div class="form-group">
             <label for="itemName">Name</label>
-            <div *ngIf="!found">
+            <div *ngIf="!found && !needsToBeCreated">
               <input type="text" class="form-control" id="itemName" [(ngModel)]="addItem.item_name" required
                 name="itemName" />
             </div>
             <div *ngIf="found">
               <input type="text" class="form-control" id="itemName" [(ngModel)]="currentItem.item_name" required
+                name="itemName" readonly />
+            </div>
+            <div *ngIf="needsToBeCreated">
+              <input type="text" class="form-control" id="itemName" [(ngModel)]="addItem.item_name" required
                 name="itemName" readonly />
             </div>
           </div>
@@ -155,7 +159,7 @@
                   </div>
                 </div>
                 <div class="form-group w-75">
-                  <label for="itemExpirationDate">Expiration Date</label>
+                  <label for="itemExpirationDate">Estimated Expiration Date</label>
                   <input type="date" class="form-control" id="itemExpirationDate" [(ngModel)]="date2" required
                     name="itemExpirationDate" placeholder="dd.MM.yyyy" />
                 </div>

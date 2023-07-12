@@ -49,7 +49,7 @@
     <button type="button"
             id="deleteButton"
             class="btn btn-outline-custom-danger btn-block"
-            (click)="deleteItem(); modal.close('Delete click')">
+            (click)="deleteItem(); modal.close('Delete click'); this.mainComponent.refreshList()">
       Delete
     </button>
     <button type="button"

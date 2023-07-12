@@ -237,6 +237,7 @@ export class MainComponent implements OnInit, OnChanges{
   }
 
   filterShoppingList(id?: number): void {
+    this.noInList = false
     let shoppingList: ShoppingList[] = [];
 
     if (this.fixedShopping != null && id != null) {
@@ -249,15 +250,21 @@ export class MainComponent implements OnInit, OnChanges{
 
     if (shoppingList.length != 0) {
       this.shopping = shoppingList
+    }else {
+      this.noInList = true
+      this.shopping = []
     }
   }
 
 
 
   refreshList(): void {
+    console.log("in Funktion")
     if (this.supply) {
+      console.log("in Supply")
       this.retrieveInventory()
     } else {
+      console.log("in Shopping")
       this.retrieveShopping()
     }
   }
@@ -318,6 +325,12 @@ export class MainComponent implements OnInit, OnChanges{
           },
           error: (e) => console.error(e)
         });
+    } else {
+      if (this.supply){
+        this.inventory = this.fixedInventory
+      } else {
+        this.shopping = this.fixedShopping
+      }
     }
   }
 
