@@ -1,4 +1,4 @@
-.myFont{
+.userInfo{
   font-family: "Century Schoolbook", sans-serif;
 }
 
@@ -45,6 +45,7 @@
   border-radius: 50%;
 }
 
+
 .edit{
   padding-left: 20px;
   padding-right: 20px;
@@ -76,11 +77,13 @@
 .btn-outline-custom-warning{
   background-color: #f7bb08;
   color: #ffffff;
+  width: 25%;
 }
 .btn-outline-custom-warning:hover{
   color: #f7bb08;
   border-color: #f7bb08;
   background-color: #ffffff;
+  width: 25%;
 }
 
 .btn-outline-custom-danger{
@@ -127,17 +130,48 @@
     width: 95%;
     margin-bottom: 20px;
   }
+  .user-margin{
+    margin-top: 40px;
+  }
 }
 
 @media (min-width: 390px) {
   .col-5{
     width: 195px;
   }
+
+  .makeWidder{
+    text-align: center;
+    width: 100%;
+  }
+
+  .user-margin{
+    margin-top: 60px;
+  }
 }
 
 @media (min-width: 400px) {
   .col-5{
     width: 210px;
+  }
+
+  .card{
+    width: 80vh;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #ffffff;
+    position: relative;
+    margin-top: 30px;
+    height: 70vh;
+  }
+
+  .makeWidder{
+    text-align: center;
+    width: 100%;
+  }
+  .user-margin{
+    margin-top: 80px;
   }
 }
 
@@ -156,13 +190,13 @@
   }
   .col-9{
     width: 70%;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
   .col-3{
     width: 30%;
     margin-bottom: 20px;
-    margin-top: 0px;
+    margin-top: 0;
   }
   .StartText{
     font-size: 26px;
@@ -172,5 +206,48 @@
     font-size: 20px;
   }
 
+  .card{
+    width: 70vh;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #ffffff;
+    position: relative;
+    height: 70vh;
+  }
 
+  .user-margin{
+    margin-top: 80px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .card{
+    width: 70vh;
+    border: none;
+    border-radius: 15px;
+    padding: 8px;
+    background-color: #ffffff;
+    position: relative;
+    height: 70vh;
+  }
+
+  .user-margin{
+    margin-top: 200px;
+  }
+
+  .userInfo{
+    font-size: 20px;
+  }
+
+  .userInfo h4{
+    font-size: 40px;
+  }
+
+  .userInfo h6{
+    font-size: 30px;
+  }
+  .userInfo span{
+    font-size: 30px;
+  }
 }
