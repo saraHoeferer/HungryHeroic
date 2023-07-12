@@ -12,7 +12,7 @@ import { StorageService } from 'src/app/services/storageService/storage.service'
 })
 export class AccountComponent implements OnInit, OnChanges{
   currentUser: any;
-  currentUser2: User = {
+  currentUserInfo: User = {
     user_id: this.appComponent.userId,
     user_name: '',
     user_mail: '',
@@ -30,20 +30,20 @@ export class AccountComponent implements OnInit, OnChanges{
   ) {}
 
   ngOnInit(): void {
-    this.getUser(this.appComponent.userId?.toString()!) //TODO: use ID of current User not static User 1
-    this.appComponent.setIsHome(false)
     this.currentUser = this.storageService.getUser();
+    this.getUser(this.currentUser.user_id) //this.appComponent.userId?.toString()!
+    this.appComponent.setIsHome(false)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.getUser(this.appComponent.userId?.toString()!)
+    this.getUser(this.currentUser.user_id)
   }
 
   getUser(id: string): void {
     this.userService.get(id)
       .subscribe({
         next: (data) => {
-          this.currentUser2 = data;
+          this.currentUserInfo = data;
           console.log(data);
         },
         error: (e) => console.error(e)
@@ -51,7 +51,7 @@ export class AccountComponent implements OnInit, OnChanges{
   }
 
   updateUser(): void {
-    this.userService.update(this.currentUser.user_id, this.currentUser)
+    this.userService.update(this.currentUser.user_id, this.currentUserInfo)
       .subscribe({
         next: (res) => {
           console.log(res);
