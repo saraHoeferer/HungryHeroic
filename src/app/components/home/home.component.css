@@ -88,6 +88,21 @@ h3{
   margin-bottom: 10px;
 }
 
+@media (max-width: 414px) {
+  .btn{
+    width: 50% !important;
+  }
+
+  .signature .btn-outline-custom-success{
+    background-color: white;
+  }
+
+  .home-section .alert{
+    width: 70% !important;
+  }
+}
+
+
 @media (max-width: 768px) {
   .background {
     /* Stile für Bildschirmgrößen bis 768px Breite */
