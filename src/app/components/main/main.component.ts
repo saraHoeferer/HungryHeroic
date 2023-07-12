@@ -95,9 +95,6 @@ export class MainComponent implements OnInit, OnChanges{
 
   saved = false;
 
-  
-
-
   ngOnInit(): void {
     this.retrieveCategories();
     this.retrieveStorageLocations();
