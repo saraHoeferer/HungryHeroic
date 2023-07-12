@@ -5,6 +5,9 @@ module.exports = app => {
     // Create a new ShoppingList entry
     router.post("/", shopping.create);
 
+    // Count the Items in ShoppingList with id
+    router.get("/count/:userId", shopping.count);
+
     // Retrieve all ShoppingList entries of a specific user
     router.get("/user/:id", shopping.findUserShoppingList);
 
@@ -16,9 +19,6 @@ module.exports = app => {
 
     // Delete a ShoppingList entry with id
     router.delete("/one/:item/:user", shopping.delete);
-
-    // Count the Items in ShoppingList with id
-    router.get("/count/:userId", shopping.count);
 
     app.use('/api/shopping', router);
   };
