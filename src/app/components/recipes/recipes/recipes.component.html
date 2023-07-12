@@ -24,7 +24,7 @@
                 <a class="dropdown-item" (click)="filterListDairy()"><i class="fa-solid fa-cow"></i> Dairy Free</a>
                 <a class="dropdown-item" (click)="filterListSustainable()"><i class="fa-solid fa-recycle"></i> Sustainable</a>
             </div>
-            <button *ngIf="searched" id="resetButton" class="btn btn-primary" (click)="resetSearch()">
+            <button *ngIf="searched || filtered" id="resetButton" class="btn btn-primary" (click)="resetFilter()">
                 <i class="fa-solid fa-rotate-left" style="color: #ffffff;"></i>
             </button>
         </div>

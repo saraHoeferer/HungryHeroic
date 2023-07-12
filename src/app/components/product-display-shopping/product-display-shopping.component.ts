@@ -35,14 +35,6 @@ export class ProductDisplayShoppingComponent implements OnInit {
     category_id: 0
   }
 
-  currentShopping: ShoppingList = {
-    item_id: 0,
-    user_id: 0,
-    item_name: "",
-    quantity: 0,
-    category_id: 0
-  }
-
   edited = false;
 
   ngOnInit(): void {
@@ -54,14 +46,6 @@ export class ProductDisplayShoppingComponent implements OnInit {
       quantity: this.ShoppingList?.quantity,
       expiration_date: new Date(this.date2),
       storage_loc_id: 0,
-      category_id: this.ShoppingList?.category_id
-    }
-
-    this. currentShopping = {
-      item_id: this.ShoppingList?.item_id,
-      user_id: this.ShoppingList?.user_id,
-      item_name: this.ShoppingList?.item_name,
-      quantity: this.ShoppingList?.quantity,
       category_id: this.ShoppingList?.category_id
     }
   }
@@ -130,7 +114,13 @@ export class ProductDisplayShoppingComponent implements OnInit {
   }
 
   updateItem(): void {
-    this.shoppingListService.update(this.currentShopping?.item_id, this.currentShopping?.user_id, this.currentShopping!)
+    const data = {
+      user_id: this.ShoppingList?.user_id,
+      item_id: this.ShoppingList?.item_id,
+      quantity: this.ShoppingList?.quantity,
+      category_id: this.ShoppingList?.category_id,
+    };
+    this.shoppingListService.update(this.ShoppingList?.item_id, this.ShoppingList?.user_id, data)
       .subscribe({
         next: (res) => {
           console.log(res);
@@ -149,6 +139,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+      this.mainComponent.refreshList()
   }
 
   addToInventory() {
@@ -182,6 +173,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
           },
           error: (e) => console.error(e)
         });
+        this.mainComponent.refreshList()
     }
   }
 

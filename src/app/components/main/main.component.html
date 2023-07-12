@@ -136,17 +136,9 @@
           </div>
           <div *ngIf="!found && !needsToBeCreated">
             <div class="alert alert-dark">
-              <p class="mb-0">To search if the Item you want to add to your list already exists enter the <b>Items
-                  Name</b> and click the <b>"Search"</b> Button</p>
+              <p class="mb-0">Enter the Item you wannt to add to your list and click the <b>"Search"</b> Button</p>
             </div>
             <button (click)="searchForItem()" type="button" class="btn btn-block btn-outline-dark">Search</button>
-          </div>
-          <div *ngIf="needsToBeCreated">
-            <div class="alert alert-danger">
-              <p class="mb-0">The Item you searched could not be found.<br>You need to create the Item by clicking
-                <b>Add Item</b> and entering the Items Details</p>
-            </div>
-            <button (click)="saveItem()" type="button" class="btn btn-block btn-outline-dark">Add Item</button>
           </div>
           <div *ngIf="found">
             <div class="row" style="margin-left: -10px">

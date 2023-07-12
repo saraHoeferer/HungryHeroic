@@ -190,7 +190,7 @@
               class="form-control"
               id="itemName"
               readonly
-              [(ngModel)] = "currentShopping.item_name"
+              [(ngModel)] = "ShoppingList!.item_name"
               name="itemName"
             />
           </div>
@@ -206,7 +206,7 @@
                 aria-describedby="multiply-addon"
                 id="itemQuantity"
                 required
-                [(ngModel)]="currentShopping.quantity"
+                [(ngModel)]="ShoppingList!.quantity"
                 name="itemQuantity"
               />
             </div>
@@ -217,7 +217,7 @@
               class="form-control"
               id="itemCategory"
               required
-              [(ngModel)]="currentShopping.category_id"
+              [(ngModel)]="ShoppingList!.category_id"
               name="itemCategory"
               >
               <option disabled value=0>Select a Category</option>

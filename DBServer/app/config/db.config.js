@@ -1,3 +1,4 @@
+// configuration for db connection
 module.exports = {
   HOST: "localhost",
   USER: "root",

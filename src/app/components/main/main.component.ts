@@ -376,7 +376,7 @@ export class MainComponent implements OnInit, OnChanges{
                 });
             }
           } else {
-            this.needsToBeCreated = true
+            this.saveItem()
           }
         },
         error: (e) => console.error(e)

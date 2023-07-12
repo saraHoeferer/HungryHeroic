@@ -177,6 +177,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         },
         error: (e) => console.error(e)
       });
+    this.mainComponent.refreshList()
    }
 
   //Set the addItem back to dummy values

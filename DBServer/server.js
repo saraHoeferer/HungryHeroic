@@ -1,22 +1,17 @@
 const express = require("express");
 const cors = require("cors");
+
 // database
 const db = require("./app/models");
 
 const app = express();
 
-var corsOptions = {
-  origin: ["http://192.168.0.239:4200", "http://localhost:4200"]
-};
-
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:4200"],
+    origin: ["http://localhost:4200", "http://192.168.0.239:4200"],
   })
 );
-
-app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -25,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
+// synchronise with the db
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
@@ -36,7 +31,7 @@ db.sequelize.sync()
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to hungryheroic application." });
+  res.json({ message: "Welcome to hungryheroic database application." });
 });
 
 // routes
