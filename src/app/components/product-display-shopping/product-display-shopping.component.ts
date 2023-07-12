@@ -99,11 +99,11 @@ export class ProductDisplayShoppingComponent implements OnInit {
             return category.category_icon!
           }
         } else {
-          return "fa-solid fa-xmark fa-4x"
+          return "error.png"
         }
       }
     }
-    return "fa-solid fa-xmark fa-4x"
+    return "error.png"
   }
 
   //Open Pop-Up with Content Function

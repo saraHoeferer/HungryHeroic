@@ -2,7 +2,7 @@
    <div class="card2">
       <div class="card-info">
         <div class="card-avatar">
-          <i class={{getIcon()}}></i>
+          <img src="../../assets/icons/productIcons/{{getIcon()}}" class="icons" alt="{{ShoppingList!.item_name}}"/>
         </div>
         <div *ngIf="ShoppingList!=null" class="card-title">{{ShoppingList.item_name}}</div>
       </div>
