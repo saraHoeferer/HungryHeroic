@@ -1,28 +1,18 @@
 const db = require("../models");
 const InventoryLists = db.inventoryLists;
-const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new Inventory Entry
 exports.create = (req, res) => {
-   // Validate request
-   if (!req.body.user_id) {
+  // Validate request
+  if (!req.body.user_id) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
 
-  // Create Item
-  const inventory = {
-    user_id: req.body.user_id,
-    item_id: req.body.item_id,
-    quantity: req.body.quantity,
-    expiration_date: req.body.expiration_date,
-    category_id: req.body.category_id,
-    storage_loc_id: req.body.storage_loc_id
-  };
-  // Save Item in the database
-  InventoryLists.create(inventory)
+  // Save Inventory Entry in the database
+  InventoryLists.create(req.body)
     .then(data => {
       res.send(data);
     })
@@ -34,44 +24,24 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+// Find a single Inventory Entry with an id
+exports.findOne = (req, res) => {
+  const user_id = req.params.userId;
+  const item_id = req.params.itemId
 
-  InventoryLists.findAll({ where: condition })
+  InventoryLists.findAll({ where: { user_id: user_id, item_id: item_id } })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving items."
+          err.message || "Some error occurred while retrieving specific inventory."
       });
     });
 };
 
-// Find a single Tutorial with an id
-exports.findOne = (req, res) => {
-  const user_id = req.params.userId;
-  const item_id = req.params.itemId
-
-  console.log(user_id)
-  console.log(item_id)
-
-  InventoryLists.findAll({ where: { user_id: user_id, item_id: item_id } })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving specific inventory."
-    });
-  });
-};
-
-// Update a Tutorial by the id in the request
+// Update a Inventory Entry by the id in the request
 exports.update = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
@@ -98,13 +68,13 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete an Inventory entry with the specified id in the request
 exports.delete = (req, res) => {
-  const user_id= req.params.user;
-  const item_id= req.params.item;
+  const user_id = req.params.user;
+  const item_id = req.params.item;
 
   InventoryLists.destroy({
-    where: { item_id: item_id, user_id: user_id}
+    where: { item_id: item_id, user_id: user_id }
   })
     .then(num => {
       if (num == 1) {
@@ -124,22 +94,18 @@ exports.delete = (req, res) => {
     });
 };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-  
-};
-
 // Find the inventory of one specific user
 exports.findUserInventory = (req, res) => {
   const id = req.params.id;
+
   InventoryLists.findAll({ where: { user_id: id } })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving User Inventory."
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving User Inventory."
+      });
     });
-  });
 };
