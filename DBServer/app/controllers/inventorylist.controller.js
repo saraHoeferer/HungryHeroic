@@ -24,7 +24,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Find a single Inventory Entry with an id
+// Count all Item in the InventoryList with given user_id
 exports.count = (req,res) => {
   const user_id = req.params.userId;
   InventoryLists.count({
@@ -41,7 +41,7 @@ exports.count = (req,res) => {
   })
 }
 
-// Retrieve all Tutorials from the database.
+// Retrieve all Items from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -58,7 +58,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Tutorial with an id
+// Find a single Item with an id
 exports.findOne = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
@@ -75,11 +75,10 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Update a Inventory Entry by the id in the request
+// Update an Inventory Entry by the id in the request
 exports.update = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
-
 
   InventoryLists.update(req.body, {
     where: { item_id: item_id, user_id: user_id }
@@ -126,11 +125,6 @@ exports.delete = (req, res) => {
         message: "Could not delete Item with id=" + item_id
       });
     });
-};
-
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-
 };
 
 // Find the inventory of one specific user

@@ -13,7 +13,6 @@
       <h4 class="mb-0 myFont">{{currentUserInfo.user_name}}</h4>
       <span class="text-muted d-block mb-2 myFont">{{currentUserInfo.user_mail}}</span>
       <button class="btn btn-outline-custom-warning btn-md edit" (click)="open(editUserPopUp)">Edit</button>
-      <button class="btn btn-outline-custom-warning btn-md edit" (click)="open(changePasswordPopUp)">Change your Password</button>
       <div class=" col d-flex justify-content-between align-items-center mt-4 px-4">
         <div class="stats">
           <h6 class="mb-0">Inventory Items</h6>
@@ -67,17 +66,10 @@
         />
       </div>
       <div class="form-group">
-        <label for="userPassword">Password</label>
-        <input
-          type="text"
-          class="form-control"
-          id="userPassword"
-          required
-          [(ngModel)]="currentUserInfo.user_password"
-          name="userPassword"
-        />
+        <label for="changePassword">Password</label>
+        <button class="btn btn-outline-dark btn-block" id="changePassword" (click)="open(changePasswordPopUp)">Change your Password</button>
       </div>
-      <div class="row row-margin">
+      <div class="row row-margin mt-5">
         <div class="col">
           <button (click)="updateUser(); modal.close()" type="button" class="btn btn-block btn-outline-custom-success">Save</button>
         </div>
@@ -88,10 +80,10 @@
     </form>
   </div>
 </ng-template>
-<!-- PopUp Delete Item from DB -->
+<!-- PopUp Delete User from DB -->
 <ng-template #deleteUserPopUp let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="deleteItemPopUpTitle">
+    <h4 class="modal-title" id="deleteUserPopUpTitle">
       Delete your Account
     </h4>
     <button type="button" class="close"
@@ -117,10 +109,10 @@
   </div>
 </ng-template>
 
-<!-- Cahgne Password PopUp -->
+<!-- Change Password PopUp -->
 <ng-template #changePasswordPopUp let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="popUp-title">
+    <h4 class="modal-title" id="changePasswordTitle">
       Change your password
     </h4>
     <button type="button" class="close"
@@ -131,42 +123,53 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="userName">Old Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="userName"
-          required
-          [(ngModel)]="passwordChange.old_password"
-          name="userName"
-        />
-      </div>
-      <div class="form-group">
-        <label for="userEmail">New Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="userEmail"
-          required
-          [(ngModel)]="passwordChange.new_password"
-          name="userEmail"
-        />
-      </div>
-      <div class="row row-margin">
-        <div class="col">
-          <button (click)="changePassword()" type="button" class="btn btn-block btn-outline-custom-success">Save</button>
+    <div *ngIf="!invalid && !changed">
+      <form>
+        <div class="form-group">
+          <label for="oldPassword">Old Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="oldPassword"
+            required
+            [(ngModel)]="passwordChange.old_password"
+            name="oldPassword"
+          />
         </div>
-      </div>
-    </form>
-    <div *ngIf="invalid" class="alert alert-danger">
-      <h4 class="alert-heading">
-        {{this.erroMessage}}
-      </h4>
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="newPassword"
+            required
+            [(ngModel)]="passwordChange.new_password"
+            name="newPassword"
+          />
+        </div>
+        <div class="row row-margin">
+          <div class="col">
+            <button (click)="changePassword();" type="button"
+                    class="btn btn-block btn-outline-custom-success">
+              Save new Password
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div *ngIf="!invalid && changed" class="alert alert-custom-success">
-      <h4 class="alert-heading">Your Password has been changed</h4>
+    <div *ngIf="invalid">
+      <div class="alert alert-danger mb-2">
+        <h4 class="alert-heading">Error!</h4>
+        <p>{{this.errorMessage}}</p>
+      </div>
+      <button (click)="reset()" type="button" class="btn btn-block btn-outline-dark">Try Again</button>
+    </div>
+    <div *ngIf="!invalid && changed">
+      <div class="alert alert-custom-success mb-2">
+        <h4 class="alert-heading">Success!</h4>
+        <p>Your Password has been changed</p>
+      </div>
+      <button (click)="modal.close('clicked Finished');reset()" type="button" class="btn btn-block btn-outline-dark">Finished</button>
     </div>
   </div>
 </ng-template>

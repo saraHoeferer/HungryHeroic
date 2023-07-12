@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 
-const baseUrl = 'http://localhost:8080/api/inventory'; // TODO:
+const baseUrl = 'http://localhost:8080/api/inventory'; //TODO: Change for Mobile App View
 
 @Injectable({
   providedIn: 'root'

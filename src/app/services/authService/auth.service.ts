@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8080/api/auth/';
+const baseUrl = 'http://localhost:8080/api/auth/'; //TODO: Change for Mobile App View
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -43,7 +43,7 @@ export class AuthService {
 
   changePassword(user_name: string, user_old_password: string, user_new_password: string): Observable <any> {
     return this.http.put(
-      baseUrl + 'passwordChange', 
+      baseUrl + 'passwordChange',
       {
         user_name,
         user_old_password,

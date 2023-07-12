@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 
-const baseUrl = 'http://localhost:8080/api/shopping'; //:TODO
+const baseUrl = 'http://localhost:8080/api/shopping'; //TODO: Change for Mobile App View
 
 @Injectable({
   providedIn: 'root'

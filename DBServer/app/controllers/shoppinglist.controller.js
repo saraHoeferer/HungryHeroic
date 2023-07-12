@@ -1,7 +1,7 @@
 const db = require("../models");
 const ShoppingLists = db.shoppingLists;
 
-// Create and Save a new Shoppinglist entry
+// Create and Save a new ShoppingList entry
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.user_id) {
@@ -23,7 +23,7 @@ exports.create = (req, res) => {
     });
 };
 
-// Find a single Shoppinglist entry with an id
+// Find a single ShoppingList entry with an id
 exports.findOne = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
@@ -40,7 +40,7 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Update a Shoppinglist entry by the id in the request
+// Count items in ShoppingList with a given user_id
 exports.count = (req,res) => {
   const user_id = req.params.userId;
   ShoppingLists.count({
@@ -57,7 +57,7 @@ exports.count = (req,res) => {
     })
 }
 
-// Update a Tutorial by the id in the request
+// Update an Item in the ShoppingLIst by the id in the request
 exports.update = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
@@ -83,7 +83,7 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a Shoppinglist entry with the specified id in the request
+// Delete an Item form ShoppingList entry with the specified id in the request
 exports.delete = (req, res) => {
   const user_id = req.params.user;
   const item_id = req.params.item;
@@ -109,7 +109,7 @@ exports.delete = (req, res) => {
     });
 };
 
-// Find the Shoppinglist of one specific user
+// Find the ShoppingList of one specific user
 exports.findUserShoppingList = (req, res) => {
   const id = req.params.id;
 

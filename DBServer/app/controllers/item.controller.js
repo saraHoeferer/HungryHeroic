@@ -63,7 +63,7 @@ exports.findByName = (req, res) => {
     });
 };
 
-// find an item with a similar name to the query
+// Find an item with a similar name to the query
 exports.findSimilarByName = (req, res) => {
   const item_name = req.params.name;
   var condition = item_name ? { item_name: { [Op.like]: `%${item_name}%` } } : null;

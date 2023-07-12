@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/categoryModel/category.model';
 
-const baseUrl = 'http://localhost:8080/api/category'; //TODO:
+const baseUrl = 'http://localhost:8080/api/category'; //TODO: Change for Mobile App View
 
 @Injectable({
   providedIn: 'root'

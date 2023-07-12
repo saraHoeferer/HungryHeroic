@@ -25,13 +25,3 @@ module.exports = (sequelize, Sequelize) => {
   });
   return InventoryList;
 };
-
-/*
-module.exports = async () => {
-  const count = sequelize.define("inventorylistsCount", await InventoryList.count({
-    where: {user_id: "1"},
-  }));
-  console.log(count + " Items with user 1");
-  return count
-};
- */

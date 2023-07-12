@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Storage } from 'src/app/models/storageModel/storage.model';
 
-const baseUrl = 'http://localhost:8080/api/storage'; // TODO:
+const baseUrl = 'http://localhost:8080/api/storage'; //TODO: Change for Mobile App View
 const USER_KEY = 'auth-user';
 @Injectable({
   providedIn: 'root'

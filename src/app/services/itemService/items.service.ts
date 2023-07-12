@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8080/api/items'; // TODO:
+const baseUrl = 'http://localhost:8080/api/items'; //TODO: Change for Mobile App View
 
 @Injectable({
   providedIn: 'root'

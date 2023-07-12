@@ -32,7 +32,7 @@ export class AccountComponent implements OnInit, OnChanges{
 
   invalid = false
   changed = false
-  erroMessage = ""
+  errorMessage = ""
 
   constructor(
     private userService: UserService,
@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit, OnChanges{
     private modalService: NgbModal,
     private storageService: StorageService,
     private inventoryService: InventoryListService,
-    private shoppingService: ShoppingListService
+    private shoppingService: ShoppingListService,
     private authService: AuthService
   ) {}
 
@@ -98,7 +98,7 @@ export class AccountComponent implements OnInit, OnChanges{
         this.invalid = false
       },
       error: err => {
-        this.erroMessage = err.error.message;
+        this.errorMessage = err.error.message;
         this.invalid = true;
       }
     });
@@ -113,7 +113,7 @@ export class AccountComponent implements OnInit, OnChanges{
     }
   }
 
-  //TODO: Function to get number of Items in Inventory List
+  // Function to get number of Items in Inventory List
   getCountInventory(){
     this.inventoryService.getCount(this.currentUser.user_id)
     .subscribe({
@@ -125,7 +125,7 @@ export class AccountComponent implements OnInit, OnChanges{
     });
   }
 
-  //TODO: Function to get number of Items in Supply List
+  // Function to get number of Items in Supply List
   getCountShopping(){
     this.shoppingService.getCount(this.currentUser.user_id)
       .subscribe({
