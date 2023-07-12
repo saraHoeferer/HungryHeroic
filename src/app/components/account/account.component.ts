@@ -6,6 +6,7 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ShoppingListService } from "../../services/shoppingListService/shopping-list.service";
+import { AuthService } from 'src/app/services/authService/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -24,6 +25,15 @@ export class AccountComponent implements OnInit, OnChanges{
   lengthShoppingList = 0;
   closeResult = '';
 
+  passwordChange = {
+    old_password: "",
+    new_password: ""
+  }
+
+  invalid = false
+  changed = false
+  erroMessage = ""
+
   constructor(
     private userService: UserService,
     private appComponent: AppComponent,
@@ -31,6 +41,7 @@ export class AccountComponent implements OnInit, OnChanges{
     private storageService: StorageService,
     private inventoryService: InventoryListService,
     private shoppingService: ShoppingListService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +87,30 @@ export class AccountComponent implements OnInit, OnChanges{
         },
         error: (e) => console.error(e)
       });
+  }
+
+  changePassword(): void {
+    this.authService.changePassword(this.currentUser.user_name, this.passwordChange.old_password, this.passwordChange.new_password)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.changed = true
+        this.invalid = false
+      },
+      error: err => {
+        this.erroMessage = err.error.message;
+        this.invalid = true;
+      }
+    });
+  }
+
+  reset(){
+    this.changed = false
+    this.invalid = false
+    this.passwordChange = {
+      old_password: "",
+      new_password: ""
+    }
   }
 
   //TODO: Function to get number of Items in Inventory List

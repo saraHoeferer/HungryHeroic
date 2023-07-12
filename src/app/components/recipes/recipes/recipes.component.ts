@@ -25,11 +25,12 @@ export class RecipesComponent implements OnInit {
   searchInput: string = ""
   searched = false
   found = false
+  filtered = false
   constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
   ngOnInit(): void {
     this.currentUser = this.storageService.getUser();
-    if (this.currentUser != null){
+    if (this.currentUser != null) {
       this.getUserInventory()
     }
   }
@@ -76,7 +77,7 @@ export class RecipesComponent implements OnInit {
       console.log(this.recipes)
     } else {
       await this.getRecipesByIngredients(ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4)
-      if (this.test.length == 0){
+      if (this.test.length == 0) {
         await this.getRandomRecipes()
       }
       for (let recipes of this.test) {
@@ -100,7 +101,7 @@ export class RecipesComponent implements OnInit {
         await this.getRecipesById(recipes.id)
         this.searchedRecipes.push(this.test2)
       }
-      if (this.searchedRecipes.length != 0){
+      if (this.searchedRecipes.length != 0) {
         this.found = true
       } else {
         this.found = false
@@ -141,84 +142,135 @@ export class RecipesComponent implements OnInit {
     );
   }
 
-  async getRandomRecipes(){
+  async getRandomRecipes() {
     await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2", {
-        headers: {
-          'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
-          'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
-        },
-        credentials: "omit",
-      }).then((response) =>
-        (response.json())
-      ).then((data2) =>
-        this.test = data2["recipes"]
-      );
+      headers: {
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com',
+        'x-rapidapi-key': '2ece313553mshb8a2595231f3b48p161a5djsnd0373108d32f',
+      },
+      credentials: "omit",
+    }).then((response) =>
+      (response.json())
+    ).then((data2) =>
+      this.test = data2["recipes"]
+    );
   }
 
-  filterListVegan(){
-    this.searched = true
+  filterListVegan() {
+    this.filtered = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.recipes){
-      if (recipe.vegan){
-        filterList.push(recipe)
+    if (this.searched) {
+      for (let recipe of this.searchedRecipes) {
+        if (recipe.vegan) {
+          filterList.push(recipe)
+        }
+      }
+    } else {
+      for (let recipe of this.fixedRecipes) {
+        if (recipe.vegan) {
+          filterList.push(recipe)
+        }
       }
     }
     this.recipes = filterList
   }
 
-  filterListVegetarian(){
-    this.searched = true
+  filterListVegetarian() {
+    this.filtered = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.recipes){
-      if (recipe.vegetarian){
-        filterList.push(recipe)
+    if (this.searched) {
+      for (let recipe of this.searchedRecipes) {
+        if (recipe.vegetarian) {
+          filterList.push(recipe)
+        }
+      }
+    } else {
+      for (let recipe of this.fixedRecipes) {
+        if (recipe.vegetarian) {
+          filterList.push(recipe)
+        }
       }
     }
     this.recipes = filterList
   }
 
-  filterListGluten(){
-    this.searched = true
+  filterListGluten() {
+    this.filtered = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.recipes){
-      if (recipe.glutenFree){
-        filterList.push(recipe)
+    if (this.searched) {
+      for (let recipe of this.searchedRecipes) {
+        if (recipe.glutenFree) {
+          filterList.push(recipe)
+        }
+      }
+    } else {
+      for (let recipe of this.fixedRecipes) {
+        if (recipe.glutenFree) {
+          filterList.push(recipe)
+        }
       }
     }
     this.recipes = filterList
   }
 
-  filterListDairy(){
-    this.searched = true
+  filterListDairy() {
+    this.filtered = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.recipes){
-      if (recipe.dairyFree){
-        filterList.push(recipe)
+    if (this.searched) {
+      for (let recipe of this.searchedRecipes) {
+        if (recipe.dairyFree) {
+          filterList.push(recipe)
+        }
+      }
+    } else {
+      for (let recipe of this.fixedRecipes) {
+        if (recipe.dairyFree) {
+          filterList.push(recipe)
+        }
       }
     }
     this.recipes = filterList
   }
 
-  filterListSustainable(){
-    this.searched = true
+  filterListSustainable() {
+    this.filtered = true
     this.found = false
     let filterList: Recipe[] = []
-    for (let recipe of this.recipes){
-      if (recipe.sustainable){
-        filterList.push(recipe)
+    if (this.searched) {
+      for (let recipe of this.searchedRecipes) {
+        if (recipe.sustainable) {
+          filterList.push(recipe)
+        }
+      }
+    } else {
+      for (let recipe of this.fixedRecipes) {
+        if (recipe.sustainable) {
+          filterList.push(recipe)
+        }
       }
     }
     this.recipes = filterList
   }
 
-  resetSearch(){
+  resetSearch() {
     this.searched = false
     this.recipes = this.fixedRecipes
     this.found = false
+    this.filtered = false
+  }
+
+  resetFilter(){
+    if (this.searched){
+      this.recipes = this.searchedRecipes
+    } else {
+      this.recipes = this.fixedRecipes
+    }
+    this.found = false
+    this.filtered = false
   }
 
 }

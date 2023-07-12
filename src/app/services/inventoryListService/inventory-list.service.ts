@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Lists } from 'src/app/models/Lists/lists.model';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
 
 const baseUrl = 'http://localhost:8080/api/inventory'; // TODO:
@@ -12,10 +11,6 @@ const baseUrl = 'http://localhost:8080/api/inventory'; // TODO:
 export class InventoryListService{
 
   constructor(private http: HttpClient) { }
-
-  getAll(): Observable<Lists[]> {
-    return this.http.get<Lists[]>(baseUrl);
-  }
 
   get(item_id: number, user_id: number,): Observable<InventoryList[]> {
     return this.http.get<InventoryList[]>(`${baseUrl}/${item_id}/${user_id}`);
@@ -39,13 +34,5 @@ export class InventoryListService{
 
   delete(item_id: any, user_id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/one/${item_id}/${user_id}`);
-  }
-
-  deleteAll(): Observable<any> {
-    return this.http.delete(baseUrl);
-  }
-
-  findByTitle(title: any): Observable<Lists[]> {
-    return this.http.get<Lists[]>(`${baseUrl}?title=${title}`);
   }
 }

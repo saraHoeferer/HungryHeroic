@@ -98,13 +98,3 @@ exports.delete = (req, res) => {
       });
     });
 };
-
-// Delete all Users from the database.
-exports.deleteAll = (req, res) => {
-
-};
-
-// Find all published Users
-exports.findAllPublished = (req, res) => {
-
-};

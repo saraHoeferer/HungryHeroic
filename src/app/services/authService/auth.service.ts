@@ -40,4 +40,16 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post(baseUrl + 'signout', { }, httpOptions);
   }
+
+  changePassword(user_name: string, user_old_password: string, user_new_password: string): Observable <any> {
+    return this.http.put(
+      baseUrl + 'passwordChange', 
+      {
+        user_name,
+        user_old_password,
+        user_new_password
+      },
+      httpOptions
+    )
+  }
 }

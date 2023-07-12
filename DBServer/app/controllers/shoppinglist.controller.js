@@ -1,26 +1,17 @@
 const db = require("../models");
 const ShoppingLists = db.shoppingLists;
-const Op = db.Sequelize.Op;
 
-// Create and Save a new Tutorial
+// Create and Save a new Shoppinglist entry
 exports.create = (req, res) => {
-   // Validate request
-   if (!req.body.user_id) {
+  // Validate request
+  if (!req.body.user_id) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
   }
-
-  // Create Item
-  const shopping = {
-    user_id: req.body.user_id,
-    item_id: req.body.item_id,
-    quantity: req.body.quantity,
-    category_id: req.body.category_id,
-  };
   // Save Item in the database
-  ShoppingLists.create(shopping)
+  ShoppingLists.create(req.body)
     .then(data => {
       res.send(data);
     })
@@ -32,43 +23,24 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve all Tutorials from the database.
-exports.findAll = (req, res) => {
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+// Find a single Shoppinglist entry with an id
+exports.findOne = (req, res) => {
+  const user_id = req.params.userId;
+  const item_id = req.params.itemId
 
-  ShoppingLists.findAll({ where: condition })
+  ShoppingLists.findAll({ where: { user_id: user_id, item_id: item_id } })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving items."
+          err.message || "Some error occurred while retrieving specific inventory."
       });
     });
 };
 
-// Find a single Tutorial with an id
-exports.findOne = (req, res) => {
-  const user_id = req.params.userId;
-  const item_id = req.params.itemId
-
-  console.log(user_id)
-  console.log(item_id)
-
-  ShoppingLists.findAll({ where: { user_id: user_id, item_id: item_id } })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving specific inventory."
-    });
-  });
-};
-
+// Update a Shoppinglist entry by the id in the request
 exports.count = (req,res) => {
   const user_id = req.params.userId;
   ShoppingLists.count({
@@ -89,7 +61,6 @@ exports.count = (req,res) => {
 exports.update = (req, res) => {
   const user_id = req.params.userId;
   const item_id = req.params.itemId
-
 
   ShoppingLists.update(req.body, {
     where: { item_id: item_id, user_id: user_id }
@@ -112,13 +83,13 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a Tutorial with the specified id in the request
+// Delete a Shoppinglist entry with the specified id in the request
 exports.delete = (req, res) => {
   const user_id = req.params.user;
-  const item_id= req.params.item;
+  const item_id = req.params.item;
 
   ShoppingLists.destroy({
-    where: { item_id: item_id, user_id: user_id}
+    where: { item_id: item_id, user_id: user_id }
   })
     .then(num => {
       if (num == 1) {
@@ -138,21 +109,18 @@ exports.delete = (req, res) => {
     });
 };
 
-// Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {
-};
-
-// Find the inventory of one specific user
+// Find the Shoppinglist of one specific user
 exports.findUserShoppingList = (req, res) => {
   const id = req.params.id;
+
   ShoppingLists.findAll({ where: { user_id: id } })
-  .then(data => {
-    res.send(data);
-  })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving tutorials."
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
     });
-  });
 };

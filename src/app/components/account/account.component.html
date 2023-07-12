@@ -1,36 +1,27 @@
 <div class="container-no-margin" *ngIf="currentUser; else loggedOut">
 <div class="container d-flex justify-content-center align-items-center mb-2">
   <div class="card shadow-lg p-3">
-    <div class="row">
-      <div class="col upper">
-        <img src="assets/images/account.png" alt="background_account" class="img-fluid">
+    <div class="upper">
+      <img src="assets/images/account.png" alt="background_account" class="img-fluid">
+    </div>
+    <div class="user text-center d-flex justify-content-center mt-2 mb-2">
+      <div class="profile">
+        <img src="assets/icons/user.png" alt="user_icon" class="rounded-circle bg-white p-1" width="512">
       </div>
     </div>
-    <div class="row">
-      <div class="col user text-center d-flex justify-content-center mt-2 mb-2">
-        <div class="profile">
-          <img src="assets/icons/user.png" alt="user_icon" class="rounded-circle bg-white p-1" width="512">
+    <div class="mt-5 text-center">
+      <h4 class="mb-0 myFont">{{currentUserInfo.user_name}}</h4>
+      <span class="text-muted d-block mb-2 myFont">{{currentUserInfo.user_mail}}</span>
+      <button class="btn btn-outline-custom-warning btn-md edit" (click)="open(editUserPopUp)">Edit</button>
+      <button class="btn btn-outline-custom-warning btn-md edit" (click)="open(changePasswordPopUp)">Change your Password</button>
+      <div class=" col d-flex justify-content-between align-items-center mt-4 px-4">
+        <div class="stats">
+          <h6 class="mb-0">Inventory Items</h6>
+          <span>{{lengthInventoryList}}</span>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col mt-5 text-center">
-        <h4 class="mb-0 myFont">{{currentUserInfo.user_name}}</h4>
-        <span class="text-muted d-block mb-2 myFont">{{currentUserInfo.user_mail}}</span>
-        <button class="btn btn-outline-custom-warning btn-md edit" (click)="open(editUserPopUp)">Edit</button>
-        <div class="row d-flex justify-content-between align-items-center mt-4 px-4">
-          <div class="col">
-            <div class="stats">
-              <h6 class="mb-0">Inventory Items</h6>
-              <span>{{lengthInventoryList}}</span>
-            </div>
-          </div>
-          <div class="col">
-            <div class="stats">
-              <h6 class="mb-0">Supply Items</h6>
-              <span>{{lengthShoppingList}}</span>
-            </div>
-          </div>
+        <div class="stats">
+          <h6 class="mb-0">Supply Items</h6>
+          <span>{{lengthShoppingList}}</span>
         </div>
       </div>
     </div>
@@ -123,6 +114,60 @@
             (click)="deleteUser(); modal.close('Delete click')">
       Delete
     </button>
+  </div>
+</ng-template>
+
+<!-- Cahgne Password PopUp -->
+<ng-template #changePasswordPopUp let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="popUp-title">
+      Change your password
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)="modal.dismiss('Cross click');">
+              <span aria-hidden="true">
+                  ×
+              </span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="userName">Old Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="userName"
+          required
+          [(ngModel)]="passwordChange.old_password"
+          name="userName"
+        />
+      </div>
+      <div class="form-group">
+        <label for="userEmail">New Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="userEmail"
+          required
+          [(ngModel)]="passwordChange.new_password"
+          name="userEmail"
+        />
+      </div>
+      <div class="row row-margin">
+        <div class="col">
+          <button (click)="changePassword()" type="button" class="btn btn-block btn-outline-custom-success">Save</button>
+        </div>
+      </div>
+    </form>
+    <div *ngIf="invalid" class="alert alert-danger">
+      <h4 class="alert-heading">
+        {{this.erroMessage}}
+      </h4>
+    </div>
+    <div *ngIf="!invalid && changed" class="alert alert-custom-success">
+      <h4 class="alert-heading">Your Password has been changed</h4>
+    </div>
   </div>
 </ng-template>
 </div>

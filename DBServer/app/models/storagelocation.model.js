@@ -6,6 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     },
     storage_loc_name: {
       type: Sequelize.STRING
+    },
+    storage_icon: {
+      type: Sequelize.STRING
     }
   },{
     timestamps: false

@@ -32,11 +32,13 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   message = '';
   currentDate = new Date()
   progress = 0
+  icon = "";
 
   ngOnInit(): void {
     if (this.inventoryList != null) {
       this.currentInventory = this.inventoryList
       this.getDays(this.currentInventory.expiration_date)
+      this.icon = this.getIcon()
     }
   }
 
@@ -65,11 +67,26 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
             return category.category_icon!
           }
         } else {
-          return "fa-solid fa-xmark fa-4x"
+          return "error.png"
         }
       }
     }
-    return "fa-solid fa-xmark fa-4x"
+    return "error.png"
+  }
+
+  getIconStorage(): string {
+    if (this.storages != null) {
+      for (var storage of this.storages) {
+        if (this.inventoryList != undefined && this.inventoryList.storage_loc_id != undefined) {
+          if (this.inventoryList.storage_loc_id == storage.storage_loc_id) {
+            return storage.storage_icon!
+          }
+        } else {
+          return "error.png"
+        }
+      }
+    }
+    return "error.png"
   }
 
   getExpiryDays(): number {
@@ -160,6 +177,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         },
         error: (e) => console.error(e)
       });
+    this.mainComponent.refreshList()
    }
 
   //Set the addItem back to dummy values

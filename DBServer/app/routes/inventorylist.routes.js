@@ -1,30 +1,29 @@
 module.exports = app => {
-    const tutorials = require("../controllers/inventorylist.controller.js");
-  
+    const inventory = require("../controllers/inventorylist.controller.js");
+
     var router = require("express").Router();
-  
+
     // Create a new Tutorial
     router.post("/", tutorials.create);
-  
+
     // Retrieve all Tutorials
     router.get("/", tutorials.findAll);
 
     router.get("/count/:userId", tutorials.count);
-  
-    // Retrieve all published Tutorials
-    router.get("/user/:id", tutorials.findUserInventory);
-  
-    // Retrieve a single Tutorial with id
-    router.get("/:itemId/:userId", tutorials.findOne);
-  
-    // Update a Tutorial with id
-    router.put("/:itemId/:userId", tutorials.update);
-  
-    // Delete a Tutorial with id
-    router.delete("/one/:item/:user", tutorials.delete);
-  
-    // Delete all Tutorials
-    router.delete("/", tutorials.deleteAll);
-  
+    // Create a new Inventory entry
+    router.post("/", inventory.create);
+
+    // Retrieve a specific users Inventory
+    router.get("/user/:id", inventory.findUserInventory);
+
+    // Retrieve a single Inventory entry with id
+    router.get("/:itemId/:userId", inventory.findOne);
+
+    // Update a Inventory entry with id
+    router.put("/:itemId/:userId", inventory.update);
+
+    // Delete a Inventory entry with id
+    router.delete("/one/:item/:user", inventory.delete);
+
     app.use('/api/inventory', router);
   };
