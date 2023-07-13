@@ -4,11 +4,10 @@ import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { ItemsService } from 'src/app/services/itemService/items.service';
 import { Item } from 'src/app/models/itemModel/item.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/services/storageService/storage.service';
 import { AppComponent } from 'src/app/app.component';
-import { response } from 'express';
-import { TmplAstBoundAttribute } from '@angular/compiler';
+
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
@@ -330,5 +329,3 @@ export class RecipesComponent implements OnInit {
   }
 
 }
- //TODO: Why is there a recipes folder inside the recipes folder?
- //TODO: Code cleaning unused imports !
