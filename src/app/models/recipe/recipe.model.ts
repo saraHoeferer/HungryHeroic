@@ -12,7 +12,4 @@ export class Recipe {
     sustainable?: boolean
     dairyFree?: boolean
     glutenFree?: boolean
-    diets?: string[]
-    dishType?: string[] //TODO: dishType not needed?
-
 }

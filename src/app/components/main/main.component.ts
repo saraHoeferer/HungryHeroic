@@ -57,7 +57,7 @@ export class MainComponent implements OnInit, OnChanges {
   needsToBeCreated = false;
   // check logged in
   isLoggedIn = false;
-  // check if item filterd / searched for is in list
+  // check if item filtered / searched for is in list
   noInList = false;
   // user variables
   user_name?: string;
@@ -180,7 +180,7 @@ export class MainComponent implements OnInit, OnChanges {
     this.shopping = this.fixedShopping
   }
 
-  // sort the inventory list arcording to a ceratin criteria
+  // sort the inventory list according to a certain criteria
   sortListInventory(sorting: string): void {
     let clear = true
     if (this.inventory != undefined && this.inventory != null) {
@@ -205,7 +205,7 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
 
-  // sort the shopping list arcording to a ceratin criteria
+  // sort the shopping list according to a certain criteria
   sortListShopping(sorting: string): void {
     let clear = true
     if (this.shopping != undefined && this.shopping != null) {
@@ -255,7 +255,7 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
 
-  // filter the shoping list according to a certain criteria
+  // filter the shopping list according to a certain criteria
   filterShoppingList(id?: number): void {
     this.noInList = false
     let shoppingList: ShoppingList[] = [];
@@ -288,7 +288,7 @@ export class MainComponent implements OnInit, OnChanges {
     }
   }
 
-  // get exipry days of a certain category
+  // get expiry days of a certain category
   getExpiryDays(id: number): number {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -300,7 +300,7 @@ export class MainComponent implements OnInit, OnChanges {
     return 0
   }
 
-  // search for a similiar item when user uses searchbar
+  // search for a similar item when user uses searchbar
   searchForSimilarItem() {
     this.noInList = false
     if (this.searchItem.item_name != '') {
@@ -368,11 +368,11 @@ export class MainComponent implements OnInit, OnChanges {
     console.log(this.date2)
   }
 
-  // search for a particular item when user adds items to liost
+  // search for a particular item when user adds items to list
   searchForItem(): void {
     let checkShopping: ShoppingList[];
     let checkInventory: InventoryList[];
-    // serach for item
+    // search for item
     this.itemService.findByName(this.addItem.item_name)
       .subscribe({
         next: (res) => {
