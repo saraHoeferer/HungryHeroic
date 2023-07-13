@@ -1,7 +1,6 @@
-import { AfterViewChecked, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
-import { ItemsService } from 'src/app/services/itemService/items.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { InventoryListService } from 'src/app/services/inventoryListService/inventory-list.service';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
@@ -14,10 +13,9 @@ import { MainComponent } from '../main/main.component';
   templateUrl: './product-display.component.html',
   styleUrls: ['./product-display.component.css'],
 })
-export class ProductDisplayComponent implements OnInit, AfterViewChecked {
+export class ProductDisplayComponent implements OnInit {
 
   constructor(
-    private itemService: ItemsService,
     private modalService: NgbModal,
     private inventoryService: InventoryListService,
     private appComponent: AppComponent,
@@ -30,26 +28,29 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
   @Input() storages?: Storage[]
   @Input() inventoryList?: InventoryList;
 
+  // user Message
   closeResult = '';
   message = '';
+  // todays date
   currentDate = new Date()
+  // default progess value
   progress = 0
+  // default icon value
   icon = "";
 
   // When component is loaded
   ngOnInit(): void {
     if (this.inventoryList != null) {
+      // get correct inventory for each item
       this.currentInventory = this.inventoryList
+      // get calculated progress
       this.getDays(this.currentInventory.expiration_date)
+      // get icon
       this.icon = this.getIcon()
     }
   }
 
-  // TODO: Can this function be deleted?
-  ngAfterViewChecked(): void {
-
-  }
-
+  // default current Inventory for form
   currentInventory: InventoryList = {
     item_id: 0,
     user_id: this.appComponent.userId,
@@ -59,10 +60,10 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     category_id: 0
   }
 
+  // to check if user as edited an item
   edited = false;
 
-
-
+  // get icon of certain category
   getIcon(): string {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -78,22 +79,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     return "error.png"
   }
 
-  // TODO: This function is never used can we delete it?
-  getIconStorage(): string {
-    if (this.storages != null) {
-      for (var storage of this.storages) {
-        if (this.inventoryList != undefined && this.inventoryList.storage_loc_id != undefined) {
-          if (this.inventoryList.storage_loc_id == storage.storage_loc_id) {
-            return storage.storage_icon!
-          }
-        } else {
-          return "error.png"
-        }
-      }
-    }
-    return "error.png"
-  }
-
+  // get expiry date for certain category
   getExpiryDays(): number {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -109,6 +95,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     return 0
   }
 
+  // get calculated progress
   getDays(date?: Date) {
     var date2 = new Date(date!.toString())
     if (date != null) {
@@ -125,6 +112,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  // get progress string according to progress
   getProgressString(): string {
     if (this.progress == 101) {
       return "danger"
@@ -185,7 +173,7 @@ export class ProductDisplayComponent implements OnInit, AfterViewChecked {
         error: (e) => console.error(e)
       });
     this.mainComponent.refreshList()
-   }
+  }
 
   //Set the addItem back to dummy values
   newItem(): void {

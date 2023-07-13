@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Item } from 'src/app/models/itemModel/item.model';
 import { Category } from 'src/app/models/categoryModel/category.model';
 import { InventoryList } from 'src/app/models/inventoryListModel/inventory-list.model';
-import { ItemsService } from 'src/app/services/itemService/items.service';
 import { ShoppingList } from 'src/app/models/shoppingListModel/shopping-list.model';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingListService } from 'src/app/services/shoppingListService/shopping-list.service';
@@ -22,11 +21,16 @@ export class ProductDisplayShoppingComponent implements OnInit {
   @Input() ShoppingList?: ShoppingList;
   @Input() storageLocation?: Storage[]
 
+  // user messages
   closeResult = '';
   message = '';
+
+  // calculated date for adding items to inventy
   date2 = new Date().toISOString().slice(0, 10)
+  // check if item is already in Inventory
   alreadyThere = false;
 
+  // empty inventory for form
   currentInventory: InventoryList = {
     item_id: 0,
     user_id: 0,
@@ -37,12 +41,15 @@ export class ProductDisplayShoppingComponent implements OnInit {
     category_id: 0
   }
 
+  // check if user edited something / added something to inventory
   edited = false;
 
   // When component is loaded
   ngOnInit(): void {
+    // get the estimated exipration date for each item
     this.getDate(this.ShoppingList?.category_id!)
-    this. currentInventory = {
+    // fill the inventory with the current data
+    this.currentInventory = {
       item_id: this.ShoppingList?.item_id,
       user_id: this.ShoppingList?.user_id,
       item_name: this.ShoppingList?.item_name,
@@ -54,13 +61,13 @@ export class ProductDisplayShoppingComponent implements OnInit {
   }
 
   constructor(
-    private itemService: ItemsService,
     private modalService: NgbModal,
     private shoppingListService: ShoppingListService,
     private inventoryListService: InventoryListService,
     public mainComponent: MainComponent
   ) { }
 
+  // get Exipry dates of certain category
   getExpiryDays(id: number): number {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -72,12 +79,13 @@ export class ProductDisplayShoppingComponent implements OnInit {
     return 0
   }
 
-
+  // calculate the estiamted exipry Date
   getDate(id: number): void {
     var days = this.getExpiryDays(id)
     this.date2 = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().slice(0, 10)
   }
 
+  // get Icon of certain category
   getIcon(): string {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -144,19 +152,23 @@ export class ProductDisplayShoppingComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
-      this.mainComponent.refreshList()
+    this.mainComponent.refreshList()
   }
 
+  // add a ceratin item to inventory
   addToInventory() {
     let checkInventory: InventoryList[]
     if (this.currentInventory.storage_loc_id != 0) {
+      // check if item is alread in inventory
       this.inventoryListService.get(this.ShoppingList!.item_id!, this.ShoppingList?.user_id!)
         .subscribe({
           next: (data) => {
             checkInventory = data
+            // if so set alreadyThere true
             if (checkInventory.length != 0) {
               this.alreadyThere = true
             } else {
+              // if not add it to inventory
               const data = {
                 user_id: this.ShoppingList?.user_id,
                 item_id: this.ShoppingList?.item_id,
@@ -178,7 +190,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
           },
           error: (e) => console.error(e)
         });
-        this.mainComponent.refreshList()
+      this.mainComponent.refreshList()
     }
   }
 
@@ -186,7 +198,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
   newItem(): void {
     this.edited = false;
     this.alreadyThere = false
-    this. currentInventory = {
+    this.currentInventory = {
       item_id: this.ShoppingList?.item_id,
       user_id: this.ShoppingList?.user_id,
       item_name: this.ShoppingList?.item_name,
@@ -195,6 +207,7 @@ export class ProductDisplayShoppingComponent implements OnInit {
       storage_loc_id: 0,
       category_id: this.ShoppingList?.category_id
     }
+    // refreshList
     this.mainComponent.refreshList()
   }
 }

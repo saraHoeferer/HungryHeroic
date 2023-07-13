@@ -10,6 +10,7 @@ import { RecipesComponent } from './components/recipes/recipes/recipes.component
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ImpressumComponent } from './components/impressum/impressum.component';
 
+// routes to components
 const routes: Routes = [
   {
     path: '',
