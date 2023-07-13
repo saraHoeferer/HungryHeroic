@@ -5,7 +5,7 @@ import { User } from 'src/app/models/userModel/user.model';
 
 // class used to connect to db user functions
 
-const baseUrl = 'http://localhost:8080/api/user'; //TODO:
+const baseUrl = 'http://localhost:8080/api/user'; //TODO: Change for Mobile App View
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +39,5 @@ export class UserService {
   // Delete a user from the server
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}`);
-  }  
+  }
 }
