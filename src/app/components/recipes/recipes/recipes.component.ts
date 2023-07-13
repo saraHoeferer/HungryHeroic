@@ -15,38 +15,63 @@ import { TmplAstBoundAttribute } from '@angular/compiler';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
+  // current User
   currentUser: any;
+  // test variablen to save data from query
   test: any;
   test2: any;
+  // all shown recipes
   recipes: Recipe[] = []
+  // all saved recipes
   fixedRecipes: Recipe[] = []
+  // all saved searched for recipes
   searchedRecipes: Recipe[] = []
+  // the users inventory
   userInventory?: InventoryList[]
+  // input given from the user to search for
   searchInput: string = ""
+  // check if search is active or not
   searched = false
+  // check if recipes have been found or not
   found = false
+  // check if recipes have been filtered or not
   filtered = false
-  constructor(private http: HttpClient, private InventoryListService: InventoryListService, private itemService: ItemsService, private storageService: StorageService, private appComponent: AppComponent) { }
 
+  // constructor
+  constructor(private http: HttpClient,
+    private InventoryListService: InventoryListService,
+    private itemService: ItemsService,
+    private storageService: StorageService,
+    private appComponent: AppComponent
+  ) { }
+
+  // on intialisation
   ngOnInit(): void {
+    // get current User from storage
     this.currentUser = this.storageService.getUser();
     if (this.currentUser != null) {
+      // if a user ist logged in get User Inventory and according recipes
       this.getUserInventory()
     }
   }
 
   async getUserInventory() {
     let cnt = 0
+    // collected items form inventory
     let items: Item[] = []
+    // collected ingredients
     let ingredients: string[] = []
+    // get user invnetory
     this.userInventory = await this.InventoryListService.getUserInventory(this.appComponent.userId)
     let item: Item
+    // get all items from user inventory
     for (let inventories of this.userInventory!) {
-      console.log(inventories)
       item = await this.itemService.get(inventories.item_id)
       inventories.item_name = item.item_name
     }
+    // sort retrieved inventory by exipration date asc
     this.userInventory!.sort((a, b) => a.expiration_date!.toString()!.localeCompare(b.expiration_date!.toString()))
+    // get the 4 items of list which are about to exipire
     for (let inventories of this.userInventory!) {
       if (cnt != 4) {
         if (new Date().getTime() < new Date(inventories.expiration_date?.toString()!).getTime()) {
@@ -57,6 +82,7 @@ export class RecipesComponent implements OnInit {
         break
       }
     }
+    // save them in ingredients if found
     for (let i = 0; i < 4; i++) {
       if (items[i] == undefined) {
         ingredients[i] = ""
@@ -64,56 +90,77 @@ export class RecipesComponent implements OnInit {
         ingredients[i] = items[i].item_name!
       }
     }
+    // get recipes
     this.getResponse(ingredients[0], ingredients[1], ingredients[2], ingredients[3])
   }
 
   async getResponse(ingredient1: string, ingredient2: string, ingredient3: string, ingredient4: string) {
     console.log(ingredient1, ingredient2, ingredient3, ingredient4)
+    // set found true for right display of message
     this.found = true
+    // if user has no ingredients
     if (ingredient1 == "" && ingredient2 == "" && ingredient3 == "" && ingredient4 == "") {
+      // gert random ingredients
       await this.getRandomRecipes()
+      // set fixedRecipes
       this.fixedRecipes = this.test
+      // set displayRecipes
       this.recipes = this.fixedRecipes
-      console.log(this.recipes)
     } else {
+      // if user has ingredients search by ingredients
       await this.getRecipesByIngredients(ingredient1 + "," + ingredient2 + "," + ingredient3 + "," + ingredient4)
+      // if no recipes where found search for random
       if (this.test.length == 0) {
         await this.getRandomRecipes()
+        // set fixed Recipes
+        this.fixedRecipes = this.test
+      } else {
+      // for each recipe found get more detailed recipe
+        for (let recipes of this.test) {
+          // get recipe by Id
+          await this.getRecipesById(recipes.id)
+          // push into fixedRecipes
+          this.fixedRecipes.push(this.test2)
+        }
       }
-      for (let recipes of this.test) {
-        await this.getRecipesById(recipes.id)
-        this.fixedRecipes.push(this.test2)
-      }
+      // set recipes
       this.recipes = this.fixedRecipes
-      console.log(this.recipes)
     }
   }
 
   async getSearchedRecipes() {
+    // if input of user is not empty
     if (this.searchInput != "") {
+      // set found
       this.found = true
-      this.recipes = []
+      // set searched
       this.searched = true
+      // clear lists
+      this.recipes = []
       this.searchedRecipes = []
-      console.log(this.searchInput)
+      // get recipes by ingredient
       await this.getRecipesByIngredients(this.searchInput)
+      // for each recipe get more detailed recipe
       for (let recipes of this.test) {
         await this.getRecipesById(recipes.id)
         this.searchedRecipes.push(this.test2)
       }
+      // check if recipes where really found or not
       if (this.searchedRecipes.length != 0) {
         this.found = true
       } else {
         this.found = false
       }
+      // set recipes
       this.recipes = this.searchedRecipes
-      console.log(this.recipes)
     } else {
+      // else set it back to default recipes
       this.recipes = this.fixedRecipes
       this.searched = false
     }
   }
 
+  // api call to get recipes by ingredients
   async getRecipesByIngredients(ingredients: string) {
     await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" + ingredients + "&number=12&ignorePantry=true&ranking=1", {
       headers: {
@@ -128,6 +175,7 @@ export class RecipesComponent implements OnInit {
     );
   }
 
+  // api call to get recipes by id
   async getRecipesById(id: string) {
     await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/" + id + "/information", {
       headers: {
@@ -142,6 +190,7 @@ export class RecipesComponent implements OnInit {
     );
   }
 
+  // api call to get random recipes
   async getRandomRecipes() {
     await fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=12", {
       headers: {
@@ -156,6 +205,7 @@ export class RecipesComponent implements OnInit {
     );
   }
 
+  // filter only recipes with tag vegan
   filterListVegan() {
     this.filtered = true
     this.found = false
@@ -176,6 +226,7 @@ export class RecipesComponent implements OnInit {
     this.recipes = filterList
   }
 
+  // filter only recipes with tag vegetarian
   filterListVegetarian() {
     this.filtered = true
     this.found = false
@@ -196,6 +247,7 @@ export class RecipesComponent implements OnInit {
     this.recipes = filterList
   }
 
+  // filter only recipes with tag glutenfree
   filterListGluten() {
     this.filtered = true
     this.found = false
@@ -216,6 +268,7 @@ export class RecipesComponent implements OnInit {
     this.recipes = filterList
   }
 
+  // filter only recipes with tag dairy free
   filterListDairy() {
     this.filtered = true
     this.found = false
@@ -236,6 +289,7 @@ export class RecipesComponent implements OnInit {
     this.recipes = filterList
   }
 
+  // filter only recipes with tag sustainable
   filterListSustainable() {
     this.filtered = true
     this.found = false
@@ -256,6 +310,7 @@ export class RecipesComponent implements OnInit {
     this.recipes = filterList
   }
 
+  // reset Search
   resetSearch() {
     this.searched = false
     this.recipes = this.fixedRecipes
@@ -263,8 +318,9 @@ export class RecipesComponent implements OnInit {
     this.filtered = false
   }
 
-  resetFilter(){
-    if (this.searched){
+  // reset filter
+  resetFilter() {
+    if (this.searched) {
       this.recipes = this.searchedRecipes
     } else {
       this.recipes = this.fixedRecipes
@@ -274,5 +330,3 @@ export class RecipesComponent implements OnInit {
   }
 
 }
-
-//TODO: Whey is there a recipes folder inside the recipes folder?

@@ -1,8 +1,9 @@
+<!-- Display Inventory Items-->
 <section class="productSections">
       <div class="card">
         <div class="card-info">
           <div class="card-avatar">
-            <img src="../../assets/icons/productIcons/{{getIcon()}}" class="icons" alt="{{inventoryList!.item_name}}"/>
+            <img src="../../assets/icons/productIcons/{{this.icon}}" class="icons" alt="{{inventoryList!.item_name}}"/>
           </div>
           <div *ngIf="inventoryList!=null" class="card-title">{{inventoryList.item_name}}</div>
           <div *ngIf="inventoryList!=null" class="card-subtitle">Expires at: {{inventoryList.expiration_date}}</div>
@@ -21,6 +22,7 @@
         </ul>
     </div>
 </section>
+
 <!-- PopUp Delete Item from DB -->
 <ng-template #deleteItemPopUp let-modal>
   <div class="modal-header">
@@ -60,6 +62,7 @@
     </button>
   </div>
 </ng-template>
+
 <!-- PopUp Edit Item in DB -->
 <ng-template #editItemPopUp let-modal>
   <div class="modal-header">

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/models/categoryModel/category.model';
 
+// class used to connect to db categories functions
+
 const baseUrl = 'http://localhost:8080/api/category'; //TODO: Change for Mobile App View
 
 @Injectable({
@@ -12,6 +14,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  // get all Categories
   getAll(): Observable<Category[]> {
     return this.http.get<Category[]>(baseUrl);
   }

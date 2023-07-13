@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+// class used to connect to db authentications functions
+
 const baseUrl = 'http://localhost:8080/api/auth/'; //TODO: Change for Mobile App View
 
 const httpOptions = {
@@ -14,6 +16,7 @@ const httpOptions = {
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  // login in a specific user
   login(user_name: string, user_password: string): Observable<any> {
     return this.http.post(
       baseUrl + 'signin',
@@ -25,6 +28,7 @@ export class AuthService {
     );
   }
 
+  // register a new user
   register(user_name: string, user_mail: string, user_password: string): Observable<any> {
     return this.http.post(
       baseUrl + 'signup',
@@ -37,10 +41,7 @@ export class AuthService {
     );
   }
 
-  logout(): Observable<any> {
-    return this.http.post(baseUrl + 'signout', { }, httpOptions);
-  }
-
+  // change a users password
   changePassword(user_name: string, user_old_password: string, user_new_password: string): Observable <any> {
     return this.http.put(
       baseUrl + 'passwordChange',

@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/userModel/user.model';
 
+// class used to connect to db user functions
+
 const baseUrl = 'http://localhost:8080/api/user'; //TODO:
 
 @Injectable({

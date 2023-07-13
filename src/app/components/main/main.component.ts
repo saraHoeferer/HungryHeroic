@@ -22,7 +22,7 @@ import { EventBusService } from 'src/app/_shared/event-bus.service';
   styleUrls: ['./main.component.css']
 })
 
-export class MainComponent implements OnInit, OnChanges{
+export class MainComponent implements OnInit, OnChanges {
   constructor(
     private itemService: ItemsService,
     private categoryService: CategoryService,
@@ -35,30 +35,45 @@ export class MainComponent implements OnInit, OnChanges{
     private appComponent: AppComponent
   ) { }
 
+  // current User
   currentUser: any;
+  // list of all categories
   categories?: Category[];
+  // list of all storageLocations
   storageLocations?: Storage[];
+  // list of user inventory to display
   inventory?: InventoryList[];
+  // list of user shopping to display
   shopping?: ShoppingList[];
+  // to check if supply or shopping
   supply?= true;
-  category?: Category[];
+  // list of items
   items?: Item[];
-  currentIndex = -1;
-  title = '';
+  // to check if something was found in search
   found = false
+  // the searchedFor Item
   searchedItem?: Item[];
+  // to check if item needs to be created
   needsToBeCreated = false;
+  // check logged in
   isLoggedIn = false;
+  // check if item filterd / searched for is in list
   noInList = false;
+  // user variables
   user_name?: string;
   eventBusSub?: Subscription;
+  // users fixed inventory
   fixedInventory?: InventoryList[];
+  // users fixed shopping
   fixedShopping?: ShoppingList[];
+  // check if user searched for something
   searched = false;
+  // check if item is already in list
   alreadyThere = false
 
   closeResult = '';
 
+  // default form variables
   addItem: Item = {
     item_name: '',
   };
@@ -90,6 +105,7 @@ export class MainComponent implements OnInit, OnChanges{
     category_id: 0
   }
 
+  // check if user saved something
   saved = false;
 
   // When the component is first loaded
@@ -110,6 +126,7 @@ export class MainComponent implements OnInit, OnChanges{
     this.retrieveInventory()
   }
 
+  // retrieve all categories
   retrieveCategories(): void {
     this.categoryService.getAll()
       .subscribe({
@@ -120,6 +137,7 @@ export class MainComponent implements OnInit, OnChanges{
       });
   }
 
+  // retrieve all StorageLocations
   retrieveStorageLocations(): void {
     this.storageService.getAll()
       .subscribe({
@@ -130,13 +148,14 @@ export class MainComponent implements OnInit, OnChanges{
       });
   }
 
+  // retrieve the users inventory
   async retrieveInventory(): Promise<void> {
     this.searched = false
     this.supply = true
     this.noInList = false
     this.fixedInventory = await this.InventoryListService.getUserInventory(this.appComponent.userId)
-    if (this.fixedInventory != null){
-      for (let inventories of this.fixedInventory){
+    if (this.fixedInventory != null) {
+      for (let inventories of this.fixedInventory) {
         this.currentItem = await this.itemService.get(inventories.item_id)
         inventories.item_name = this.currentItem.item_name
       }
@@ -145,14 +164,14 @@ export class MainComponent implements OnInit, OnChanges{
     this.inventory = this.fixedInventory
   }
 
-
+  // retrieve the users shopping
   async retrieveShopping(): Promise<void> {
     this.supply = false
     this.searched = false
     this.noInList = false
     this.fixedShopping = await this.ShoppingListService.getUserShopping(this.appComponent.userId)
-    if (this.fixedShopping != null){
-      for (let shoppings of this.fixedShopping){
+    if (this.fixedShopping != null) {
+      for (let shoppings of this.fixedShopping) {
         this.currentItem = await this.itemService.get(shoppings.item_id)
         shoppings.item_name = this.currentItem.item_name
       }
@@ -161,6 +180,7 @@ export class MainComponent implements OnInit, OnChanges{
     this.shopping = this.fixedShopping
   }
 
+  // sort the inventory list arcording to a ceratin criteria
   sortListInventory(sorting: string): void {
     let clear = true
     if (this.inventory != undefined && this.inventory != null) {
@@ -185,6 +205,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // sort the shopping list arcording to a ceratin criteria
   sortListShopping(sorting: string): void {
     let clear = true
     if (this.shopping != undefined && this.shopping != null) {
@@ -205,6 +226,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // filter the Inventory list according to a certain criteria
   filterInventoryList(type: string, id?: number): void {
     this.noInList = false
     let inventoryList: InventoryList[] = [];
@@ -233,6 +255,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // filter the shoping list according to a certain criteria
   filterShoppingList(id?: number): void {
     this.noInList = false
     let shoppingList: ShoppingList[] = [];
@@ -247,12 +270,13 @@ export class MainComponent implements OnInit, OnChanges{
 
     if (shoppingList.length != 0) {
       this.shopping = shoppingList
-    }else {
+    } else {
       this.noInList = true
       this.shopping = []
     }
   }
 
+  // refresh the lists
   refreshList(): void {
     console.log("in Funktion")
     if (this.supply) {
@@ -264,6 +288,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // get exipry days of a certain category
   getExpiryDays(id: number): number {
     if (this.categories != null) {
       for (var category of this.categories) {
@@ -275,16 +300,19 @@ export class MainComponent implements OnInit, OnChanges{
     return 0
   }
 
+  // search for a similiar item when user uses searchbar
   searchForSimilarItem() {
     this.noInList = false
     if (this.searchItem.item_name != '') {
       this.searched = true
       let inventoryList: InventoryList[] = [];
       let shoppingList: ShoppingList[] = [];
+      // search for certain item
       this.itemService.findSimilarByName(this.searchItem.item_name)
         .subscribe({
           next: (data) => {
             this.items = data;
+            // if supply and found push it to inventory
             if (this.supply) {
               if (this.items != null && this.fixedInventory != null) {
                 for (let item of this.items) {
@@ -295,6 +323,7 @@ export class MainComponent implements OnInit, OnChanges{
                   }
                 }
               }
+              // eiter it displays nothing or the items searched for
               if (inventoryList.length != 0) {
                 this.inventory = inventoryList
               } else {
@@ -302,6 +331,7 @@ export class MainComponent implements OnInit, OnChanges{
               }
               console.log(inventoryList)
             } else {
+              // if in shopping to the same thing with the shopping list
               if (this.items != null && this.fixedShopping != null) {
                 for (let item of this.items) {
                   for (let shopping of this.fixedShopping) {
@@ -322,7 +352,8 @@ export class MainComponent implements OnInit, OnChanges{
           error: (e) => console.error(e)
         });
     } else {
-      if (this.supply){
+      // if input is empty set list to default
+      if (this.supply) {
         this.inventory = this.fixedInventory
       } else {
         this.shopping = this.fixedShopping
@@ -330,21 +361,24 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
-
+  // get estimated expiration date for forms
   getDate(id: number): void {
     var days = this.getExpiryDays(id)
     this.date2 = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().slice(0, 10)
     console.log(this.date2)
   }
 
+  // search for a particular item when user adds items to liost
   searchForItem(): void {
     let checkShopping: ShoppingList[];
     let checkInventory: InventoryList[];
+    // serach for item
     this.itemService.findByName(this.addItem.item_name)
       .subscribe({
         next: (res) => {
           this.searchedItem = res
           console.log(this.searchedItem)
+          // if found check both list if item is already in there or not
           if (this.searchedItem != null && this.searchedItem.length != 0) {
             this.currentItem = this.searchedItem[0]
             this.found = true
@@ -372,6 +406,7 @@ export class MainComponent implements OnInit, OnChanges{
                 });
             }
           } else {
+            // if not found create it
             this.saveItem()
           }
         },
@@ -423,6 +458,7 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 
+  // save users Shopping entry
   saveShopping(): void {
     if (this.addToShopping.quantity != 0 && this.addToShopping.category_id != 0) {
       const data = {
@@ -494,5 +530,3 @@ export class MainComponent implements OnInit, OnChanges{
     }
   }
 }
-
-//TODO: In .html there should be no duplicate id references

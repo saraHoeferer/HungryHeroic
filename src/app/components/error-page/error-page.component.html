@@ -14,6 +14,8 @@
     </div>
 </section>
 <div class="link-container">
+    <!-- if User is logged in navigate to Homepage-->
     <a *ngIf="currentUser" href="/home" class="more-link">Go to Startpage</a>
+    <!-- if User is logged out in navigate to Startpage-->
     <a *ngIf="!currentUser" href="/" class="more-link">Go to Startpage</a>
 </div>
